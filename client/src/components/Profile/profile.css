@@ -1,0 +1,15 @@
+.profileContainer{
+  display: flex;
+}
+
+img{
+  width: 20%;
+  border: 40px;
+}
+
+.bottomLine{
+  width: 100%;
+  flex-shrink: 1;
+  border-bottom: 1px solid black;
+  margin: 5px
+}
