@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.TEXT,
+      defaultValue: 'В обработке',
     },
   }, {
     sequelize,
