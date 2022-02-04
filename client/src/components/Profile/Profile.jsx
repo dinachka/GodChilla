@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import EventsList from '../EventsList/EventsList'
+import FriendList from '../FriendList/FriendList';
 import './profile.css'
 
 
@@ -49,7 +50,7 @@ function Profile() {
         <span className="lupa"></span>
       </div>
       <div>
-        {friendsVisible ? "" : "Друзья"}
+        {friendsVisible && <FriendList />}
       </div>
       <div className='bottomLine'></div>
       <div onClick={calendarSwitch} >
