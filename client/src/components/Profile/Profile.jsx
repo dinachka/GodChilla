@@ -1,8 +1,7 @@
 
-   
 import React from 'react'
 import { useState } from 'react';
-import './profile.css'
+// import './profile.css'
 
 function Profile() {
 
