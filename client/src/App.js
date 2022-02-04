@@ -22,7 +22,7 @@ function App() {
           <Route path='/registration' element={<Registration />} />
           <Route path='/login' element={<Login />} />
           <Route path='/profile' element={<Profile />} />
-          {/* <Route path='/profile/:id' element={<CurrentProfile/>} />  */}
+          {/* <Route path='/profile/:id' element={<CurrentProfile />} /> */}
           <Route path='/events' element={<EventsList />} />
           {/* <Route path='/events/:id' element={<CurrentEvent />} /> */}
           {/* <Route path='*' element={<NotFound />} /> */}
