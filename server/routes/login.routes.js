@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../db/models');
 
-router.post('/login', async (req, res) => {
+router.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
   const currentUser = await User.findOne({
