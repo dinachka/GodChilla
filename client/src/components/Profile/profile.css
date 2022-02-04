@@ -1,0 +1,33 @@
+.profileContainer{
+  display: flex;
+}
+
+img{
+  width: 20%;
+  border: 40px;
+}
+
+.bottomLine{
+  width: 100%;
+  flex-shrink: 1;
+  border-bottom: 1px solid black;
+  margin: 5px
+}
+
+span{height:10px; width:10px; position:relative;}
+ 
+.lupa:before, .lupa:after{content:''; height:20px; display:block; position:absolute; top:0; left:0; }
+ 
+.lupa:before{width:20px; border:3px #333 solid; border-radius:100%;-webkit-border-radius:100%;-moz-border-radius:100%;}
+ 
+.lupa:after{width:7px; background:#333; transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);-ms-transform:rotate(-45deg); top:17px; left:24px;}
+
+
+.friendsContainer{
+  display: flex;
+  height: 50px;
+}
+
+input{
+  height: 20px;
+}

@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
     },
   });
   if (!currentUser) {
-    res.status(401).json({
+    res.status(404).json({
       message: 'Юзер не найден!',
       auth: false,
     });
@@ -28,37 +28,18 @@ router.post('/login', async (req, res) => {
   }
   req.session.user = {
     id: currentUser.id,
-    login: currentUser.login,
+    username: currentUser.username,
+    name: currentUser.name,
+    lastName: currentUser.lastName,
+    phoneNumber: currentUser.phoneNumber,
+    photo: currentUser.photo,
     email,
     signedUp: true,
   };
-  res.json({
+  res.status(200).json({
     message: 'Логин успешный!',
     auth: true,
   });
 });
 
 module.exports = router;
-
-// router.route('/login')
-//   .post(async (req, res) => {
-//     try {
-//       const { email } = req.body;
-//       const user = await User.findOne(
-//         {
-//           email,
-//         },
-//       );
-//       if (!user) {
-//         res.json(400).json({ message: 'Пользователь с таким email не зарегистрирован!' });
-//         return;
-//       }
-//       res.status(200).json(user);
-//       return;
-//     } catch (error) {
-//       res.status(500).json(error.message);
-//     }
-//   });
-// User.create(req.body)
-//   .then((User) => res.status(201).json(User))
-//   .catch((error) => res.status(500).json(error));
