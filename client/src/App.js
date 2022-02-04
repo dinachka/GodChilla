@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home'
 // import Registration from "./components/Registration/Registration";
 // import Login from "./components/Login/Login";
-// import Profile from "./components/Profile/Profile";
+import Profile from "./components/Profile/Profile";
 // import CurrentProfile from "./components/CurrentProfile/CurrentProfile";
 // import EventsList from "./components/EventsList/EventsList";
 // import CurrentEvent from "./components/CurrentEvent/CurrentEvent";
@@ -21,8 +21,8 @@ function App() {
           <Route path='/' element={<Home />} />
           {/* <Route path='/registration' element={<Registration />} />
           <Route path='/login' element={<Login />} /> */}
-          {/* <Route path='/profile' element={<Profile />} />
-          <Route path='/profile/:id' element={<CurrentProfile />} />
+          <Route path='/profile' element={<Profile />} />
+          {/* <Route path='/profile/:id' element={<CurrentProfile />} />
           <Route path='/events' element={<EventsList />} />
           <Route path='/events/:id' element={<CurrentEvent />} /> */}
           {/* <Route path='*' element={<NotFound />} /> */}
