@@ -2,6 +2,7 @@
 // import { store } from "../../redux/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home'
+import Navigation from "./components/Navigation/Navigation";
 // import Registration from "./components/Registration/Registration";
 // import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
@@ -14,9 +15,7 @@ function App() {
   return (
     // <Provider store={store}>
       <BrowserRouter>
-        <h1>
-          Hello APP
-        </h1>
+        <Navigation />
         <Routes>
           <Route path='/' element={<Home />} />
           {/* <Route path='/registration' element={<Registration />} />

@@ -8,6 +8,10 @@ function Profile() {
 
   const [switcher, setSwitcher] = useState(true)
 
+  const stateSwitcher = () => {
+    setSwitcher(!switcher)
+  }
+
   const profile = {
     name: 'Elbrus',
     lastname: 'Elbrusov',
@@ -27,11 +31,14 @@ function Profile() {
         </div>
       </div>
       <div className='bottomLine'></div>
-      <div>
+      <div className='friendsContainer'>
         Друзья
+        <input placeholder='Найти друзей' type='text'></input>
+        <span className="lupa"></span>
+
       </div>
       <div className='bottomLine'></div>
-      <div>
+      <div onClick={stateSwitcher} >
         {switcher ? 'Calendar' : 'Lenta'}
       </div>
     </div>
