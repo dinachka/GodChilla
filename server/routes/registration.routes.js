@@ -37,7 +37,7 @@ router.post('/registration', async (req, res) => {
       photo,
     });
   } else {
-    res.status(401).json({ isUser: false, message: 'Юзер с таким логином или email уже существует' });
+    res.status(400).json({ isUser: false, message: 'Юзер с таким логином или email уже существует' });
   }
   if (newUser) {
     res.status(201).json({ isUser: true, message: 'Регистрация прошла успешно!' });
@@ -47,31 +47,3 @@ router.post('/registration', async (req, res) => {
 });
 
 module.exports = router;
-
-// router.route('/registration')
-//   .post(async (req, res) => {
-//     try {
-//       const {
-//         name,
-//         password,
-//         email,
-//       } = req.body;
-//       if (password.length < 6) {
-//         res.json({ user: false, message: 'Длина пароля должна быть больше 6 символов' });
-//       }
-//       const user = await User.create({
-//         where: {
-//           [Op.or]: [
-//             { name },
-//             { email },
-//           ],
-//         },
-//       });
-//       res.status(201).json(user);
-//     } catch (error) {
-//       res.status(400).json(error.message);
-//     }
-//   });
-// User.create(req.body)
-// .then((newUser) => res.status(201).json(newUser))
-// .catch((error) => res.status(500).json(error));
