@@ -30,6 +30,10 @@ function Profile() {
           {profile.lastname}
         </div>
       </div>
+      <div>
+        <button>Добавить событие</button>
+        <button>Удалить событие</button>
+      </div>
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
         Друзья
