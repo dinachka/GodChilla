@@ -9,7 +9,7 @@ router.post('/registration', async (req, res) => {
     res.json({ isUser: false, message: 'Длина пароля должна быть больше 6 символов' });
   }
   let newUser;
-  const samelUser = await User.findOne({
+  const sameUser = await User.findOne({
     where: {
       [Op.or]: [
         { name },
@@ -17,7 +17,7 @@ router.post('/registration', async (req, res) => {
       ],
     },
   });
-  if (!samelUser) {
+  if (!sameUser) {
     const hashPassword = await bcrypt.hash(password, 10);
     newUser = await User.create({
       name,
