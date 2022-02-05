@@ -1,12 +1,24 @@
-
 import React from 'react'
 import { useState } from 'react';
-// import './profile.css'
+import EventsList from '../EventsList/EventsList'
+import FriendList from '../FriendList/FriendList';
+import './profile.css'
+
 
 function Profile() {
 
-  const [switcher, setSwitcher] = useState(true)
+  // Логика переключения календаря и ленты-событий
+  const [calendarSwitcher, setCalendarSwitcher] = useState(true)
+  const calendarSwitch = () => {
+    setCalendarSwitcher(!calendarSwitcher)
+  }
+  // Логика отображения списка друзей
+  const [friendsVisible, setFriendsVisible] = useState(false)
+  const friendsVisibleSwitcher = () => {
+    setFriendsVisible(!friendsVisible)
+  }
 
+  // Временный юзер(УДАЛИТЬ!!!!)
   const profile = {
     name: 'Elbrus',
     lastname: 'Elbrusov',
@@ -25,13 +37,27 @@ function Profile() {
           {profile.lastname}
         </div>
       </div>
-      <div className='bottomLine'></div>
+
       <div>
-        Друзья
+        <button>Добавить событие</button>
+        <button>Удалить событие</button>
+      </div>
+
+      <div className='bottomLine'></div>
+      <div className='friendsContainer'>
+        <h5 onClick={friendsVisibleSwitcher} className='stateSwitcher' >Друзья</h5>
+        <input placeholder='Найти друзей' type='text'></input>
+        <span className="lupa"></span>
+      </div>
+      <div>
+        {friendsVisible && <FriendList />}
       </div>
       <div className='bottomLine'></div>
-      <div>
-        {switcher ? 'Calendar' : 'Lenta'}
+      <div onClick={calendarSwitch} >
+        <div className='stateSwitcher'>
+          {calendarSwitcher ? 'Lenta' : 'Calendar'}
+        </div>
+        {calendarSwitcher ? 'Здесь будет красивый календарь' : <EventsList />}
       </div>
     </div>
   )
