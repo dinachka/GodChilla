@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { addUserAC, initUserAC } from '../actionCreators/userAC';
-import { REGISTRATION_FETCH, LOGIN_FETCH } from '../actionTypes/userAT'
+import { addUserAC, initUserAC, deleteUserAC } from '../actionCreators/userAC';
+import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH } from '../actionTypes/userAT'
 // import { getCatAC } from './ActionCreators/catAC'
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
@@ -29,6 +29,16 @@ function* loginUserAsync(action) {
   yield put(initUserAC(user));
 }
 
+
+function* logoutUserAsync() {
+  const user = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_LOGOUT, 
+    method: 'GET',
+  });
+  
+  yield put(deleteUserAC(user))
+}
+
 // function* getCatAsync() {
 //   const cat = yield call(fetchData, { url: 'https://aws.random.cat/meow', credentials: 'same-origin' });
 //   yield put(getCatAC(cat));
@@ -42,5 +52,6 @@ function* loginUserAsync(action) {
 export function* sagaWatcher() {
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
+  yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   // yield takeEvery("FETCH_INIT_USER", initUserAsync);
 }
