@@ -9,7 +9,6 @@ async function fetchData({ url, method, headers, body, credentials = 'include' }
 }
 
 function* registrationUserAsync(action) {
-  console.log(process.env);
   const newUser = yield call(fetchData, { 
     url: process.env.REACT_APP_URL_REGISTRATION, 
     headers: { 'Content-Type': 'Application/json' }, 
