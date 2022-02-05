@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import EventsList from '../EventsList/EventsList'
 import FriendList from '../FriendList/FriendList';
+import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
 
 
@@ -17,6 +18,12 @@ function Profile() {
   const friendsVisibleSwitcher = () => {
     setFriendsVisible(!friendsVisible)
   }
+  // Логика отображения создания событий
+  const [eventCreatorVisible, setEventCreatorVisible] = useState(false)
+  const eventCreatorVisibleSwitcher = () => {
+    setEventCreatorVisible(!eventCreatorVisible)
+  }
+
 
   // Временный юзер(УДАЛИТЬ!!!!)
   const profile = {
@@ -37,10 +44,12 @@ function Profile() {
           {profile.lastname}
         </div>
       </div>
+
       <div className='bottomLine'></div>
-      <div className='createEventBtn' >
-        <div className='display' >Создать</div>
+        <div className='createEventBtn' >
+         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
+      {eventCreatorVisible && <EventCreator />}
 
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
@@ -50,6 +59,7 @@ function Profile() {
       <div>
         {friendsVisible && <FriendList />}
       </div>
+
       <div className='bottomLine'></div>
       <div onClick={calendarSwitch} >
         <div className='stateSwitcher'>
