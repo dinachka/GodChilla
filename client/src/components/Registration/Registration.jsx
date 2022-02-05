@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registrationFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
 function Registration(props) {
@@ -12,23 +12,27 @@ function Registration(props) {
   const confirmPasswordRef = useRef();
   const fotoRef = useRef();
 
-  const dispatch = useDispatch();
+  const [isNotEqual, setIsNotEqual] = useState(false)
 
+  const dispatch = useDispatch();
   const summitRegistrationHandler = (event) => {
     event.preventDefault()
-    const payload = {
-      username: loginRef.current.value,
-      name: nameRef.current.value,
-      lastName: surnameRef.current.value,
-      city: cityRef.current.value,
-      email: emailRef.current.value,
-      phoneNumber: telRef.current.value,
-      password: passwordRef.current.value,
-      confirmPassword: confirmPasswordRef.current.value,
-      foto: fotoRef.current.value
+    if(passwordRef.current.value === confirmPasswordRef.current.value) {
+      const payload = {
+        username: loginRef.current.value,
+        name: nameRef.current.value,
+        lastName: surnameRef.current.value,
+        city: cityRef.current.value,
+        email: emailRef.current.value,
+        phoneNumber: telRef.current.value,
+        password: passwordRef.current.value,
+        foto: fotoRef.current.value
+      }
+      dispatch(registrationFetchAC(payload))
     }
-    // console.log(payload);
-    dispatch(registrationFetchAC(payload))
+    else {
+      setIsNotEqual(true)
+    }
   }
   return (
     <div>
@@ -47,6 +51,7 @@ function Registration(props) {
         <label>Номер телефона<input type="phone" ref={telRef}/></label>
         <label>Пароль <input type="password" minLength="7" required ref={passwordRef}/></label>
         <label>Подтвердить пароль <input type="password" minLength="7" required ref={confirmPasswordRef}/></label>
+        { isNotEqual && <div>Пароли не совпадают</div>}
         <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
         <button>Зарегистрироваться</button>
       </form>
