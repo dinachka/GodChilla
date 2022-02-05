@@ -12,6 +12,10 @@ module.exports = {
         allowNull: true,
         unique: true,
       },
+      city: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
       name: {
         type: Sequelize.TEXT,
         allowNull: false,
