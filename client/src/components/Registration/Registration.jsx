@@ -16,17 +16,29 @@ function Registration(props) {
 
   const summitRegistrationHandler = (event) => {
     event.preventDefault()
-    dispatch(registrationFetchAC())
+    const payload = {
+      userName: loginRef.current.value,
+      name: nameRef.current.value,
+      lastName: surnameRef.current.value,
+      city: cityRef.current.value,
+      email: emailRef.current.value,
+      phoneNumber: telRef.current.value,
+      password: passwordRef.current.value,
+      confirmPassword: confirmPasswordRef.current.value,
+      foto: fotoRef.current.value
+    }
+    // console.log(payload);
+    dispatch(registrationFetchAC(payload))
   }
   return (
     <div>
-      <form onSubmit={summitRegistrationHandler} action="/profile" method="post" enctype="multipart/form-data">
+      <form onSubmit={summitRegistrationHandler} action="/profile" method="post" encType="multipart/form-data">
         <label>Логин <input type="text" ref={loginRef} required/></label>
         <label>Имя <input type="text" ref={nameRef} required/></label>
         <label>Фамилия <input type="text" ref={surnameRef} /></label>
         <select ref={cityRef}>
-          <option disabled>Выберите город</option>
-          <option selected value="Санкт-Петербург">Санкт-Петербург</option>
+          <option selected disabled>Выберите город</option>
+          <option value="Санкт-Петербург">Санкт-Петербург</option>
           <option value="Москва">Москва</option>
         </select>
         <label>email <input type="email" required ref={emailRef} /></label>
