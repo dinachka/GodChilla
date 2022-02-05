@@ -37,6 +37,7 @@ router.post('/', async (req, res) => {
     signedUp: true,
   };
   res.status(200).json({
+    id: req.session.user.id,
     message: 'Логин успешный!',
     auth: true,
   });
