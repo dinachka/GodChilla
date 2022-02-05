@@ -1,0 +1,1 @@
+export const INIT_EVENTS_FETCH = 'INIT_EVENTS_FETCH'
