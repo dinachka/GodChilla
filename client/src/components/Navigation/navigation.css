@@ -27,6 +27,7 @@ li {
   border-radius: 5px;
 }
 .Link:hover{
+  cursor: pointer;
   background-color: aliceblue;
   color: rgb(48, 107, 184);
   transition: 1.5s;

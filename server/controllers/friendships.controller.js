@@ -21,6 +21,8 @@ const createFriendship = async (req, res) => {
 };
 
 // вынимаем из БД спиок друзей
+
+
 const currentFriendships = async (req, res) => {
   // const userid = req.params.id;
   const userid = 2;
@@ -49,15 +51,16 @@ const currentFriendships = async (req, res) => {
       where: {
         id: formatedFriends,
       },
+      // include: {
+      //   model: User,
+      // },
     });
-    res.status(200).json(friendships);
-    // console.log(formatedFriends);
-    // console.log(friendships);
+    // res.status(200).json(friendships);
+    console.log(friendships);
   } catch (error) {
-    res.status(404).json({ error: 'error' });
+    // res.status(404).json({ error: 'error' });
   }
 };
-
 // меняем статус дружбы на "подтвержден"
 const friendshipAccepted = async (req, res) => {
   const {

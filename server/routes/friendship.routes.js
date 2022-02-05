@@ -16,7 +16,9 @@ router.delete('/profile/:id', deleteFriendship);
 router.delete('/profile/:id', deleteFriendship);
 
 // список друзей конкретного юзера
-router.get('/profile/:id', currentFriendships);
+router.get('/api/profile/2', currentFriendships);
+
+
 
 // принять заявку добавления друзей
 router.put('/profile/:id', friendshipAccepted);
