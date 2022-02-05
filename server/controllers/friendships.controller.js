@@ -9,7 +9,7 @@ const createFriendship = async (req, res) => {
 
   try {
     await Friendship.create({
-      reqUserID, resUserID, status: 'success',
+      reqUserID, resUserID, status: 'В обработке',
     });
     const friendships = await Friendship.findAll({
       order: [['updatedAt', 'DESC']],
