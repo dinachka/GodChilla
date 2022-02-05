@@ -17,7 +17,7 @@ function Registration(props) {
   const summitRegistrationHandler = (event) => {
     event.preventDefault()
     const payload = {
-      userName: loginRef.current.value,
+      username: loginRef.current.value,
       name: nameRef.current.value,
       lastName: surnameRef.current.value,
       city: cityRef.current.value,
@@ -36,15 +36,17 @@ function Registration(props) {
         <label>Логин <input type="text" ref={loginRef} required/></label>
         <label>Имя <input type="text" ref={nameRef} required/></label>
         <label>Фамилия <input type="text" ref={surnameRef} /></label>
-        <select ref={cityRef}>
-          <option selected disabled>Выберите город</option>
+        <label>Город
+        <select ref={cityRef} required >
+          <option></option>
           <option value="Санкт-Петербург">Санкт-Петербург</option>
           <option value="Москва">Москва</option>
         </select>
+        </label>
         <label>email <input type="email" required ref={emailRef} /></label>
         <label>Номер телефона<input type="phone" ref={telRef}/></label>
-        <label>Пароль <input type="password" required ref={passwordRef}/></label>
-        <label>Подтвердить пароль <input type="password" required ref={confirmPasswordRef}/></label>
+        <label>Пароль <input type="password" minLength="7" required ref={passwordRef}/></label>
+        <label>Подтвердить пароль <input type="password" minLength="7" required ref={confirmPasswordRef}/></label>
         <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
         <button>Зарегистрироваться</button>
       </form>
