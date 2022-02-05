@@ -15,7 +15,7 @@ function Registration(props) {
   const [isNotEqual, setIsNotEqual] = useState(false)
 
   const dispatch = useDispatch();
-  const summitRegistrationHandler = (event) => {
+  const submitRegistrationHandler = (event) => {
     event.preventDefault()
     if(passwordRef.current.value === confirmPasswordRef.current.value) {
       const payload = {
@@ -36,7 +36,7 @@ function Registration(props) {
   }
   return (
     <div>
-      <form onSubmit={summitRegistrationHandler} action="/profile" method="post" encType="multipart/form-data">
+      <form onSubmit={submitRegistrationHandler} encType="multipart/form-data">
         <label>Логин <input type="text" ref={loginRef} required/></label>
         <label>Имя <input type="text" ref={nameRef} required/></label>
         <label>Фамилия <input type="text" ref={surnameRef} /></label>

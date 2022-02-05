@@ -1,7 +1,13 @@
-import { ADD_USER } from '../actionTypes/userAT'
+import { ADD_USER, INIT_USER } from '../actionTypes/userAT'
 export const addUserAC = (payload) => {
   return {
     type: ADD_USER,
+    payload
+  }
+}
+export const initUserAC = (payload) => {
+  return {
+    type: INIT_USER,
     payload
   }
 }
