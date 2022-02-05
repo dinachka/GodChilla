@@ -3,11 +3,11 @@ const { Op } = require('sequelize');
 const { Event } = require('../db/models');
 
 router.get('/', async (req, res) => {
-  const eventId = req.params.id;
+  const userId = req.session.user_id;
   const otherEvents = await Event.findAll({
     where: {
-      id: {
-        [Op.ne]: eventId,
+      userID: {
+        [Op.ne]: userId,
       },
     },
   });
