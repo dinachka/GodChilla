@@ -16,7 +16,19 @@ function Registration(props) {
 
   const summitRegistrationHandler = (event) => {
     event.preventDefault()
-    dispatch(registrationFetchAC())
+    const payload = {
+      userName: loginRef.current.value,
+      name: nameRef.current.value,
+      lastName: surnameRef.current.value,
+      city: cityRef.current.value,
+      email: emailRef.current.value,
+      phoneNumber: telRef.current.value,
+      password: passwordRef.current.value,
+      confirmPassword: confirmPasswordRef.current.value,
+      foto: fotoRef.current.value
+    }
+    console.log(payload);
+    // dispatch(registrationFetchAC(payload))
   }
   return (
     <div>
