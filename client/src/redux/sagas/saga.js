@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { addUserAC, } from '../actionCreators/userAC';
+import { addUserAC, initUserAC } from '../actionCreators/userAC';
+import { REGISTRATION_FETCH, LOGIN_FETCH } from '../actionTypes/userAT'
 // import { getCatAC } from './ActionCreators/catAC'
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
@@ -15,8 +16,17 @@ function* registrationUserAsync(action) {
     method: 'POST', 
     body: JSON.stringify(action.payload) });
 
-  // put - аналог dispatch в redux-saga
   yield put(addUserAC(newUser));
+}
+
+function* loginUserAsync(action) {
+  const user = yield call(fetchData, { 
+    url: process.env.REACT_APP_URL_LOGIN, 
+    headers: { 'Content-Type': 'Application/json' }, 
+    method: 'POST', 
+    body: JSON.stringify(action.payload) });
+
+  yield put(initUserAC(user));
 }
 
 // function* getCatAsync() {
@@ -30,7 +40,7 @@ function* registrationUserAsync(action) {
 // }
 
 export function* sagaWatcher() {
-  yield takeEvery("REGISTRATION_FETCH", registrationUserAsync);
-  // yield takeEvery("FETCH_GET_CAT", getCatAsync);
+  yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
+  yield takeEvery(LOGIN_FETCH, loginUserAsync);
   // yield takeEvery("FETCH_INIT_USER", initUserAsync);
 }
