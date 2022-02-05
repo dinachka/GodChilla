@@ -13,7 +13,7 @@ function Profile() {
     setCalendarSwitcher(!calendarSwitcher)
   }
   // Логика отображения списка друзей
-  const [friendsVisible, setFriendsVisible] = useState(true)
+  const [friendsVisible, setFriendsVisible] = useState(false)
   const friendsVisibleSwitcher = () => {
     setFriendsVisible(!friendsVisible)
   }
