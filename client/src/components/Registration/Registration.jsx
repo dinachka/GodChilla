@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { registrationFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
+import './registration.css'
+
 function Registration(props) {
   const loginRef = useRef();
   const nameRef = useRef();
@@ -32,7 +34,7 @@ function Registration(props) {
   }
   return (
     <div>
-      <form onSubmit={summitRegistrationHandler} action="/profile" method="post" encType="multipart/form-data">
+      <form onSubmit={summitRegistrationHandler} action="/profile" method="post" encType="multipart/form-data" className='form'>
         <label>Логин <input type="text" ref={loginRef} required/></label>
         <label>Имя <input type="text" ref={nameRef} required/></label>
         <label>Фамилия <input type="text" ref={surnameRef} /></label>
@@ -46,7 +48,7 @@ function Registration(props) {
         <label>Пароль <input type="password" required ref={passwordRef}/></label>
         <label>Подтвердить пароль <input type="password" required ref={confirmPasswordRef}/></label>
         <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
-        <button>Зарегистрироваться</button>
+        <button className='btn btnStyle' >Зарегистрироваться</button>
       </form>
     </div>
   );
