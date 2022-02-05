@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registrationFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
+import './registration.css'
+
 function Registration(props) {
   const loginRef = useRef();
   const nameRef = useRef();
@@ -36,7 +38,8 @@ function Registration(props) {
   }
   return (
     <div>
-      <form onSubmit={submitRegistrationHandler} encType="multipart/form-data">
+      <form onSubmit={submitRegistrationHandler} encType="multipart/form-data" className='form' >
+
         <label>Логин <input type="text" ref={loginRef} required/></label>
         <label>Имя <input type="text" ref={nameRef} required/></label>
         <label>Фамилия <input type="text" ref={surnameRef} /></label>
@@ -53,7 +56,7 @@ function Registration(props) {
         <label>Подтвердить пароль <input type="password" minLength="7" required ref={confirmPasswordRef}/></label>
         { isNotEqual && <div>Пароли не совпадают</div>}
         <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
-        <button>Зарегистрироваться</button>
+        <button className='btn btnStyle' >Зарегистрироваться</button>
       </form>
     </div>
   );
