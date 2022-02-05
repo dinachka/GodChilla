@@ -1,11 +1,24 @@
 const router = require('express').Router();
-const { allFriendships, deleteFriendship, createFriendship } = require('../controllers/friendships.controller');
+const {
+  deleteFriendship, createFriendship, currentFriendships, friendshipAccepted,
+} = require('../controllers/friendships.controller');
 
-// Все дружбы
-router.get('/', allFriendships);
+// создание дружбы на собственной странице в поисковике
+router.post('/profile/:id', createFriendship);
 
-router.get('/', createFriendship);
+// создание дружбы на странице юзера
+router.post('/profile/:id', createFriendship);
 
-router.put('/', deleteFriendship);
+// расторжение дружбы на собственной странице в поисковике
+router.delete('/profile/:id', deleteFriendship);
+
+// расторжение дружбы на странице юзера
+router.delete('/profile/:id', deleteFriendship);
+
+// список друзей конкретного юзера
+router.get('/profile/:id', currentFriendships);
+
+// принять заявку добавления друзей
+router.put('/profile/:id', friendshipAccepted);
 
 module.exports = router;

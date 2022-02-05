@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Event, Friendship, Participation }) {
       this.hasMany(Event, { foreignKey: 'userID' });
-      this.hasMany(Friendship, { foreignKey: 'userID' });
+      this.hasMany(Friendship, { foreignKey: 'id' });
       this.hasMany(Participation, { foreignKey: 'userID' });
     }
   }
