@@ -1,6 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
+
 import { addUserAC, initUserAC, deleteUserAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH } from '../actionTypes/userAT'
+import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents } from '../actionCreators/eventAC';
 // import { getCatAC } from './ActionCreators/catAC'
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
@@ -30,6 +33,7 @@ function* loginUserAsync(action) {
 }
 
 
+
 function* logoutUserAsync() {
   const user = yield call(fetchData, {
     url: process.env.REACT_APP_URL_LOGOUT, 
@@ -43,6 +47,10 @@ function* logoutUserAsync() {
 //   const cat = yield call(fetchData, { url: 'https://aws.random.cat/meow', credentials: 'same-origin' });
 //   yield put(getCatAC(cat));
 // }
+function* getPublicEventsAsync() {
+  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS, credentials: 'same-origin' });
+  yield put(getPublicEvents(events));
+}
 
 // function* initUserAsync() {
 //   const user = yield call(fetchData, { url: "/api/registration" });
@@ -53,5 +61,5 @@ export function* sagaWatcher() {
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
-  // yield takeEvery("FETCH_INIT_USER", initUserAsync);
+  yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
 }
