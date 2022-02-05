@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
       },
     },
   });
-  res.status(200).json('allEvents', {
+  res.status(200).json({
     events: otherEvents,
   });
 });

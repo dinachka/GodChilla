@@ -25,7 +25,7 @@ const createFriendship = async (req, res) => {
 const currentFriendships = async (req, res) => {
   const userid = +req.session.user.id;
   // const userid = 2;
-  console.log(req.session.user.id);
+  console.log(req.session.user.id, 1);
   try {
     const friends = await Friendship.findAll({
       raw: true,
@@ -56,7 +56,7 @@ const currentFriendships = async (req, res) => {
       // },
     });
     res.status(200).json(friendships);
-    // console.log(friendships);
+    console.log(friendships);
   } catch (error) {
     res.status(404).json({ error: 'error1111' });
   }
