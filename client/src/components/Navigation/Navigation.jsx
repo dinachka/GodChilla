@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom'
 import './navigation.css'
 
 function Navigation() {
+  
+  const leaveSession = () => {
+    
+  };
+
   return (
     <nav className='globalNav' >
       <ul>
@@ -11,6 +16,7 @@ function Navigation() {
         <li><Link to="/login" className='Link' >Авторизация</Link></li>
         <li><Link to="/events" className='Link' >События</Link></li>
         <li><Link to="/profile" className='Link' >Профиль</Link></li>
+        <li onClick={leaveSession} className='Link' >Выйти</li>
       </ul>
     </nav>
   )
