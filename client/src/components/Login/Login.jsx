@@ -1,12 +1,14 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { loginFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
 import './login.css'
 
 function Login(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
   
   const dispatch = useDispatch();
   const submitLoginHandler = (event) => {
@@ -16,6 +18,7 @@ function Login(props) {
         password: passwordRef.current.value,
       }
       dispatch(loginFetchAC(payload))
+      navigate('/')   
   }
   return (
 
