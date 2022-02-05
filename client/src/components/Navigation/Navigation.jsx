@@ -1,10 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './navigation.css'
+import { useDispatch } from 'react-redux';
+import { logoutFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
+import { useNavigate } from 'react-router-dom';
 
 function Navigation() {
+
+  const dispath = useDispatch();
+  const navigate = useNavigate();
   
   const leaveSession = () => {
+    dispath(logoutFetchAC())
+    navigate('/')
     
   };
 
