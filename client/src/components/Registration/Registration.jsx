@@ -1,17 +1,39 @@
-import React from 'react';
-
+import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { registrationFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
 function Registration(props) {
+  const loginRef = useRef();
+  const nameRef = useRef();
+  const surnameRef = useRef();
+  const cityRef = useRef();
+  const emailRef = useRef();
+  const telRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+  const fotoRef = useRef();
+
+  const dispatch = useDispatch();
+
+  const summitRegistrationHandler = (event) => {
+    event.preventDefault()
+    dispatch(registrationFetchAC())
+  }
   return (
     <div>
-      <form action="/profile" method="post" enctype="multipart/form-data">
-        <label>Логин <input type="text" required/></label>
-        <label>Имя <input type="text" required/></label>
-        <label>Фамилия <input type="text"/></label>
-        <label>email <input type="email" required/></label>
-        <label>Номер телефона<input type="phone"/></label>
-        <label>Пароль <input type="password" required/></label>
-        <label>Подтвердить пароль <input type="password" required/></label>
-        <label>Фото<input type="file" name="avatar" /></label>
+      <form onSubmit={summitRegistrationHandler} action="/profile" method="post" enctype="multipart/form-data">
+        <label>Логин <input type="text" ref={loginRef} required/></label>
+        <label>Имя <input type="text" ref={nameRef} required/></label>
+        <label>Фамилия <input type="text" ref={surnameRef} /></label>
+        <select ref={cityRef}>
+          <option disabled>Выберите город</option>
+          <option selected value="Санкт-Петербург">Санкт-Петербург</option>
+          <option value="Москва">Москва</option>
+        </select>
+        <label>email <input type="email" required ref={emailRef} /></label>
+        <label>Номер телефона<input type="phone" ref={telRef}/></label>
+        <label>Пароль <input type="password" required ref={passwordRef}/></label>
+        <label>Подтвердить пароль <input type="password" required ref={confirmPasswordRef}/></label>
+        <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
         <button>Зарегистрироваться</button>
       </form>
     </div>

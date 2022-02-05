@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 const { User } = require('../db/models');
 
-router.post('/registration', async (req, res) => {
+router.post('/', async (req, res) => {
   const {
     username,
     email,
@@ -14,7 +14,7 @@ router.post('/registration', async (req, res) => {
     photo,
   } = req.body;
   if (password.length < 6) {
-    res.status().json({ isUser: false, message: 'Длина пароля должна быть больше 6 символов' });
+    res.status(400).json({ user: false, message: 'Длина пароля должна быть больше 6 символов' });
   }
   let newUser;
   const sameUser = await User.findOne({
@@ -37,12 +37,12 @@ router.post('/registration', async (req, res) => {
       photo,
     });
   } else {
-    res.status(400).json({ isUser: false, message: 'Юзер с таким логином или email уже существует' });
+    res.status(400).json({ user: false, message: 'Юзер с таким логином или email уже существует' });
   }
   if (newUser) {
-    res.status(201).json({ isUser: true, message: 'Регистрация прошла успешно!' });
+    res.status(201).json({ user: newUser, message: 'Регистрация прошла успешно!' });
   } else {
-    res.status(401).json({ isUser: false, message: 'Регистрация не прошла!' });
+    res.status(401).json({ user: false, message: 'Регистрация не прошла!' });
   }
 });
 
