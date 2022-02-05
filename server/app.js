@@ -17,6 +17,11 @@ const {
   SESSION_SECRET = 'my_secret',
 } = process.env;
 
+const allEventsRouter = require('./routes/getEvents.routes');
+const registrationRouter = require('./routes/registration.routes');
+const loginRouter = require('./routes/login.routes');
+const currentEventRouter = require('./routes/currentEvent.routes');
+
 const sessionConfig = {
   store: new SessionFileStore(),
   name: 'user_sid',
@@ -40,6 +45,11 @@ app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use('/api', allEventsRouter);
+app.use('/api/registration', registrationRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/event', currentEventRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
