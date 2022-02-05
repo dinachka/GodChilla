@@ -2,6 +2,7 @@
 // import { store } from "../../redux/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home'
+
 import Navigation from "./components/Navigation/Navigation";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
