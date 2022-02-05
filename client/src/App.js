@@ -1,5 +1,5 @@
-// import { Provider } from "react-redux";
-// import { store } from "../../redux/store";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home'
 
@@ -14,7 +14,7 @@ import EventsList from "./components/EventsList/EventsList";
 
 function App() {
   return (
-    // <Provider store={store}>
+    <Provider store={store}>
       <BrowserRouter>
         <Navigation />
         <Routes>
@@ -28,7 +28,7 @@ function App() {
           {/* <Route path='*' element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
-    // </Provider>
+    </Provider>
   );
 }
 
