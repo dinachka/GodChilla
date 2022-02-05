@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import EventsList from '../EventsList/EventsList'
 import FriendList from '../FriendList/FriendList';
+import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
 
 
@@ -17,6 +18,12 @@ function Profile() {
   const friendsVisibleSwitcher = () => {
     setFriendsVisible(!friendsVisible)
   }
+  // Логика отображения создания событий
+  const [eventCreatorVisible, setEventCreatorVisible] = useState(false)
+  const eventCreatorVisibleSwitcher = () => {
+    setEventCreatorVisible(!eventCreatorVisible)
+  }
+
 
   // Временный юзер(УДАЛИТЬ!!!!)
   const profile = {
@@ -38,24 +45,25 @@ function Profile() {
         </div>
       </div>
 
-      <div>
-        <button>Добавить событие</button>
-        <button>Удалить событие</button>
+      <div className='bottomLine'></div>
+        <div className='createEventBtn' >
+         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
+      {eventCreatorVisible && <EventCreator />}
 
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
-        <h5 onClick={friendsVisibleSwitcher} className='stateSwitcher' >Друзья</h5>
+        <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
         <input placeholder='Найти друзей' type='text'></input>
-        <span className="lupa"></span>
       </div>
       <div>
         {friendsVisible && <FriendList />}
       </div>
+
       <div className='bottomLine'></div>
       <div onClick={calendarSwitch} >
         <div className='stateSwitcher'>
-        {calendarSwitcher ? 'Lenta' : 'Calendar'}
+        {calendarSwitcher ? <div className='display'>Лента</div> : <div className='display'>Календарь</div>}
         </div>
         {calendarSwitcher ? 'Здесь будет красивый календарь' : <EventsList />}
       </div>

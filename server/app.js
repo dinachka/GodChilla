@@ -21,6 +21,7 @@ const allEventsRouter = require('./routes/getEvents.routes');
 const registrationRouter = require('./routes/registration.routes');
 const loginRouter = require('./routes/login.routes');
 const currentEventRouter = require('./routes/currentEvent.routes');
+const logoutRouter = require('./routes/logout.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -50,6 +51,7 @@ app.use('/api', allEventsRouter);
 app.use('/api/registration', registrationRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/event', currentEventRouter);
+app.use('/logout', logoutRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

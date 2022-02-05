@@ -12,6 +12,7 @@ router.post('/', async (req, res) => {
     lastName,
     phoneNumber,
     photo,
+    city,
   } = req.body;
   if (password.length < 6) {
     res.status(400).json({ user: false, message: 'Длина пароля должна быть больше 6 символов' });
@@ -35,6 +36,7 @@ router.post('/', async (req, res) => {
       lastName,
       phoneNumber,
       photo,
+      city,
     });
   } else {
     res.status(400).json({ user: false, message: 'Юзер с таким логином или email уже существует' });
