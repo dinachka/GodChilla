@@ -27,10 +27,11 @@ module.exports = {
       status: {
         type: Sequelize.TEXT,
         allowNull: false,
+        defaultValue: 'В обработке',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,

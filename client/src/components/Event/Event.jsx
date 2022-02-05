@@ -18,7 +18,7 @@ function CurrentEvent({event}) {
       <div> Описание </div>
       <div> { event.description } </div>
       <div> Инициатор </div>
-      <Link to={`/profile/${event.userID}`}> { user.name } { user.surname } { user.photo && <img style={{maxWeigth: '2REM', maxHeight: "2REM"}} src={user.photo} alt=""/>}</Link>
+      <Link to={`/profile/${event.userID}`}> { user.name } { user.surname } { user.photo && <img style={{maxWeigth: '1', maxHeight: "1"}} src={user.photo} alt=""/>}</Link>
       <button onClick={clickJoinHandler}>Присоединиться</button>
     </div>
   );
