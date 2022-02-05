@@ -3,8 +3,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home'
 import Navigation from "./components/Navigation/Navigation";
-// import Registration from "./components/Registration/Registration";
-// import Login from "./components/Login/Login";
+import Registration from "./components/Registration/Registration";
+import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 // import CurrentProfile from "./components/CurrentProfile/CurrentProfile";
 import EventsList from "./components/EventsList/EventsList";
@@ -18,8 +18,8 @@ function App() {
         <Navigation />
         <Routes>
           <Route path='/' element={<Home />} />
-          {/* <Route path='/registration' element={<Registration />} />
-          <Route path='/login' element={<Login />} /> */}
+          <Route path='/registration' element={<Registration />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/profile' element={<Profile />} />
           {/* <Route path='/profile/:id' element={<CurrentProfile />} /> */}
           <Route path='/events' element={<EventsList />} />
