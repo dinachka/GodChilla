@@ -4,14 +4,14 @@ import './navigation.css'
 
 function Navigation() {
   return (
-    <nav>
+    <nav className='globalNav' >
       <ul>
-        <li><Link to="/">Главная</Link></li>
-        <li><Link to="/registration">Регистрация</Link></li>
-        <li><Link to="/login">Авторизация</Link></li>
-        <li><Link to="/events">События</Link></li>
-        <li><Link to="/profile">Профиль</Link></li>
-    </ul>
+        <li><Link to="/" className='Link' >Главная</Link></li>
+        <li><Link to="/registration" className='Link' >Регистрация</Link></li>
+        <li><Link to="/login" className='Link' >Авторизация</Link></li>
+        <li><Link to="/events" className='Link' >События</Link></li>
+        <li><Link to="/profile" className='Link' >Профиль</Link></li>
+      </ul>
     </nav>
   )
 }
