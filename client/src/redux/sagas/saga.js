@@ -1,7 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { addUserAC, initUserAC } from '../actionCreators/userAC';
+import { initFriendsAC } from '../actionCreators/friendsAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH } from '../actionTypes/userAT'
-// import { getCatAC } from './ActionCreators/catAC'
+import { INIT_FRIENDS } from '../actionTypes/friendsAT';
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
   const response = await fetch(url, { method, headers, body, credentials
@@ -29,6 +30,14 @@ function* loginUserAsync(action) {
   yield put(initUserAC(user));
 }
 
+function* initFriendsAsync(){
+  const friends = yield call(fetchData, { 
+    url: `${process.env.REACT_APP_URL_FRIENDS}/2`,
+    method: 'GET', 
+    });
+
+  yield put(initFriendsAC(friends));
+}
 // function* getCatAsync() {
 //   const cat = yield call(fetchData, { url: 'https://aws.random.cat/meow', credentials: 'same-origin' });
 //   yield put(getCatAC(cat));
@@ -42,5 +51,6 @@ function* loginUserAsync(action) {
 export function* sagaWatcher() {
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
+  yield takeEvery(INIT_FRIENDS, initFriendsAsync)
   // yield takeEvery("FETCH_INIT_USER", initUserAsync);
 }
