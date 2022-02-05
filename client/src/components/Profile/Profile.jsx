@@ -37,17 +37,15 @@ function Profile() {
           {profile.lastname}
         </div>
       </div>
-
-      <div>
-        <button>Добавить событие</button>
-        <button>Удалить событие</button>
+      <div className='bottomLine'></div>
+      <div className='createEventBtn' >
+        <div className='display' >Создать</div>
       </div>
 
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
-        <h5 onClick={friendsVisibleSwitcher} className='stateSwitcher' >Друзья</h5>
+        <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
         <input placeholder='Найти друзей' type='text'></input>
-        <span className="lupa"></span>
       </div>
       <div>
         {friendsVisible && <FriendList />}
@@ -55,7 +53,7 @@ function Profile() {
       <div className='bottomLine'></div>
       <div onClick={calendarSwitch} >
         <div className='stateSwitcher'>
-        {calendarSwitcher ? 'Lenta' : 'Calendar'}
+        {calendarSwitcher ? <div className='display'>Лента</div> : <div className='display'>Календарь</div>}
         </div>
         {calendarSwitcher ? 'Здесь будет красивый календарь' : <EventsList />}
       </div>
