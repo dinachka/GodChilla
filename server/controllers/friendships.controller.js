@@ -9,7 +9,7 @@ const createFriendship = async (req, res) => {
 
   try {
     await Friendship.create({
-      reqUserID, resUserID, status: 'success',
+      reqUserID, resUserID, status: 'В обработке',
     });
     const friendships = await Friendship.findAll({
       order: [['updatedAt', 'DESC']],
@@ -22,10 +22,10 @@ const createFriendship = async (req, res) => {
 
 // вынимаем из БД спиок друзей
 
-
 const currentFriendships = async (req, res) => {
-  // const userid = req.params.id;
-  const userid = 2;
+  const userid = +req.session.user.id;
+  // const userid = 2;
+  console.log(req.session.user.id);
   try {
     const friends = await Friendship.findAll({
       raw: true,
@@ -55,10 +55,10 @@ const currentFriendships = async (req, res) => {
       //   model: User,
       // },
     });
-    // res.status(200).json(friendships);
-    console.log(friendships);
+    res.status(200).json(friendships);
+    // console.log(friendships);
   } catch (error) {
-    // res.status(404).json({ error: 'error' });
+    res.status(404).json({ error: 'error1111' });
   }
 };
 // меняем статус дружбы на "подтвержден"
@@ -77,7 +77,6 @@ const friendshipAccepted = async (req, res) => {
     res.status(404).json({ error: 'error' });
   }
 };
-friendshipAccepted();
 // удаляем запись дружбы из БД
 const deleteFriendship = async (req, res) => {
   const {

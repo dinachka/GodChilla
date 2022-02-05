@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-
+import { initFriendsAC } from '../actionCreators/friendsAC';
+import { INIT_FRIENDS } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
@@ -32,6 +33,15 @@ function* loginUserAsync(action) {
   yield put(initUserAC(user));
 }
 
+function* initFriendsAsync(){
+  const friends = yield call(fetchData, { 
+    url: `${process.env.REACT_APP_URL_FRIENDS}/2`,
+    method: 'GET', 
+    });
+
+  yield put(initFriendsAC(friends));
+}
+
 
 
 function* logoutUserAsync() {
@@ -60,6 +70,8 @@ function* getPublicEventsAsync() {
 export function* sagaWatcher() {
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
+  yield takeEvery(INIT_FRIENDS, initFriendsAsync)
+  // yield takeEvery("FETCH_INIT_USER", initUserAsync);
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
 }
