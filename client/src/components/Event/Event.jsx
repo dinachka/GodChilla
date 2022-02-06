@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function CurrentEvent({event}) {
-  // const users = [{id: 1, name: 'Олех', surname: 'Смирнов', photo: 'https://avatars.mds.yandex.net/get-ott/374297/2a000001616b87458162c9216ccd5144e94d/678x380'}]
-  // const user = users.find( el => el.id === event.userID)
   const clickJoinHandler = () => {}
   return (
     <div>
@@ -18,7 +16,7 @@ function CurrentEvent({event}) {
       <div> Описание </div>
       <div> { event.description } </div>
       <div> Инициатор </div>
-      {/* <Link to={`/profile/${event.userID}`}> { user.name } { user.surname } { user.photo && <img style={{maxWeigth: '1', maxHeight: "1"}} src={user.photo} alt=""/>}</Link> */}
+      <Link to={`/profile/${event.User.id}`}> { event.User.name } { event.User.lastName } { event.User.photo && <img style={{maxWeigth: '1', maxHeight: "1"}} src={event.User.photo} alt=""/>}</Link>
       <button onClick={clickJoinHandler}>Присоединиться</button>
     </div>
   );

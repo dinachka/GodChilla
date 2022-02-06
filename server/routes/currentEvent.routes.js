@@ -44,8 +44,11 @@ router.put('/:id', async (req, res) => {
   });
 });
 
-router.post('/new', async (req, res) => {
+router.post('/', async (req, res) => {
+
   const {
+    userID,
+    categoryID,
     title,
     description,
     privateSettings,
@@ -55,6 +58,8 @@ router.post('/new', async (req, res) => {
   } = req.body;
 
   const newEvent = await Event.create({
+    userID,
+    categoryID,
     title,
     description,
     privateSettings,
