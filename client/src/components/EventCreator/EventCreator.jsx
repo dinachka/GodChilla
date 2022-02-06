@@ -1,36 +1,54 @@
 import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
+
 import './eventCreator.css'
 
 function EventCreator() {
 
   // const { id } = useParams()
-  const nameInput = useRef()
+  const titleInput = useRef()
   const descriptionInput = useRef()
-  const placeInput = useRef()
+  const locationInput = useRef()
   const dateInput = useRef()
   const photoInput = useRef()
-  const id = useSelector(state => state.userReducer)
+  const categoryInput = useRef()
+  const privateInput = useRef()
+  const state = useSelector(state => state.userReducer)
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
 
   const eventHandler = (event) => {
     event.preventDefault()
 
-    console.log(id, nameInput.current.value, descriptionInput.current.value, placeInput.current.value, dateInput.current.value, photoInput.current.value);
-
     const newEvent = {
-      userID: id
+      userID: state.user.id,
+      categoryID: +categoryInput.current.value,
+      title: titleInput.current.value,
+      description: descriptionInput.current.value,
+      privateSettings: privateInput.current.value,
+      location: locationInput.current.value,
+      dateTime: dateInput.current.value,
+      photo: photoInput.current.value,
     }
 
-    // navigate('/profile')id
+    dispatch({
+      type: FETCH_POST_EVENT,
+      payload: newEvent
+    })
+
+    // console.log(newEvent);
+
+    // navigate('/profile')
   }
 
   return (
       <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data">
         <label className='eventCreatorForm'>Название 
-          <input ref={nameInput} className='eventCreatorForm' type="text" required/>
+          <input ref={titleInput} className='eventCreatorForm' type="text" required/>
         </label>
 
         <br />
@@ -39,8 +57,31 @@ function EventCreator() {
         </label>
 
         <br />
+        <label className='eventCreatorForm'>Категория
+        <select ref={categoryInput} required >
+          <option></option>
+          <option value="1">Музыка</option>
+          <option value="2">Природа</option>
+          <option value="3">Культура</option>
+          <option value="4">Релакс</option>
+          <option value="5">Вечеринки</option>
+          <option value="6">Активный отдых</option>
+        </select>
+        </label>
+
+        <br />
+        <label className='eventCreatorForm'>Статус события
+        <select ref={privateInput} required >
+          <option></option>
+          <option value="public">Публичный</option>
+          <option value="forFriends">Для друзей</option>
+          <option value="private">Личный</option>          
+        </select>
+        </label>
+
+        <br />
         <label className='eventCreatorForm'>Место проведения 
-          <input ref={placeInput} className='eventCreatorForm' type="text"/>
+          <input ref={locationInput} className='eventCreatorForm' type="text"/>
         </label>
 
         <br />
