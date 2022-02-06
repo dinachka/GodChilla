@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function Navigation() {
 
   const session = useSelector(state => state.userReducer)
-  console.log(session.user);
+  // console.log(session.user);
 
   const dispath = useDispatch();
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ function Navigation() {
       <nav className='globalNav' >
         <ul>
           <li><Link to="/" className='Link' >Главная</Link></li>
-          <li><Link to="/registration" className='Link' >Регистрация</Link></li>
-          <li><Link to="/login" className='Link' >Авторизация</Link></li> 
+          {/* <li><Link to="/registration" className='Link' >Регистрация</Link></li> */}
+          {/* <li><Link to="/login" className='Link' >Авторизация</Link></li>  */}
           <li><Link to="/events" className='Link' >События</Link></li>
           <li><Link to="/profile" className='Link' >Профиль</Link></li>
           <li onClick={leaveSession} className='Link' >Выйти</li>
