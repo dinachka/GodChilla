@@ -5,7 +5,7 @@ const initialState = { events: {} }
 export const eventReducer = (state = initialState, action) => {
   switch (action.type) {
     case INIT_PUBLIC_EVENTS:
-      return { ...state, events: action.payload }
+      return { ...state, events: action.payload.events }
     default:
       return state
   }
