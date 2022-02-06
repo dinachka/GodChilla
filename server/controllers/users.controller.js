@@ -15,13 +15,11 @@ const allUsers = async (req, res) => {
       },
     });
     // res.status(200).json(users);
-    console.log(users);
   } catch (error) {
     // res.status(404).json({ error: 'error' });
     console.log('err');
   }
 };
-allUsers();
 module.exports = {
   allUsers,
 };
