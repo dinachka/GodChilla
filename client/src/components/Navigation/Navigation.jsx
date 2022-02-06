@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './navigation.css'
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,11 +12,12 @@ function Navigation() {
 
   const dispath = useDispatch();
   const navigate = useNavigate();
+  // Состояние для открытия/закрытия моадльного окна уведомлений
+  const [isModal, setIsModal] = useState(false);
   
   const leaveSession = () => {
     dispath(logoutFetchAC())
-    navigate('/')
-    
+    navigate('/')  
   };
 
   return (
@@ -25,11 +26,10 @@ function Navigation() {
       <nav className='globalNav' >
         <ul>
           <li><Link to="/" className='Link' >Главная</Link></li>
-          {/* <li><Link to="/registration" className='Link' >Регистрация</Link></li> */}
-          {/* <li><Link to="/login" className='Link' >Авторизация</Link></li>  */}
           <li><Link to="/events" className='Link' >События</Link></li>
           <li><Link to="/profile" className='Link' >Профиль</Link></li>
           <li onClick={leaveSession} className='Link' >Выйти</li>
+          <li onClick={()=>setIsModal(!isModal)} className='Link' >info</li>
         </ul>
       </nav> 
       : 
@@ -37,7 +37,8 @@ function Navigation() {
         <ul>
           <li><Link to="/" className='Link' >Главная</Link></li>
           <li><Link to="/registration" className='Link' >Регистрация</Link></li>
-          <li><Link to="/login" className='Link' >Авторизация</Link></li> 
+          <li><Link to="/login" className='Link' >Авторизация</Link></li>
+          <li onClick={()=>setIsModal(!isModal)} className='Link' >info</li>
         </ul>
       </nav>}      
     </>
