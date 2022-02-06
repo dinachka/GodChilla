@@ -8,12 +8,13 @@ import { getPublicEvents, getUsersEvents, addEventAC } from '../actionCreators/e
 
 // import { getCatAC } from './ActionCreators/catAC'
 
+
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
   const response = await fetch(url, { method, headers, body, credentials
   });
   return (await response.json());
 }
-
+// Запрос на регистрацию
 function* registrationUserAsync(action) {
   const newUser = yield call(fetchData, { 
     url: process.env.REACT_APP_URL_REGISTRATION, 
@@ -23,7 +24,7 @@ function* registrationUserAsync(action) {
 
   yield put(addUserAC(newUser));
 }
-
+// Запрос на авторизацию
 function* loginUserAsync(action) {
   const user = yield call(fetchData, { 
     url: `${process.env.REACT_APP_URL_LOGIN}`, 
@@ -34,6 +35,7 @@ function* loginUserAsync(action) {
   yield put(initUserAC(user));
 }
 
+// Прокидывание сессии и куков на все компоненты приложения
 function* globalLoginUserAsync() {
   const user = yield call(fetchData, { 
     url: process.env.REACT_APP_URL_LOGIN,
@@ -43,25 +45,31 @@ function* globalLoginUserAsync() {
   yield put(initUserAC(user));
 }
 
-function* initFriendsAsync(){
+// Иницализация все друзей юзера
+function* initFriendsAsync(action){
+  console.log('friends', process.env.REACT_APP_URL_FRIENDS);
   const friends = yield call(fetchData, { 
-    url: `${process.env.REACT_APP_URL_FRIENDS}/7`,
+    url: `${process.env.REACT_APP_URL_FRIENDS}/${action.payload}`,
     method: 'GET', 
     });
 
   yield put(initFriendsAC(friends));
 }
+
+// Инициализация всех зарегестрированных пользователей 
 function* initUsersListAsync(action){
-  const users = yield call(fetchData, { 
+  console.log(action.payload);
+  const users = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_USERS}/${action.payload}`,
-    method: 'GET', 
+    // headers: { 'Content-Type': 'Application/json' },
+    method: 'GET',
+    // body: JSON.stringify(action.payload)
     });
 
   yield put(initUserslistAC(users));
 }
 
-
-
+// Запрос на logout, завершение сессии
 function* logoutUserAsync() {
   const user = yield call(fetchData, {
     url: process.env.REACT_APP_URL_LOGOUT, 
@@ -75,11 +83,15 @@ function* logoutUserAsync() {
 //   const cat = yield call(fetchData, { url: 'https://aws.random.cat/meow', credentials: 'same-origin' });
 //   yield put(getCatAC(cat));
 // }
+
+// Инициализация все событий, кроме тех, что создал пользователь
 function* getPublicEventsAsync() {
   const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS});
   yield put(getPublicEvents(events));
 }
 
+
+// Создание нового события
 function* getUsersEventsAsync(action) {
   const events = yield call(fetchData, { url: process.env.REACT_APP_URL_FRIENDS });
   yield put(getUsersEvents(events));
@@ -100,15 +112,26 @@ function* postEventAsync(action) {
 //   yield put(initUserAC(user));
 // }
 
+
 export function* sagaWatcher() {
+  // Запрос на регистрацию
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
+  // Запрос на авторизацию
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
+  // Иницализация все друзей юзера
   yield takeEvery(INIT_FRIENDS_ASYNC, initFriendsAsync)
+  // Прокидывание сессии и куков на все компоненты приложения
   yield takeEvery(GLOBAL_LOGIN_FETCH, globalLoginUserAsync);
+
   // yield takeEvery("FETCH_INIT_USER", initUserAsync);
+  // Запрос на logout, завершение сессии
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
+  // Инициализация все событий, кроме тех, что создал пользователь
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
+
+  // Создание нового события
   yield takeEvery(INIT_USERS_EVENTS_FETCH, getUsersEventsAsync);
   yield takeEvery(FETCH_POST_EVENT, postEventAsync);
+  // Инициализация всех зарегестрированных пользователей 
   yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
 }
