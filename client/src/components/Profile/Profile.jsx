@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
+
 import EventsList from '../EventsList/EventsList'
 import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
@@ -25,7 +28,10 @@ function Profile() {
     setEventCreatorVisible(!eventCreatorVisible)
   }
  const { user } = useSelector(state => state.userReducer)
- console.log(user, 1);
+ const dispatch = useDispatch()
+ const { users } = useSelector(state => state.userListReducer)
+ console.log(users, 'все юзеры');
+//  const { id } = useParams()
 
   // Временный юзер(УДАЛИТЬ!!!!)
   const profile = {
@@ -36,8 +42,10 @@ function Profile() {
 
   console.log(profile);
 
-  const changingHandler = () => {
 
+
+  const changingHandler = () => {
+    // dispatch(initUserslistFetchAC())
   }
 
   return (
@@ -62,7 +70,7 @@ function Profile() {
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
-        <input placeholder='Найти друзей' type='text' onChange={changingHandler}></input>
+        <input placeholder='Найти друзей' type='search' onChange={changingHandler}></input>
       </div>
       <div>
         {friendsVisible && <FriendList />}

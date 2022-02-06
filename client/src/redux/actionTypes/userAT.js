@@ -4,3 +4,6 @@ export const LOGIN_FETCH = 'LOGIN_FETCH';
 export const INIT_USER = 'INIT_USER';
 export const LOGOUT_FETCH = 'LOGOUT_FETCH';
 export const DELETE_USER = 'DELETE_USER';
+export const INIT_USERSLIST_FETCH = 'INIT_USERSLIST_FETCH';
+export const INIT_USERSLIST = 'INIT_USERSLIST';
+

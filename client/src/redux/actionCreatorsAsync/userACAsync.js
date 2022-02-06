@@ -1,4 +1,4 @@
-import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH } from '../actionTypes/userAT'
+import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH } from '../actionTypes/userAT'
 
 
 export const registrationFetchAC = (payload) => {
@@ -17,5 +17,11 @@ export const loginFetchAC = (payload) => {
 export const logoutFetchAC = () => {
   return {
     type: LOGOUT_FETCH,
+  }
+}
+
+export const initUserslistFetchAC = () => {
+  return {
+    type: INIT_USERSLIST_FETCH,
   }
 }
