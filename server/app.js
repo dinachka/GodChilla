@@ -56,8 +56,8 @@ app.use('/api/login', loginRouter);
 app.use('/api/event', currentEventRouter);
 app.use('/api/events', otherEventsRouter);
 app.use('/api/logout', logoutRouter);
-app.use('/api/profile/', friendsRouter);
-app.use('/api/profile/', allUsersRouter);
+app.use('/api/profile', friendsRouter);
+app.use('/api/profile/allUsers', allUsersRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

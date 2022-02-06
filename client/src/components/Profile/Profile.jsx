@@ -1,14 +1,13 @@
 import React from 'react'
 import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
 import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 
 import EventsList from '../EventsList/EventsList'
 import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
-
+import UserListModal from '../UserListModal/UserListModal';
 
 function Profile() {
 
@@ -27,19 +26,17 @@ function Profile() {
   const eventCreatorVisibleSwitcher = () => {
     setEventCreatorVisible(!eventCreatorVisible)
   }
- const { user } = useSelector(state => state.userReducer)
- const dispatch = useDispatch()
- const { users } = useSelector(state => state.userListReducer.users)
- console.log(users, 'все юзеры');
- const searchInput = useRef()
+  const { user } = useSelector(state => state.userReducer)
+  const dispatch = useDispatch()
+  const { users } = useSelector(state => state.userListReducer)
 
-//  const { id } = useParams()
+  const searchInput = useRef()
+ 
 
-
-  // 
-  const changingHandler = () => {
-    console.log(searchInput.current.value);
+  const changingHandler = (event) => {
+    event.preventDefault()
     dispatch(initUserslistFetchAC(user.id))
+    console.log(searchInput.current.value);
   }
 
   return (
@@ -64,11 +61,13 @@ function Profile() {
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
-        <input placeholder='Найти друзей' type='search' ref={searchInput}></input><button onClick={changingHandler}>искать</button>
+
+        <input placeholder='Найти друзей' type='search' ref={searchInput}></input><button onClick={changingHandler} >искать</button>
       </div>
       <div>
         {friendsVisible && <FriendList />}
-      </div>
+      </div>  
+      {users.users?.length && <UserListModal users={users.users}/> }
 
       <div className='bottomLine'></div>
       <div onClick={calendarSwitch} >
