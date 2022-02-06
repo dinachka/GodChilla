@@ -3,8 +3,8 @@ import { initFriendsAC } from '../actionCreators/friendsAC';
 import { INIT_FRIENDS } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
-import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
-import { getPublicEvents } from '../actionCreators/eventAC';
+import { PUBLIC_EVENTS_FETCH, FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents, addEventAC } from '../actionCreators/eventAC';
 // import { getCatAC } from './ActionCreators/catAC'
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
@@ -71,6 +71,16 @@ function* getPublicEventsAsync() {
   yield put(getPublicEvents(events));
 }
 
+function* postEventAsync(action) {
+  const newEvent = yield call(fetchData, {
+    url: `${process.env.REACT_APP_URL_POST_EVENT}`,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'POST',
+    body: JSON.stringify(action.payload) });
+
+  yield put(addEventAC(newEvent));
+}
+
 // function* initUserAsync() {
 //   const user = yield call(fetchData, { url: "/api/registration" });
 //   yield put(initUserAC(user));
@@ -84,4 +94,5 @@ export function* sagaWatcher() {
   // yield takeEvery("FETCH_INIT_USER", initUserAsync);
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
+  yield takeEvery(FETCH_POST_EVENT, postEventAsync);
 }
