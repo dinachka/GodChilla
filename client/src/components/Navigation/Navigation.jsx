@@ -22,7 +22,7 @@ function Navigation() {
 
   return (
     <>
-      {session.user.auth ? 
+      {session.user.isUser ? 
       <nav className='globalNav' >
         <ul>
           <li><Link to="/" className='Link' >Главная</Link></li>
