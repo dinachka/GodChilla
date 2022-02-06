@@ -25,7 +25,6 @@ const createFriendship = async (req, res) => {
 const currentFriendships = async (req, res) => {
   const userid = +req.session.user.id;
   // const userid = 2;
-  console.log(req.session.user.id, 1);
   try {
     const friends = await Friendship.findAll({
       raw: true,

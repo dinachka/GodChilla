@@ -1,10 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { initFriendsAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS } from '../actionTypes/friendsAT';
-import { addUserAC, initUserAC, deleteUserAC } from '../actionCreators/userAC';
-import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
+import { INIT_FRIENDS_ASYNC, INIT_FRIENDS } from '../actionTypes/friendsAT';
+import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
+import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH, FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
 import { getPublicEvents, addEventAC } from '../actionCreators/eventAC';
+
 // import { getCatAC } from './ActionCreators/catAC'
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
@@ -25,7 +26,7 @@ function* registrationUserAsync(action) {
 
 function* loginUserAsync(action) {
   const user = yield call(fetchData, { 
-    url: process.env.REACT_APP_URL_LOGIN, 
+    url: `${process.env.REACT_APP_URL_LOGIN}`, 
     headers: { 'Content-Type': 'Application/json' }, 
     method: 'POST', 
     body: JSON.stringify(action.payload) });
@@ -44,11 +45,19 @@ function* globalLoginUserAsync() {
 
 function* initFriendsAsync(){
   const friends = yield call(fetchData, { 
-    url: `${process.env.REACT_APP_URL_FRIENDS}/2`,
+    url: `${process.env.REACT_APP_URL_FRIENDS}/7`,
     method: 'GET', 
     });
 
   yield put(initFriendsAC(friends));
+}
+function* initUsersListAsync(action){
+  const users = yield call(fetchData, { 
+    url: `${process.env.REACT_APP_URL_USERS}/${action.payload}`,
+    method: 'GET', 
+    });
+
+  yield put(initUserslistAC(users));
 }
 
 
@@ -89,10 +98,11 @@ function* postEventAsync(action) {
 export function* sagaWatcher() {
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
+  yield takeEvery(INIT_FRIENDS_ASYNC, initFriendsAsync)
   yield takeEvery(GLOBAL_LOGIN_FETCH, globalLoginUserAsync);
-  yield takeEvery(INIT_FRIENDS, initFriendsAsync)
   // yield takeEvery("FETCH_INIT_USER", initUserAsync);
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
   yield takeEvery(FETCH_POST_EVENT, postEventAsync);
+  yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
 }

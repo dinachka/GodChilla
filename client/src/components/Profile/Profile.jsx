@@ -1,5 +1,9 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
+
 import EventsList from '../EventsList/EventsList'
 import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
@@ -23,25 +27,31 @@ function Profile() {
   const eventCreatorVisibleSwitcher = () => {
     setEventCreatorVisible(!eventCreatorVisible)
   }
+ const { user } = useSelector(state => state.userReducer)
+ const dispatch = useDispatch()
+ const { users } = useSelector(state => state.userListReducer.users)
+ console.log(users, 'все юзеры');
+ const searchInput = useRef()
+
+//  const { id } = useParams()
 
 
-  // Временный юзер(УДАЛИТЬ!!!!)
-  const profile = {
-    name: 'Elbrus',
-    lastname: 'Elbrusov',
-    photo: 'https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/319/179/6.jpg',
-  };
+  // 
+  const changingHandler = () => {
+    console.log(searchInput.current.value);
+    dispatch(initUserslistFetchAC(user.id))
+  }
 
   return (
     <div>
       <div className='profileContainer'>
         <div id='mainPhoto'>
-          <img src={profile.photo} alt="" />
+          <img src={user.photo} alt="" />
         </div>
         <div>
-          {profile.name}
+          {user.name}
           <br />
-          {profile.lastname}
+          {user.message}
         </div>
       </div>
 
@@ -54,7 +64,7 @@ function Profile() {
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
-        <input placeholder='Найти друзей' type='text'></input>
+        <input placeholder='Найти друзей' type='search' ref={searchInput}></input><button onClick={changingHandler}>искать</button>
       </div>
       <div>
         {friendsVisible && <FriendList />}
