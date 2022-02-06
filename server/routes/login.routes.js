@@ -4,7 +4,6 @@ const { User } = require('../db/models');
 
 router.post('/', async (req, res) => {
   const { email, password } = req.body;
-
   const currentUser = await User.findOne({
     where: {
       email,
@@ -39,7 +38,23 @@ router.post('/', async (req, res) => {
   res.status(200).json({
     id: req.session.user.id,
     message: 'Логин успешный!',
-    auth: true,
+    isUser: true,
+    name: req.session.user.name,
+    lastName: req.session.user.lastName,
+  });
+});
+
+router.get('/', async (req, res) => {
+  if (req.session.user) {
+    return res.status(200).json({
+      isUser: true,
+      name: req.session.user.name,
+      id: req.session.user.id,
+      message: 'Сессия найдена',
+    });
+  } return res.status(404).json({
+    isUser: false,
+    message: 'Сессия не найдена',
   });
 });
 
