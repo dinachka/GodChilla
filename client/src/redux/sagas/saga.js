@@ -1,8 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { initFriendsAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS_ASYNC } from '../actionTypes/friendsAT';
+import { INIT_FRIENDS_ASYNC, INIT_FRIENDS } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
-import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH } from '../actionTypes/userAT'
+import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
 import { getPublicEvents } from '../actionCreators/eventAC';
 // import { getCatAC } from './ActionCreators/catAC'
@@ -29,6 +29,15 @@ function* loginUserAsync(action) {
     headers: { 'Content-Type': 'Application/json' }, 
     method: 'POST', 
     body: JSON.stringify(action.payload) });
+
+  yield put(initUserAC(user));
+}
+
+function* globalLoginUserAsync() {
+  const user = yield call(fetchData, { 
+    url: process.env.REACT_APP_URL_LOGIN,
+    method: 'GET'
+   });
 
   yield put(initUserAC(user));
 }
@@ -66,7 +75,7 @@ function* logoutUserAsync() {
 //   yield put(getCatAC(cat));
 // }
 function* getPublicEventsAsync() {
-  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS, credentials: 'same-origin' });
+  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS });
   yield put(getPublicEvents(events));
 }
 
@@ -79,6 +88,7 @@ export function* sagaWatcher() {
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
   yield takeEvery(INIT_FRIENDS_ASYNC, initFriendsAsync)
+  yield takeEvery(GLOBAL_LOGIN_FETCH, globalLoginUserAsync);
   // yield takeEvery("FETCH_INIT_USER", initUserAsync);
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);

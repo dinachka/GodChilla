@@ -3,7 +3,7 @@ import './eventCreator.css'
 
 function EventCreator() {
   return (
-      <form action="/event" method="post" enctype="multipart/form-data">
+      <form action="/event" method="post" encType="multipart/form-data">
         <label className='eventCreatorForm'>Название 
           <input className='eventCreatorForm' type="text" required/>
         </label>
