@@ -44,15 +44,15 @@ function* globalLoginUserAsync() {
 
 function* initFriendsAsync(){
   const friends = yield call(fetchData, { 
-    url: `${process.env.REACT_APP_URL_FRIENDS}/2`,
+    url: `${process.env.REACT_APP_URL_FRIENDS}/7`,
     method: 'GET', 
     });
 
   yield put(initFriendsAC(friends));
 }
-function* initUsersListAsync(){
+function* initUsersListAsync(action){
   const users = yield call(fetchData, { 
-    url: `${process.env.REACT_APP_URL_USERS}/7`,
+    url: `${process.env.REACT_APP_URL_USERS}/${action.payload}`,
     method: 'GET', 
     });
 
