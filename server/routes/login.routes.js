@@ -50,6 +50,7 @@ router.get('/', async (req, res) => {
     return res.status(200).json({
       isUser: true,
       name: req.session.user.name,
+      id: req.session.user.id,
       message: 'Сессия найдена',
     });
   } return res.status(404).json({
