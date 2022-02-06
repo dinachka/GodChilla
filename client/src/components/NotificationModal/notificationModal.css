@@ -1,0 +1,13 @@
+.bottomLine{
+  width: 100%;
+  flex-shrink: 1;
+  border-bottom: 1px solid black;
+  margin: 5px;
+}
+
+.notificationModal{
+  margin: -80px 400px 0;
+  position: absolute;
+  width: 30%;
+  background-color: blanchedalmond;
+}

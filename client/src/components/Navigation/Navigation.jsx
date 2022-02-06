@@ -4,6 +4,7 @@ import './navigation.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 import { useNavigate } from 'react-router-dom';
+import NotificationModal from '../NotificationModal/NotificationModal';
 
 function Navigation() {
 
@@ -39,7 +40,8 @@ function Navigation() {
           <li><Link to="/login" className='Link' >Авторизация</Link></li>
           <li onClick={()=>setIsModal(!isModal)} className='Link' >info</li>
         </ul>
-      </nav>}      
+      </nav>}
+      {isModal && <NotificationModal />}    
     </>
   )
 }

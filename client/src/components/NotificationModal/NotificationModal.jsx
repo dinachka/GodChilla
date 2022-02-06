@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
+import './notificationModal.css';
 
 function NotificationModal() {
 
@@ -8,8 +9,11 @@ function NotificationModal() {
   const eventssNotifications = useSelector(state => state.eventsReducer)
 
   return (
-    <div>
-      {friendsNotifications?.length ? friendsNotifications.map(el => <userCard key={el.id} user={el} />) : "Уведомлений от друзей нет"}
+    <div className='notificationModal'>
+      {friendsNotifications?.length ? friendsNotifications.map(friend => <userCard key={friend.id} user={friend} />) : "Уведомлений от друзей нет"}
+      <div className='bottomLine'></div>
+      {eventssNotifications?.length ? eventssNotifications.map(event => <userCard key={event.id} user={event} />) : "Уведомлений о событиях нет"}
+      <h3>MODALO4KA</h3>
     </div>
   )
 }
