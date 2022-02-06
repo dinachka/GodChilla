@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
   res.status(200).json({
     id: req.session.user.id,
     message: 'Логин успешный!',
-    auth: true,
+    isUser: true,
     name: req.session.user.name,
     lastName: req.session.user.lastName,
   });
