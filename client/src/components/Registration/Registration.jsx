@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import { registrationFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
 import './registration.css'
 
@@ -16,6 +17,7 @@ function Registration(props) {
 
   const [isNotEqual, setIsNotEqual] = useState(false)
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const submitRegistrationHandler = (event) => {
     event.preventDefault()
@@ -31,10 +33,13 @@ function Registration(props) {
         foto: fotoRef.current.value
       }
       dispatch(registrationFetchAC(payload))
+      navigate('/login')
     }
     else {
       setIsNotEqual(true)
     }
+
+    
   }
   return (
     <div>
@@ -54,7 +59,7 @@ function Registration(props) {
         <label>Номер телефона<input type="phone" ref={telRef}/></label>
         <label>Пароль <input type="password" minLength="7" required ref={passwordRef}/></label>
         <label>Подтвердить пароль <input type="password" minLength="7" required ref={confirmPasswordRef}/></label>
-        { isNotEqual && <div>Пароли не совпадают</div>}
+        { isNotEqual && <div style={{color:'red', border:'solid', width:'200px'}}>Пароли не совпадают</div>}
         <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
         <button className='btn btnStyle' >Зарегистрироваться</button>
       </form>
