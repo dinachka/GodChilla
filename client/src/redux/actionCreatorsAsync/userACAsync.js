@@ -25,8 +25,9 @@ export const logoutFetchAC = () => {
   }
 }
 
-export const initUserslistFetchAC = () => {
+export const initUserslistFetchAC = (payload) => {
   return {
     type: INIT_USERSLIST_FETCH,
+    payload,
   }
 }
