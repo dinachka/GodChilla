@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import EventsList from '../EventsList/EventsList'
 import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
@@ -23,14 +24,21 @@ function Profile() {
   const eventCreatorVisibleSwitcher = () => {
     setEventCreatorVisible(!eventCreatorVisible)
   }
-
+ const { user } = useSelector(state => state.userReducer)
+ console.log(user, 1);
 
   // Временный юзер(УДАЛИТЬ!!!!)
   const profile = {
-    name: 'Elbrus',
-    lastname: 'Elbrusov',
-    photo: 'https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/319/179/6.jpg',
+    id: user.id,
+    name: user.name,
+    lastName: user.lastName
   };
+
+  console.log(profile);
+
+  const changingHandler = () => {
+
+  }
 
   return (
     <div>
@@ -54,7 +62,7 @@ function Profile() {
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
-        <input placeholder='Найти друзей' type='text'></input>
+        <input placeholder='Найти друзей' type='text' onChange={changingHandler}></input>
       </div>
       <div>
         {friendsVisible && <FriendList />}

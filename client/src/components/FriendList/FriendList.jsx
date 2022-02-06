@@ -9,7 +9,7 @@ import { initFriendsFetchAC } from '../../redux/actionCreatorsAsync/friendsACAsy
 function FriendList() {
   const dispatch = useDispatch()
   const friends = useSelector(state => state.friendsReducer.friends)
-  
+  console.log(friends);
   useEffect(() => {
     dispatch(initFriendsFetchAC());
   }, [dispatch])
