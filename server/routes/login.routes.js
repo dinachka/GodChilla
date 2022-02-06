@@ -35,7 +35,6 @@ router.post('/', async (req, res) => {
     email,
     signedUp: true,
   };
-  req.session.user_id = currentUser.id;
   res.status(200).json({
     id: req.session.user.id,
     message: 'Логин успешный!',

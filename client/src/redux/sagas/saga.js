@@ -67,7 +67,7 @@ function* logoutUserAsync() {
 //   yield put(getCatAC(cat));
 // }
 function* getPublicEventsAsync() {
-  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS, credentials: 'same-origin' });
+  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS });
   yield put(getPublicEvents(events));
 }
 
