@@ -22,6 +22,7 @@ const registrationRouter = require('./routes/registration.routes');
 const loginRouter = require('./routes/login.routes');
 const currentEventRouter = require('./routes/currentEvent.routes');
 const otherEventsRouter = require('./routes/otherEvents.routers');
+const currentUsersEventRouter = require('./routes/currentUsersEvents.routes');
 const logoutRouter = require('./routes/logout.routes');
 const friendsRouter = require('./routes/friendship.routes');
 const allUsersRouter = require('./routes/allUsers.routes');
@@ -58,6 +59,7 @@ app.use('/api/events', otherEventsRouter);
 app.use('/api/logout', logoutRouter);
 app.use('/api/profile', friendsRouter);
 app.use('/api/profile/allUsers', allUsersRouter);
+app.use('/api/profile/', currentUsersEventRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 
-import EventsList from '../EventsList/EventsList'
+import CurrentUsersEvents from '../CurrentUsersEvents/CurrentUsersEvents'
 import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
@@ -26,10 +26,10 @@ function Profile() {
   const eventCreatorVisibleSwitcher = () => {
     setEventCreatorVisible(!eventCreatorVisible)
   }
+
   const { user } = useSelector(state => state.userReducer)
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
-
   const searchInput = useRef()
  
 
@@ -74,7 +74,7 @@ function Profile() {
         <div className='stateSwitcher'>
         {calendarSwitcher ? <div className='display'>Лента</div> : <div className='display'>Календарь</div>}
         </div>
-        {calendarSwitcher ? 'Здесь будет красивый календарь' : <EventsList />}
+        {calendarSwitcher ? 'Здесь будет красивый календарь' : <CurrentUsersEvents />}
       </div>
     </div>
   )
