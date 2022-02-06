@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 function Navigation() {
 
   const session = useSelector(state => state.userReducer)
-  // console.log(session.user);
 
   const dispath = useDispatch();
   const navigate = useNavigate();
