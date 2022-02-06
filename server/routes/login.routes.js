@@ -41,6 +41,8 @@ router.post('/', async (req, res) => {
     id: req.session.user.id,
     message: 'Логин успешный!',
     auth: true,
+    name: req.session.user.name,
+    lastName: req.session.user.lastName,
   });
 });
 
