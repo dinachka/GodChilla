@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CurrentEvent from '../Event/Event';
+import EventOnUserProfile from '../EventOnUserProfile/EventOnUserProfile';
 import { INIT_USERS_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
 
 function CurrentUsersEvents(props) {
@@ -12,7 +12,7 @@ function CurrentUsersEvents(props) {
   
   return (
     <>
-      { userEvents?.length && userEvents.map( el => <CurrentEvent key={el.id} event={el}/>)}
+      { userEvents?.length && userEvents.map( el => <EventOnUserProfile key={el.id} event={el}/>)}
     </>
   );
 }
