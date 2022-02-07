@@ -115,6 +115,7 @@ function* deleteEventAsync(action) {
     method: 'DELETE' });
 
   yield put(deleteEventAC(id));
+}
 
 function* addFriendshipAsync(action) {
   console.log(process.env.REACT_APP_URL_FRIEND_REQ, 'friendship');
@@ -149,7 +150,7 @@ export function* sagaWatcher() {
   // Запрос на авторизацию
   yield takeEvery(LOGIN_FETCH, loginUserAsync);
   // Иницализация все друзей юзера
-  yield takeEvery(INIT_FRIENDS_ASYNC, initFriendsAsync)
+  yield takeEvery(INIT_FRIENDS_ASYNC, initFriendsAsync);
   // Прокидывание сессии и куков на все компоненты приложения
   yield takeEvery(GLOBAL_LOGIN_FETCH, globalLoginUserAsync);
 
@@ -166,10 +167,10 @@ export function* sagaWatcher() {
   // Инициализация всех зарегистрированных пользователей 
   yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
   // Удаление события автором
-  yield takeEvery(FETCH_DELETE_EVENT, deleteEventAsync)
+  yield takeEvery(FETCH_DELETE_EVENT, deleteEventAsync);
   // Инициализация ближайших событий
   yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initClosestEventsAsync);
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
-
 }
+

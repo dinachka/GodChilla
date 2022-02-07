@@ -29,7 +29,9 @@ export const addEventAC = (payload) => {
 export const deleteEventAC = (payload) => {
   return {
     type: DELETE_EVENT,
-    payload
+    payload 
+  }
+}
 
 export const initClosestEventsAC = (payload) => {
   return {
