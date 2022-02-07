@@ -21,6 +21,8 @@ router.put('/:id', async (req, res) => {
     location,
     dateTime,
     photo,
+    userID,
+    categoryID,
   } = req.body;
 
   const partyToEdit = await Event.findOne({
@@ -38,6 +40,8 @@ router.put('/:id', async (req, res) => {
   partyToEdit.location = location;
   partyToEdit.dateTime = dateTime;
   partyToEdit.photo = photo;
+  partyToEdit.userID = userID;
+  partyToEdit.categoryID = categoryID;
   partyToEdit.save();
   return res.status(200).json({
     message: 'Изменения записаны!',
@@ -45,7 +49,6 @@ router.put('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-
   const {
     userID,
     categoryID,
