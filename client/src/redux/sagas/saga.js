@@ -11,12 +11,9 @@ async function fetchData({ url, method, headers, body }) {
 
 function* initEventsAsync(action) {
   const allEvents = yield call(fetchData, {
-    url: 'http://localhost:5000/api/',
+    url: process.env.REACT_APP_INIT_EVENTS,
     headers: { 'Content-Type': 'application/json' },
-    method: 'GET',
-    body: JSON.stringify(action.payload)
   })
-
   yield put(initEventsAC(allEvents))
 }
 
