@@ -13,14 +13,13 @@ router.get('/', async (req, res) => {
         { privateSettings: 'forFriends' },
       ],
     },
-    order: [['updatedAt', 'DESC']],
+    order: [['dateTime', 'ASC']],
     include: [{
       model: User,
     }],
   });
   const friends = await Friendship.findAll({
     raw: true,
-    order: [['updatedAt', 'DESC']],
     attributes: ['reqUserID', 'resUserID'],
     where: {
       [Op.or]: [{ reqUserID: req.session.user.id }, { resUserID: req.session.user.id }],
