@@ -60,6 +60,7 @@ app.use('/api/logout', logoutRouter);
 app.use('/api/profile', friendsRouter);
 app.use('/api/profile/allUsers', allUsersRouter);
 app.use('/api/profile/', currentUsersEventRouter);
+app.use('/api/profile/friendRequest', friendsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
