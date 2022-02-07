@@ -9,7 +9,7 @@ function EventOnUserProfile({ event }) {
 
   const deleteHandle = event => {
     event.preventDefault();
-    console.log('кнопка "delete" с eventId:',curEventId);
+    // console.log('кнопка "delete" с eventId:',curEventId);
     dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId })
   };
 
