@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT'
+import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT';
+import EditForm from '../EditForm/EditForm';
 
 function EventOnUserProfile({ event }) {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const curEventId = event.id;
 
   const deleteHandle = event => {
     event.preventDefault();
-    // console.log('кнопка "delete" с eventId:',curEventId);
-    dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId })
+    dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId });
   };
 
-  const editHandle = (event) => {
-    event.preventDefault();
-    console.log('edit eventId:',curEventId);
+  const [editFormVision, setEditFormVision] = useState(false);
+  const editFormVisionSwitcher = () => {
+    setEditFormVision(!editFormVision);
   };
 
   return (
@@ -33,8 +32,16 @@ function EventOnUserProfile({ event }) {
         <div> Локация: {event.location} </div>
         <div> Дата: {event.dateTime} </div>
         <div> Описание: {event.description} </div>
-        <button onClick={editHandle}>Изменить событие</button>&nbsp;
-        <button onClick={deleteHandle}>Отменить событие</button>
+        {editFormVision && <EditForm key={event.id} event={event} />}
+        <br />
+        {editFormVision ? (
+          <button onClick={editFormVisionSwitcher}>Отменить изменения</button>
+        ) : (
+          <button onClick={editFormVisionSwitcher}>Изменить событие</button>
+        )}
+        {!editFormVision && (
+          <button onClick={deleteHandle}>Отменить событие</button>
+        )}
       </div>
     </div>
   );
