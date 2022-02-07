@@ -87,6 +87,7 @@ function* getPublicEventsAsync() {
 // Инициализация событий пользователя
 function* getUsersEventsAsync() {
   console.log(123);
+  console.log(process.env.REACT_APP_URL_USERS_EVENTLIST);
   const events = yield call(fetchData, { url: process.env.REACT_APP_URL_USERS_EVENTLIST });
   yield put(getUsersEvents(events));
 }
