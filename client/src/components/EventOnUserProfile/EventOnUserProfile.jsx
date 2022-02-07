@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT';
+import { useNavigate } from 'react-router-dom'
 import EditForm from '../EditForm/EditForm';
 
 function EventOnUserProfile({ event }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const curEventId = event.id;
-
-  const deleteHandle = event => {
-    event.preventDefault();
-    dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId });
-  };
 
   const [editFormVision, setEditFormVision] = useState(false);
   const editFormVisionSwitcher = () => {
     setEditFormVision(!editFormVision);
+  };
+
+  const deleteHandle = event => {
+    event.preventDefault();
+    dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId });
+    navigate('/events')
   };
 
   return (
@@ -28,10 +31,14 @@ function EventOnUserProfile({ event }) {
         ) : (
           <img src={`/pictures/${event.categoryID}.jpg`} alt="not found"></img>
         )}
-        <div> Заголовок: {event.title} </div>
-        <div> Локация: {event.location} </div>
-        <div> Дата: {event.dateTime} </div>
-        <div> Описание: {event.description} </div>
+        {!editFormVision && (
+          <div>
+            <div> Заголовок: {event.title} </div>
+            <div> Локация: {event.location} </div>
+            <div> Дата: {event.dateTime} </div>
+            <div> Описание: {event.description} </div>
+          </div>
+        )}
         {editFormVision && <EditForm key={event.id} event={event} />}
         <br />
         {editFormVision ? (
@@ -40,7 +47,7 @@ function EventOnUserProfile({ event }) {
           <button onClick={editFormVisionSwitcher}>Изменить событие</button>
         )}
         {!editFormVision && (
-          <button onClick={deleteHandle}>Отменить событие</button>
+          <button onClick={deleteHandle}>Удалить событие</button>
         )}
       </div>
     </div>

@@ -1,35 +1,68 @@
 import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FETCH_EDIT_EVENT } from '../../redux/actionTypes/eventAT';
+import { useNavigate } from 'react-router-dom';
+import { editEventFetchAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 
 function EditForm({ event }) {
+  const state = useSelector(state => state.userReducer);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const titleInput = useRef()
-  const descriptionInput = useRef()
-  const locationInput = useRef()
-  const dateInput = useRef()
-  const photoInput = useRef()
-  const categoryInput = useRef()
-  const privateInput = useRef()
-  const curEventId = event.id;
+  const titleInput = useRef();
+  const descriptionInput = useRef();
+  const locationInput = useRef();
+  const dateInput = useRef();
+  const photoInput = useRef();
+  const categoryInput = useRef();
+  const privateInput = useRef();
 
   const editHandle = event => {
     event.preventDefault();
-    console.log('edit eventId:', curEventId);
+
+    const editedEvent = {
+      userID: state.user.id,
+      title: titleInput.current.value,
+      description: descriptionInput.current.value,
+      location: locationInput.current.value,
+      dateTime: dateInput.current.value,
+      categoryID: +categoryInput.current.value,
+      privateSettings: privateInput.current.value,
+      photo: photoInput.current.value,
+    };
+
+    // console.log(editedEvent);
+
+    dispatch(editEventFetchAC(editedEvent));
+
+    // navigate('/events')
   };
 
   return (
-    <form type='submit' onSubmit={editHandle} action="/event" method="post" encType="multipart/form-data">
-        <label className='eventCreatorForm'>Название 
-          <input ref={titleInput} className='eventCreatorForm' type="text" required/>
-        </label>
+    <form onSubmit={editHandle}>
+      <label>
+        Название
+        <input
+          ref={titleInput}
+          type="text"
+          defaultValue={event.title}
+          required
+        />
+      </label>
 
-        <br />
-        <label className='eventCreatorForm'>Описание 
-          <input ref={descriptionInput} className='eventCreatorForm' type="text" required/>
-        </label>
+      <label>
+        Описание
+        <input
+          ref={descriptionInput}
+          type="text"
+          defaultValue={event.description}
+          required
+        />
+      </label>
 
-        <br />
-        <label className='eventCreatorForm'>Категория
-        <select ref={categoryInput} required >
+      <label>
+        Категория
+        <select ref={categoryInput} required>
           <option></option>
           <option value="1">Музыка</option>
           <option value="2">Природа</option>
@@ -38,36 +71,40 @@ function EditForm({ event }) {
           <option value="5">Вечеринки</option>
           <option value="6">Активный отдых</option>
         </select>
-        </label>
+      </label>
 
-        <br />
-        <label className='eventCreatorForm'>Статус события
-        <select ref={privateInput} required >
+      <label>
+        Статус события
+        <select ref={privateInput} required>
           <option></option>
           <option value="public">Публичный</option>
           <option value="forFriends">Для друзей</option>
-          <option value="private">Личный</option>          
+          <option value="private">Личный</option>
         </select>
-        </label>
+      </label>
 
-        <br />
-        <label className='eventCreatorForm'>Место проведения 
-          <input ref={locationInput} className='eventCreatorForm' type="text"/>
-        </label>
+      <label>
+        Место проведения
+        <input ref={locationInput} type="text" defaultValue={event.location} />
+      </label>
 
-        <br />
-        <label className='eventCreatorForm'>Дата проведения 
-          <input ref={dateInput} className='eventCreatorForm' type="date"/>
-        </label>
+      <label>
+        Дата проведения
+        <input ref={dateInput} type="date" defaultValue={event.dateTime} />
+      </label>
 
-        <br />
-        <label className='eventCreatorForm'>Фото
-          <input ref={photoInput} className='eventCreatorForm' type="file" name="photo" />
-        </label>
-        
-        <br />
-        <button className='eventCreatorForm'>Сохранить</button>
-      </form>
+      <label>
+        Фото
+        <input
+          ref={photoInput}
+          type="file"
+          name="photo"
+          defaultValue={event.photo}
+        />
+      </label>
+
+      <button>Сохранить</button>
+    </form>
   );
 }
 

@@ -40,7 +40,7 @@ function EventCreator() {
       payload: newEvent
     })
 
-    navigate('/events')
+    // navigate('/events')
   }
 
   return (
