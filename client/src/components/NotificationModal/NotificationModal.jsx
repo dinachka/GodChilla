@@ -7,7 +7,6 @@ import NotificationFriendCard from '../NotificationFriendCard/NotificationFriend
 function NotificationModal() {
 
   const friendsNotifications = useSelector(state => state.friendsReducer.notifications)
-  console.log(friendsNotifications, 'friendsNotifications');
   const eventssNotifications = useSelector(state => state.eventsReducer)
   const dispatch = useDispatch()
 

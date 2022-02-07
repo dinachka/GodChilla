@@ -3,7 +3,6 @@ const { Op } = require('sequelize');
 const { Event } = require('../db/models');
 
 router.get('/', async (req, res) => {
-  console.log(123444);
   const currentUsersEvents = await Event.findAll({
     where: {
       userID: {
