@@ -29,6 +29,7 @@ const allUsersRouter = require('./routes/allUsers.routes');
 const requestedFriendships = require('./routes/friendship.routes');
 const friendshipRequestsNotificationsRouter = require('./routes/friendship.routes');
 const closestEvents = require('./routes/closestEvents.routes');
+const userProfile = require('./routes/userProfile.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -73,6 +74,8 @@ app.use('/api/profile/friendshipNotifications', friendshipRequestsNotificationsR
 app.use('/api/profile/friendRequest', friendsRouter);
 // ближайшие мероприятия на главной странице
 app.use('/api/closesEvents', closestEvents);
+// профиль юзера для отображения для остальных пользователей
+app.use('/api/profile/user', userProfile);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
