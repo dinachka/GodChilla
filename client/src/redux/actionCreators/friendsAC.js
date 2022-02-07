@@ -1,4 +1,4 @@
-import { INIT_FRIENDS, ADD_FRIENDSHIP, INIT_FRIENDS_REQUEST_NOTIFICATIONS } from "../actionTypes/friendsAT";
+import { INIT_FRIENDS, ADD_FRIENDSHIP, INIT_FRIENDS_REQUEST_NOTIFICATIONS, ACCEPT_FRIENDSHIP, REJECT_FRIENDSHIP } from "../actionTypes/friendsAT";
 
 export const initFriendsAC = (payload) => {
   return {
@@ -21,4 +21,17 @@ export const initFriendsRequestNotificatiosnAC = (payload) => {
   }
 }
 
+export const acceptFriendshipAC = (payload) => {
+  return {
+    type: ACCEPT_FRIENDSHIP,
+    payload
+  }
+}
 
+
+export const rejectFriendshipAC = (payload) => {
+  return {
+    type: REJECT_FRIENDSHIP,
+    payload,
+  }
+}

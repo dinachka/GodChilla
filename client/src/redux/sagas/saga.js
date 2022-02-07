@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC } from '../actionTypes/friendsAT';
+import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC, acceptFriendshipAC, rejectFriendshipAC } from '../actionCreators/friendsAC';
+import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT } from '../../redux/actionTypes/eventAT'
@@ -115,7 +115,6 @@ function* deleteEventAsync(action) {
 }
 
 function* addFriendshipAsync(action) {
-  console.log(process.env.REACT_APP_URL_FRIEND_REQ, 'friendship');
   const newFriendship = yield call(fetchData, {
     url: process.env.REACT_APP_URL_FRIEND_REQ,
     headers: { 'Content-Type': 'Application/json' },
@@ -155,6 +154,22 @@ function* initFriendsRequestNotifications(action){
   })
   yield put(initFriendsRequestNotificatiosnAC(allRequests))
 }
+// принять запрос на добавление друга 
+function* acceptFriendship(action){
+  const accepted = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP,
+    headers: { 'Content-Type': 'application/json' },
+  })
+  yield put(acceptFriendshipAC(accepted))
+}
+
+function* rejectFriendship(action){
+  const reject = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_REJECT_FRIENDSHIP,
+    headers: { 'Content-Type': 'application/json' },
+  })
+  yield put(rejectFriendshipAC(reject))
+}
 
 export function* sagaWatcher() {
   // Запрос на регистрацию
@@ -185,4 +200,8 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_EDIT_EVENT, editEventAsync);
   
   yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications)
+
+  yield takeEvery(ACCEPT_FRIENDSHIP_ASYNC, acceptFriendship)
+
+  yield takeEvery(REJECT_FRIENDSHIP_ASYNC, rejectFriendship)
 }
