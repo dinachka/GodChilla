@@ -1,0 +1,2 @@
+export const INIT_FRIENDS = 'INIT_FRIENDS';
+export const INIT_FRIENDS_ASYNC = 'INIT_FRIENDS_ASYNC';

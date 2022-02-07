@@ -1,9 +1,13 @@
 import React from 'react'
-import { useState } from 'react';
-import EventsList from '../EventsList/EventsList'
-import FriendList from '../FriendList/FriendList';
-import './profile.css'
+import { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 
+import CurrentUsersEvents from '../CurrentUsersEvents/CurrentUsersEvents'
+import FriendList from '../FriendList/FriendList';
+import EventCreator from '../EventCreator/EventCreator';
+import './profile.css'
+import UserListModal from '../UserListModal/UserListModal';
 
 function Profile() {
 
@@ -17,45 +21,61 @@ function Profile() {
   const friendsVisibleSwitcher = () => {
     setFriendsVisible(!friendsVisible)
   }
+  // Логика отображения создания событий
+  const [eventCreatorVisible, setEventCreatorVisible] = useState(false)
+  const eventCreatorVisibleSwitcher = () => {
+    setEventCreatorVisible(!eventCreatorVisible)
+  }
 
-  // Временный юзер(УДАЛИТЬ!!!!)
-  const profile = {
-    name: 'Elbrus',
-    lastname: 'Elbrusov',
-    photo: 'https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/319/179/6.jpg',
-  };
+  const { user } = useSelector(state => state.userReducer)
+  const dispatch = useDispatch()
+  const { users } = useSelector(state => state.userListReducer)
+  const searchInput = useRef()
+ 
+
+  const changingHandler = (event) => {
+    event.preventDefault()
+    dispatch(initUserslistFetchAC(user.id))
+    console.log(searchInput.current.value);
+  }
 
   return (
     <div>
       <div className='profileContainer'>
         <div id='mainPhoto'>
-          <img src={profile.photo} alt="" />
+          <img src={user.photo} alt="" />
         </div>
         <div>
-          {profile.name}
+          {user.name}
           <br />
-          {profile.lastname}
+          {user.message}
         </div>
       </div>
+
       <div className='bottomLine'></div>
-      <div className='createEventBtn' >
-        <div className='display' >Создать</div>
+        <div className='createEventBtn' >
+         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
+      {eventCreatorVisible && <EventCreator />}
 
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
-        <input placeholder='Найти друзей' type='text'></input>
+
+        <input placeholder='Найти друзей' type='search' ref={searchInput}></input><button onClick={changingHandler} >искать</button>
       </div>
       <div>
         {friendsVisible && <FriendList />}
-      </div>
+      </div>  
+      {users.users?.length && <UserListModal users={users.users}/> }
+
       <div className='bottomLine'></div>
-      <div onClick={calendarSwitch} >
+      <div onClick={calendarSwitch}>
+        <h3>ваши события</h3>
         <div className='stateSwitcher'>
           {calendarSwitcher ? <div className='display'>Лента</div> : <div className='display'>Календарь</div>}
         </div>
-        {calendarSwitcher ? 'Здесь будет красивый календарь' : <EventsList />}
+        {calendarSwitcher ? 'Здесь будет красивый календарь' : <CurrentUsersEvents />}
       </div>
     </div>
   )

@@ -2,14 +2,14 @@ const router = require('express').Router();
 const { Event } = require('../db/models');
 
 router.get('/', async (req, res) => {
-  const eventId = req.params.id;
-  const allEvents = await Event.findAll({
+  // const eventId = req.params.id;
+  const publicEvents = await Event.findAll({
     where: {
-      id: eventId,
+      privateSettings: 'public',
     },
   });
   res.status(200).json('allEvents', {
-    events: allEvents,
+    events: publicEvents,
   });
 });
 

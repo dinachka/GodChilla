@@ -44,8 +44,11 @@ router.put('/:id', async (req, res) => {
   });
 });
 
-router.post('/new', async (req, res) => {
+router.post('/', async (req, res) => {
+
   const {
+    userID,
+    categoryID,
     title,
     description,
     privateSettings,
@@ -55,6 +58,8 @@ router.post('/new', async (req, res) => {
   } = req.body;
 
   const newEvent = await Event.create({
+    userID,
+    categoryID,
     title,
     description,
     privateSettings,
@@ -92,7 +97,7 @@ router.delete('/:id', async (req, res) => {
         message: 'Событие не удалилось, попробуйте снова!',
       });
     }
-  } catch {
+  } catch (error) {
     res.status(400).json({
       message: 'Что-то пошло не так, попробуйте снова!',
     });

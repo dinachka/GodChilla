@@ -1,6 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import { registrationFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
+import './registration.css'
+
 function Registration(props) {
   const loginRef = useRef();
   const nameRef = useRef();
@@ -12,41 +15,53 @@ function Registration(props) {
   const confirmPasswordRef = useRef();
   const fotoRef = useRef();
 
-  const dispatch = useDispatch();
+  const [isNotEqual, setIsNotEqual] = useState(false)
 
-  const summitRegistrationHandler = (event) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const submitRegistrationHandler = (event) => {
     event.preventDefault()
-    const payload = {
-      userName: loginRef.current.value,
-      name: nameRef.current.value,
-      lastName: surnameRef.current.value,
-      city: cityRef.current.value,
-      email: emailRef.current.value,
-      phoneNumber: telRef.current.value,
-      password: passwordRef.current.value,
-      confirmPassword: confirmPasswordRef.current.value,
-      foto: fotoRef.current.value
+    if(passwordRef.current.value === confirmPasswordRef.current.value) {
+      const payload = {
+        username: loginRef.current.value,
+        name: nameRef.current.value,
+        lastName: surnameRef.current.value,
+        city: cityRef.current.value,
+        email: emailRef.current.value,
+        phoneNumber: telRef.current.value,
+        password: passwordRef.current.value,
+        foto: fotoRef.current.value
+      }
+      dispatch(registrationFetchAC(payload))
+      navigate('/login')
     }
-    // console.log(payload);
-    dispatch(registrationFetchAC(payload))
+    else {
+      setIsNotEqual(true)
+    }
+
+    
   }
   return (
     <div>
-      <form onSubmit={summitRegistrationHandler} action="/profile" method="post" encType="multipart/form-data">
+      <form onSubmit={submitRegistrationHandler} encType="multipart/form-data" className='form' >
+
         <label>Логин <input type="text" ref={loginRef} required/></label>
         <label>Имя <input type="text" ref={nameRef} required/></label>
         <label>Фамилия <input type="text" ref={surnameRef} /></label>
-        <select ref={cityRef}>
-          <option selected disabled>Выберите город</option>
+        <label>Город
+        <select ref={cityRef} required >
+          <option></option>
           <option value="Санкт-Петербург">Санкт-Петербург</option>
           <option value="Москва">Москва</option>
         </select>
+        </label>
         <label>email <input type="email" required ref={emailRef} /></label>
         <label>Номер телефона<input type="phone" ref={telRef}/></label>
-        <label>Пароль <input type="password" required ref={passwordRef}/></label>
-        <label>Подтвердить пароль <input type="password" required ref={confirmPasswordRef}/></label>
+        <label>Пароль <input type="password" minLength="7" required ref={passwordRef}/></label>
+        <label>Подтвердить пароль <input type="password" minLength="7" required ref={confirmPasswordRef}/></label>
+        { isNotEqual && <div style={{color:'red', border:'solid', width:'200px'}}>Пароли не совпадают</div>}
         <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
-        <button>Зарегистрироваться</button>
+        <button className='btn btnStyle' >Зарегистрироваться</button>
       </form>
     </div>
   );
