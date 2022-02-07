@@ -61,7 +61,7 @@ app.use('/api/logout', logoutRouter);
 app.use('/api/profile/allFriends', friendsRouter);
 app.use('/api/profile/allUsers', allUsersRouter);
 app.use('/api/profile/', currentUsersEventRouter);
-app.use('/api/profile/requestedFriendship', requestedFriendships);
+app.use('/api/profile/friendshipNotifications', requestedFriendships);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
