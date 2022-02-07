@@ -78,11 +78,6 @@ function* logoutUserAsync() {
   yield put(deleteUserAC(user))
 }
 
-// function* getCatAsync() {
-//   const cat = yield call(fetchData, { url: 'https://aws.random.cat/meow', credentials: 'same-origin' });
-//   yield put(getCatAC(cat));
-// }
-
 // Инициализация все событий, кроме тех, что создал пользователь
 function* getPublicEventsAsync() {
   const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS });
@@ -130,11 +125,6 @@ function* addFriendshipAsync(action) {
 
 }
 
-// function* initUserAsync() {
-//   const user = yield call(fetchData, { url: "/api/registration" });
-//   yield put(initUserAC(user));
-// }
-
 // Инициализация ближайших событий 
 function* initClosestEventsAsync(action) {
   const allEvents = yield call(fetchData, {
@@ -153,13 +143,10 @@ export function* sagaWatcher() {
   yield takeEvery(INIT_FRIENDS_ASYNC, initFriendsAsync);
   // Прокидывание сессии и куков на все компоненты приложения
   yield takeEvery(GLOBAL_LOGIN_FETCH, globalLoginUserAsync);
-
-  // yield takeEvery("FETCH_INIT_USER", initUserAsync);
   // Запрос на logout, завершение сессии
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   // Инициализация все событий, кроме тех, что создал пользователь
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
-
   // Инициализация событий в профиле 
   yield takeEvery(INIT_USERS_EVENTS_FETCH, getUsersEventsAsync);
   // Создание нового события
@@ -173,4 +160,3 @@ export function* sagaWatcher() {
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
 }
-

@@ -22,7 +22,8 @@ const createFriendship = async (req, res) => {
 // вынимаем из БД спиок друзей
 
 const currentFriendships = async (req, res) => {
-  const userid = +req.session.user.id;
+  const userid = +req.params.id;
+  console.log(userid);
   // const userid = 2;
   try {
     const friends = await Friendship.findAll({
