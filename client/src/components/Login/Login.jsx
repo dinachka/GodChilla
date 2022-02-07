@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +23,7 @@ function Login(props) {
 
       <form onSubmit={submitLoginHandler} className='form' >
         <label>email <input type="email" ref={emailRef} required/></label>
-        <label>Пароль <input type="password" ref={passwordRef} required/></label>
+        <label>Пароль <input type="password" autoComplete="off" ref={passwordRef} required/></label>
         <button className='btn btnStyle' >Войти</button>
       </form>
   );

@@ -6,7 +6,6 @@ const createFriendship = async (req, res) => {
   const {
     reqUserID, resUserID,
   } = req.body;
-
   try {
     await Friendship.create({
       reqUserID, resUserID, status: 'В обработке',
@@ -91,6 +90,53 @@ const deleteFriendship = async (req, res) => {
     res.status(404).json({ error });
   }
 };
+
+// выводим все заявки на добавление в друзья конкретному юзеру
+const friendshipRequests = async (req, res) => {
+  const id = +req.session.user.id;
+  try {
+    const requestedFriendships = await Friendship.findAll({
+      raw: true,
+      include: {
+        model: User,
+        // where: {
+        //   id: 3,
+        // },
+      },
+      order: [['updatedAt', 'DESC']],
+      where: {
+        resUserID: id,
+      },
+    });
+    const formatedFriends = requestedFriendships.map((el) => {
+      if (el.reqUserID !== id) {
+        return +el.reqUserID;
+      }
+      return +el.resUserID;
+    });
+    const friends = await User.findAll({
+      raw: true,
+      where: {
+        id: formatedFriends,
+      },
+      // include: {
+      //   model: User,
+      // },
+    });
+    // try {
+    //   const potentialFriends = User.findAll({
+    //     where: { id: reqUserID },
+    //   });
+    // } catch (err) {
+    //   res.status(404).json({ err });
+    // }
+    console.log(friends);
+    res.status(200).json(friends);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
 module.exports = {
-  currentFriendships, createFriendship, deleteFriendship, friendshipAccepted,
+  currentFriendships, createFriendship, deleteFriendship, friendshipAccepted, friendshipRequests,
 };
