@@ -3,32 +3,37 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Categories', [{
-      title: 'Музыка',
+      title: 'cozy',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
     {
-      title: 'Природа',
+      title: 'nature',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
     {
-      title: 'Культура',
+      title: 'culture',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
     {
-      title: 'Релакс',
+      title: 'walk',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
     {
-      title: 'Вечеринки',
+      title: 'sport',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
     {
-      title: 'Активный отдых',
+      title: 'creative',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      title: 'cafe',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
