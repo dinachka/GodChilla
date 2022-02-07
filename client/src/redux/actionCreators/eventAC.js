@@ -23,7 +23,7 @@ export const addEventAC = (payload) => {
   }
 }
 
-export const initEventsAC = (payload) => {
+export const initClosestEventsAC = (payload) => {
   return {
     type: INIT_CLOSEST_EVENTS,
     payload,

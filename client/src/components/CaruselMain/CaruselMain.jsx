@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import SwiperCore, { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionCreators/eventAC.js'
+import { INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
 
 // Import Swiper styles
 import 'swiper/css';
@@ -31,7 +31,7 @@ function CaruselMain(props) {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         wrapperTag='ul'
         spaceBetween={50}
-        slidesPerView={3}
+        slidesPerView={2}
         navigation
         autoplay={{
           delay: 2000,
@@ -42,7 +42,6 @@ function CaruselMain(props) {
         // scrollbar={{ draggable: true }}
         style={{ height: '200px', padding: '40px' }}
       >
-
         {events.length && events.map(event =>
 
           <SwiperSlide style={{ backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD8quM5ex_WfSkUizmCjCSCPBwOQCseCatiQ&usqp=CAU)', backgroundSize: 'cover', borderRadius: '20px' }} key={event.id} >
