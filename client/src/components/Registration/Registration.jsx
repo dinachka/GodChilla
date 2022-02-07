@@ -33,7 +33,7 @@ function Registration(props) {
         foto: fotoRef.current.value
       }
       dispatch(registrationFetchAC(payload))
-      navigate('/login')
+      // navigate('/login')
     }
     else {
       setIsNotEqual(true)
@@ -59,7 +59,7 @@ function Registration(props) {
         <label>Номер телефона<input type="phone" ref={telRef}/></label>
         <label>Пароль <input type="password" minLength="7" required ref={passwordRef}/></label>
         <label>Подтвердить пароль <input type="password" minLength="7" required ref={confirmPasswordRef}/></label>
-        { isNotEqual && <div style={{color:'red', border:'solid', width:'200px'}}>Пароли не совпадают</div>}
+        { isNotEqual && <div style={{color:'red', width:'147px', margin:'auto'}}>Пароли не совпадают</div>}
         <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
         <button className='btn btnStyle' >Зарегистрироваться</button>
       </form>
