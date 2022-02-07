@@ -26,6 +26,7 @@ const currentUsersEventRouter = require('./routes/currentUsersEvents.routes');
 const logoutRouter = require('./routes/logout.routes');
 const friendsRouter = require('./routes/friendship.routes');
 const allUsersRouter = require('./routes/allUsers.routes');
+const requestedFriendships = require('./routes/friendship.routes');
 const closestEvents = require('./routes/closestEvents.routes');
 
 const sessionConfig = {
@@ -58,9 +59,10 @@ app.use('/api/login', loginRouter);
 app.use('/api/event', currentEventRouter);
 app.use('/api/events', otherEventsRouter);
 app.use('/api/logout', logoutRouter);
-app.use('/api/profile', friendsRouter);
+app.use('/api/profile/allFriends', friendsRouter);
 app.use('/api/profile/allUsers', allUsersRouter);
 app.use('/api/profile/', currentUsersEventRouter);
+app.use('/api/profile/requestedFriendship', requestedFriendships);
 app.use('/api/profile/friendRequest', friendsRouter);
 app.use('/api/closesEvents', closestEvents);
 
