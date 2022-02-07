@@ -9,10 +9,13 @@ import { initFriendsFetchAC } from '../../redux/actionCreatorsAsync/friendsACAsy
 function FriendList() {
   const dispatch = useDispatch()
   const friends = useSelector(state => state.friendsReducer.friends)
-  console.log(friends);
+  const thisUser = useSelector(state => state.userReducer)
+  // console.log(friends);
+
   useEffect(() => {
-    dispatch(initFriendsFetchAC());
-  }, [dispatch])
+    dispatch(initFriendsFetchAC(thisUser.user.id));
+  }, [dispatch, thisUser.user.id ])
+
   return (
     <>
       { friends?.length ? friends.map( el => <FriendCard key={el.id} friend={el}/>) : "У Вас пока нет друзей."}
