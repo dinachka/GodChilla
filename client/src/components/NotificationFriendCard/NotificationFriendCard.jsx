@@ -1,15 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { acceptFriendshipAsyncAC, rejectFriendshipAsyncAC } from '../../redux/actionCreatorsAsync/friendsACAsync';
 
 function NotificationFriendCard({user}) {
 const dispatch = useDispatch()
 
   const acceptFriendship = () => {
-    dispatch()
+    dispatch(acceptFriendshipAsyncAC())
   }
 
   const rejectFriendship = () => {
-    dispatch()
+    dispatch(rejectFriendshipAsyncAC())
   }
   return (
     <>
