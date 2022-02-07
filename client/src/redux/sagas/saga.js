@@ -3,9 +3,8 @@ import { initFriendsAC, addFriendshipAC } from '../actionCreators/friendsAC';
 import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
-import { getPublicEvents, getUsersEvents, addEventAC, initClosestEventsAC } from '../actionCreators/eventAC';
-
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC } from '../actionCreators/eventAC';
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
   const response = await fetch(url, {
@@ -99,7 +98,7 @@ function* getUsersEventsAsync(action) {
 // Создание нового события
 function* postEventAsync(action) {
   const newEvent = yield call(fetchData, {
-    url: `${process.env.REACT_APP_URL_POST_EVENT}`,
+    url: `${process.env.REACT_APP_URL_EVENT}`,
     headers: { 'Content-Type': 'Application/json' },
     method: 'POST',
     body: JSON.stringify(action.payload)
@@ -107,6 +106,15 @@ function* postEventAsync(action) {
 
   yield put(addEventAC(newEvent));
 }
+
+
+function* deleteEventAsync(action) {
+  const id = yield call(fetchData, {
+    url: `${process.env.REACT_APP_URL_EVENT}/${action.payload}`,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'DELETE' });
+
+  yield put(deleteEventAC(id));
 
 function* addFriendshipAsync(action) {
   console.log(process.env.REACT_APP_URL_FRIEND_REQ, 'friendship');
@@ -118,6 +126,7 @@ function* addFriendshipAsync(action) {
   });
 
   yield put(addFriendshipAC(newFriendship));
+
 }
 
 // function* initUserAsync() {
@@ -156,8 +165,11 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_POST_EVENT, postEventAsync);
   // Инициализация всех зарегистрированных пользователей 
   yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
+  // Удаление события автором
+  yield takeEvery(FETCH_DELETE_EVENT, deleteEventAsync)
   // Инициализация ближайших событий
   yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initClosestEventsAsync);
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
+
 }

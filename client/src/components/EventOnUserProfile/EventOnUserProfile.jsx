@@ -1,14 +1,21 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT'
 
 function EventOnUserProfile({ event }) {
+
+  const dispatch = useDispatch()
+  const curEventId = event.id;
+
   const deleteHandle = event => {
     event.preventDefault();
-    console.log('delete');
+    // console.log('кнопка "delete" с eventId:',curEventId);
+    dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId })
   };
 
-  const editHandle = event => {
+  const editHandle = (event) => {
     event.preventDefault();
-    console.log('edit');
+    console.log('edit eventId:',curEventId);
   };
 
   return (
@@ -26,7 +33,7 @@ function EventOnUserProfile({ event }) {
         <div> Локация: {event.location} </div>
         <div> Дата: {event.dateTime} </div>
         <div> Описание: {event.description} </div>
-        <button onClick={editHandle}>Изменить событие</button>
+        <button onClick={editHandle}>Изменить событие</button>&nbsp;
         <button onClick={deleteHandle}>Отменить событие</button>
       </div>
     </div>
