@@ -27,6 +27,7 @@ const logoutRouter = require('./routes/logout.routes');
 const friendsRouter = require('./routes/friendship.routes');
 const allUsersRouter = require('./routes/allUsers.routes');
 const requestedFriendships = require('./routes/friendship.routes');
+const closestEvents = require('./routes/closestEvents.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -62,6 +63,8 @@ app.use('/api/profile/allFriends', friendsRouter);
 app.use('/api/profile/allUsers', allUsersRouter);
 app.use('/api/profile/', currentUsersEventRouter);
 app.use('/api/profile/requestedFriendship', requestedFriendships);
+app.use('/api/profile/friendRequest', friendsRouter);
+app.use('/api/closesEvents', closestEvents);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

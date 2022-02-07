@@ -6,7 +6,6 @@ const createFriendship = async (req, res) => {
   const {
     reqUserID, resUserID,
   } = req.body;
-
   try {
     await Friendship.create({
       reqUserID, resUserID, status: 'В обработке',

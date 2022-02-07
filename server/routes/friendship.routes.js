@@ -3,8 +3,8 @@ const {
   deleteFriendship, createFriendship, currentFriendships, friendshipAccepted, friendshipRequests,
 } = require('../controllers/friendships.controller');
 
-// // создание дружбы на собственной странице в поисковике
-// router.post('/profile/:id', createFriendship);
+// создание дружбы на собственной странице в поисковике
+router.post('/', createFriendship);
 
 // // создание дружбы на странице юзера
 // router.post('/profile/:id', createFriendship);
