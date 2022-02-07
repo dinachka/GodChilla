@@ -31,7 +31,7 @@ function Profile() {
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
- 
+
 
   const changingHandler = (event) => {
     event.preventDefault()
@@ -53,8 +53,8 @@ function Profile() {
       </div>
 
       <div className='bottomLine'></div>
-        <div className='createEventBtn' >
-         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
+      <div className='createEventBtn' >
+        <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
       {eventCreatorVisible && <EventCreator />}
 
@@ -66,14 +66,14 @@ function Profile() {
       </div>
       <div>
         {friendsVisible && <FriendList />}
-      </div>  
-      {users.users?.length && <UserListModal users={users.users}/> }
+      </div>
+      {users.users?.length && <UserListModal users={users.users} />}
 
       <div className='bottomLine'></div>
       <div >
         {/* <h3>ваши события</h3> */}
         <div className='stateSwitcher'>
-        {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
+          {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
         </div>
         {calendarSwitcher ? 'Здесь будет красивый календарь' : <CurrentUsersEvents />}
       </div>

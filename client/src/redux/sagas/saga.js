@@ -3,67 +3,68 @@ import { initFriendsAC, addFriendshipAC } from '../actionCreators/friendsAC';
 import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
-import { getPublicEvents, getUsersEvents, addEventAC } from '../actionCreators/eventAC';
-
-// import { getCatAC } from './ActionCreators/catAC'
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents, getUsersEvents, addEventAC, initClosestEventsAC } from '../actionCreators/eventAC';
 
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
-  const response = await fetch(url, { method, headers, body, credentials
+  const response = await fetch(url, {
+    method, headers, body, credentials
   });
   return (await response.json());
 }
 // Запрос на регистрацию
 function* registrationUserAsync(action) {
-  const newUser = yield call(fetchData, { 
-    url: process.env.REACT_APP_URL_REGISTRATION, 
-    headers: { 'Content-Type': 'Application/json' }, 
-    method: 'POST', 
-    body: JSON.stringify(action.payload) });
+  const newUser = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_REGISTRATION,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'POST',
+    body: JSON.stringify(action.payload)
+  });
 
   yield put(addUserAC(newUser));
 }
 // Запрос на авторизацию
 function* loginUserAsync(action) {
-  const user = yield call(fetchData, { 
-    url: `${process.env.REACT_APP_URL_LOGIN}`, 
-    headers: { 'Content-Type': 'Application/json' }, 
-    method: 'POST', 
-    body: JSON.stringify(action.payload) });
+  const user = yield call(fetchData, {
+    url: `${process.env.REACT_APP_URL_LOGIN}`,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'POST',
+    body: JSON.stringify(action.payload)
+  });
 
   yield put(initUserAC(user));
 }
 
 // Прокидывание сессии и куков на все компоненты приложения
 function* globalLoginUserAsync() {
-  const user = yield call(fetchData, { 
+  const user = yield call(fetchData, {
     url: process.env.REACT_APP_URL_LOGIN,
     method: 'GET'
-   });
+  });
 
   yield put(initUserAC(user));
 }
 
 // Иницализация все друзей юзера
-function* initFriendsAsync(action){
-  const friends = yield call(fetchData, { 
+function* initFriendsAsync(action) {
+  const friends = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_FRIENDS}/${action.payload}`,
-    method: 'GET', 
-    });
+    method: 'GET',
+  });
 
   yield put(initFriendsAC(friends));
 }
 
 // Инициализация всех зарегистрированных пользователей 
-function* initUsersListAsync(action){
+function* initUsersListAsync(action) {
   console.log(action.payload);
   const users = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_USERS}/${action.payload}`,
     // headers: { 'Content-Type': 'Application/json' },
     method: 'GET',
     // body: JSON.stringify(action.payload)
-    });
+  });
 
   yield put(initUserslistAC(users));
 }
@@ -71,10 +72,10 @@ function* initUsersListAsync(action){
 // Запрос на logout, завершение сессии
 function* logoutUserAsync() {
   const user = yield call(fetchData, {
-    url: process.env.REACT_APP_URL_LOGOUT, 
+    url: process.env.REACT_APP_URL_LOGOUT,
     method: 'GET',
   });
-  
+
   yield put(deleteUserAC(user))
 }
 
@@ -85,7 +86,7 @@ function* logoutUserAsync() {
 
 // Инициализация все событий, кроме тех, что создал пользователь
 function* getPublicEventsAsync() {
-  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS});
+  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS });
   yield put(getPublicEvents(events));
 }
 
@@ -101,7 +102,8 @@ function* postEventAsync(action) {
     url: `${process.env.REACT_APP_URL_POST_EVENT}`,
     headers: { 'Content-Type': 'Application/json' },
     method: 'POST',
-    body: JSON.stringify(action.payload) });
+    body: JSON.stringify(action.payload)
+  });
 
   yield put(addEventAC(newEvent));
 }
@@ -112,7 +114,8 @@ function* addFriendshipAsync(action) {
     url: process.env.REACT_APP_URL_FRIEND_REQ,
     headers: { 'Content-Type': 'Application/json' },
     method: 'POST',
-    body: JSON.stringify(action.payload) });
+    body: JSON.stringify(action.payload)
+  });
 
   yield put(addFriendshipAC(newFriendship));
 }
@@ -122,6 +125,14 @@ function* addFriendshipAsync(action) {
 //   yield put(initUserAC(user));
 // }
 
+// Инициализация ближайших событий 
+function* initClosestEventsAsync(action) {
+  const allEvents = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_INIT_CLOSEST_EVENTS,
+    headers: { 'Content-Type': 'application/json' },
+  })
+  yield put(initClosestEventsAC(allEvents))
+}
 
 export function* sagaWatcher() {
   // Запрос на регистрацию
@@ -145,6 +156,8 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_POST_EVENT, postEventAsync);
   // Инициализация всех зарегистрированных пользователей 
   yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
+  // Инициализация ближайших событий
+  yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initClosestEventsAsync);
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
 }
