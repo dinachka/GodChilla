@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
       },
     },
   });
-  console.log(currentUsersEvents);
   res.status(200).json({
     events: currentUsersEvents,
   });

@@ -8,12 +8,13 @@ router.post('/', async (req, res) => {
     username,
     email,
     password,
-    name,
-    lastName,
     phoneNumber,
     photo,
     city,
   } = req.body;
+  const name = req.body.name[0].toUpperCase() + req.body.name.slice(1).toLowerCase();
+  const lastName = req.body.lastName[0].toUpperCase() + req.body.lastName.slice(1).toLowerCase();
+
   if (password.length < 6) {
     res.status(400).json({ user: false, message: 'Длина пароля должна быть больше 6 символов' });
   }
