@@ -22,7 +22,7 @@ function CaruselMain(props) {
     dispatch({ type: INIT_CLOSEST_EVENTS_FETCH })
   }, [dispatch])
 
-  const { events } = useSelector(state => state.eventReducer)
+  const { closesEvents: events } = useSelector(state => state.eventReducer)
   console.log(events);
 
   return (

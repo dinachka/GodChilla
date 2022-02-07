@@ -28,6 +28,7 @@ function Profile() {
   }
 
   const { user } = useSelector(state => state.userReducer)
+  console.log(user);
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
