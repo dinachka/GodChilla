@@ -183,8 +183,6 @@ export function* sagaWatcher() {
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
   // Изменение событиях
   yield takeEvery(FETCH_EDIT_EVENT, editEventAsync);
-}
-
-
+  
   yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications)
 }

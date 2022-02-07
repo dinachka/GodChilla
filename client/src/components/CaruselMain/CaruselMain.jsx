@@ -23,7 +23,6 @@ function CaruselMain(props) {
   }, [dispatch])
 
   const { closesEvents: events } = useSelector(state => state.eventReducer)
-  console.log(events);
 
   return (
     <>

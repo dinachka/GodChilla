@@ -1,8 +1,8 @@
 
 import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, INIT_CLOSEST_EVENTS, DELETE_EVENT, EDIT_EVENT } from "../actionTypes/eventAT"
-const initialState = { events: {} }
 
 const initialState = { events: {}, userEvents: {}, closesEvents: {} }
+
 export const eventReducer = (state = initialState, action) => {
   switch (action.type) {
     case INIT_PUBLIC_EVENTS:
