@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
         { privateSettings: 'forFriends' },
       ],
     },
+    order: [['updatedAt', 'DESC']],
     include: [{
       model: User,
     }],
@@ -26,16 +27,39 @@ router.get('/', async (req, res) => {
       status: 'Подтвержден',
     },
   });
-  const formatedFriends = friends.map((el) => {
+  const friendsId = friends.map((el) => {
     if (el.reqUserID !== req.session.user.id) {
       return +el.reqUserID;
     }
     return +el.resUserID;
   });
+  const cityFilter = otherEvents.filter((el) => (el.User.city === req.session.user.city));
+  const friendEventFilter = cityFilter
+    .filter((el) => ((el.privateSettings === 'forFriends') ? friendsId.includes(el.User.id) : true));
+  const editEvents = friendEventFilter
+    .map((el) => (friendsId.includes(+el.User.id)
+      ? {
+        ...el.dataValues,
+        User: {
+          name: el.User.dataValues.name,
+          lastName: el.User.dataValues.lastName,
+          photo: el.User.dataValues.photo,
+          id: el.User.dataValues.id,
+          isFriend: true,
+        },
+        friend: true,
+      } : {
+        ...el.dataValues,
+        User: {
+          name: el.User.dataValues.name,
+          lastName: el.User.dataValues.lastName,
+          photo: el.User.dataValues.photo,
+          id: el.User.dataValues.id,
+          isFriend: false,
+        },
+      }));
   res.status(200).json({
-    events: otherEvents.filter((el) => el.User.city === req.session.user.city),
-    friendsId: formatedFriends,
+    events: editEvents,
   });
 });
-
 module.exports = router;

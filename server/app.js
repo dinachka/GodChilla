@@ -27,6 +27,8 @@ const logoutRouter = require('./routes/logout.routes');
 const friendsRouter = require('./routes/friendship.routes');
 const allUsersRouter = require('./routes/allUsers.routes');
 const requestedFriendships = require('./routes/friendship.routes');
+const friendshipRequestsNotificationsRouter = require('./routes/friendship.routes');
+const closestEvents = require('./routes/closestEvents.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -58,10 +60,19 @@ app.use('/api/login', loginRouter);
 app.use('/api/event', currentEventRouter);
 app.use('/api/events', otherEventsRouter);
 app.use('/api/logout', logoutRouter);
+
+// список всех друзей на профиле
 app.use('/api/profile/allFriends', friendsRouter);
+// список всех пользователей для поисковика
 app.use('/api/profile/allUsers', allUsersRouter);
-app.use('/api/profile/', currentUsersEventRouter);
-app.use('/api/profile/friendshipNotifications', requestedFriendships);
+// список событий пользователя на профиле
+app.use('/api/profile/events', currentUsersEventRouter);
+// уведомления о запросе о дружбе
+app.use('/api/profile/friendshipNotifications', friendshipRequestsNotificationsRouter);
+// запрос на дружбу
+app.use('/api/profile/friendRequest', friendsRouter);
+// ближайшие мероприятия на главной странице
+app.use('/api/closesEvents', closestEvents);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

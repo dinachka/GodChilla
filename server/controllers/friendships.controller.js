@@ -6,7 +6,6 @@ const createFriendship = async (req, res) => {
   const {
     reqUserID, resUserID,
   } = req.body;
-
   try {
     await Friendship.create({
       reqUserID, resUserID, status: 'В обработке',
@@ -93,8 +92,9 @@ const deleteFriendship = async (req, res) => {
 };
 
 // выводим все заявки на добавление в друзья конкретному юзеру
-const friendshipRequests = async (req, res) => {
+const friendshipRequestsNotifications = async (req, res) => {
   const id = +req.session.user.id;
+  console.log(id);
   try {
     const requestedFriendships = await Friendship.findAll({
       raw: true,
@@ -131,7 +131,7 @@ const friendshipRequests = async (req, res) => {
     // } catch (err) {
     //   res.status(404).json({ err });
     // }
-    console.log(friends);
+    console.log(friends, 1);
     res.status(200).json(friends);
   } catch (error) {
     res.status(404).json({ error });
@@ -139,5 +139,9 @@ const friendshipRequests = async (req, res) => {
 };
 
 module.exports = {
-  currentFriendships, createFriendship, deleteFriendship, friendshipAccepted, friendshipRequests,
+  currentFriendships,
+  createFriendship,
+  deleteFriendship,
+  friendshipAccepted,
+  friendshipRequestsNotifications,
 };
