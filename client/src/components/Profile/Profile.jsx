@@ -72,7 +72,6 @@ function Profile() {
 
       <div className='bottomLine'></div>
       <div >
-        {/* <h3>ваши события</h3> */}
         <div className='stateSwitcher'>
           {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
         </div>
