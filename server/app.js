@@ -76,7 +76,7 @@ app.use('/api/profile/friendRequest', friendsRouter);
 // ближайшие мероприятия на главной странице
 app.use('/api/closesEvents', closestEvents);
 // принять заявку о дружбе
-app.use('/api/profile/acceptFriends', acceptFriendship);
+app.use('/api/profile/acceptFriendship', acceptFriendship);
 // отклонить заявку о дружбе
 app.use('/api/profile/rejectFriendship', rejectFriendship);
 
