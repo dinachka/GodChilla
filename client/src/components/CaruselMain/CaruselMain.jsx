@@ -29,24 +29,27 @@ function CaruselMain(props) {
     <>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        wrapperTag='ul'
+        // wrapperTag='ul'
         spaceBetween={50}
         slidesPerView={2}
         navigation
+        // navigation={{
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev',
+        // }}
         autoplay={{
           delay: 2000,
           disableOnInteraction: true,
         }}
-        speed={1000}
+        speed={2000}
         pagination={{ clickable: true }}
         // scrollbar={{ draggable: true }}
-        style={{ height: '200px', padding: '40px' }}
+        style={{ height: '150px', padding: '40px' }}
       >
         {events.length && events.map(event =>
-
           <SwiperSlide style={{ backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD8quM5ex_WfSkUizmCjCSCPBwOQCseCatiQ&usqp=CAU)', backgroundSize: 'cover', borderRadius: '20px' }} key={event.id} >
             <div style={{ paddingLeft: '30px' }}>
-              <h2>{event.title} {event.id} </h2>
+              <h2>{event.title} </h2>
               <p>{event.dateTime} </p>
               <p> {event.location} </p>
             </div>
@@ -55,7 +58,7 @@ function CaruselMain(props) {
 
       </Swiper>
     </>
-  );
+  )
 }
 
 export default CaruselMain;

@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
   try {
     const closestEvents = await Event.findAll({
       where: {
-        privateSettings: 'Для всех',
+        privateSettings: 'public',
       },
       order: [['dateTime', 'ASC']],
       raw: true,
