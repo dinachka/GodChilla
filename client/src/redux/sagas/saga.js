@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { initFriendsAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS_ASYNC, INIT_FRIENDS } from '../actionTypes/friendsAT';
+import { initFriendsAC, addFriendshipAC } from '../actionCreators/friendsAC';
+import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
@@ -49,7 +49,6 @@ function* globalLoginUserAsync() {
 
 // Иницализация все друзей юзера
 function* initFriendsAsync(action) {
-  console.log('friends', process.env.REACT_APP_URL_FRIENDS);
   const friends = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_FRIENDS}/${action.payload}`,
     method: 'GET',
@@ -58,7 +57,7 @@ function* initFriendsAsync(action) {
   yield put(initFriendsAC(friends));
 }
 
-// Инициализация всех зарегестрированных пользователей 
+// Инициализация всех зарегистрированных пользователей 
 function* initUsersListAsync(action) {
   console.log(action.payload);
   const users = yield call(fetchData, {
@@ -92,13 +91,13 @@ function* getPublicEventsAsync() {
   yield put(getPublicEvents(events));
 }
 
-
-// Создание нового события
+// Инициализация всех зарегистрированных пользователей 
 function* getUsersEventsAsync(action) {
   const events = yield call(fetchData, { url: process.env.REACT_APP_URL_FRIENDS });
   yield put(getUsersEvents(events));
 }
 
+// Создание нового события
 function* postEventAsync(action) {
   const newEvent = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_POST_EVENT}`,
@@ -108,6 +107,18 @@ function* postEventAsync(action) {
   });
 
   yield put(addEventAC(newEvent));
+}
+
+function* addFriendshipAsync(action) {
+  console.log(process.env.REACT_APP_URL_FRIEND_REQ, 'friendship');
+  const newFriendship = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_FRIEND_REQ,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'POST',
+    body: JSON.stringify(action.payload)
+  });
+
+  yield put(addFriendshipAC(newFriendship));
 }
 
 // function* initUserAsync() {
@@ -140,11 +151,14 @@ export function* sagaWatcher() {
   // Инициализация все событий, кроме тех, что создал пользователь
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
 
-  // Создание нового события
+  // Инициализация событий в профиле 
   yield takeEvery(INIT_USERS_EVENTS_FETCH, getUsersEventsAsync);
+  // Создание нового события
   yield takeEvery(FETCH_POST_EVENT, postEventAsync);
-  // Инициализация всех зарегестрированных пользователей 
+  // Инициализация всех зарегистрированных пользователей 
   yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
-
+  // Инициализация ближайших событий
   yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initEventsAsync);
+  // Запрос на дружбу
+  yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
 }
