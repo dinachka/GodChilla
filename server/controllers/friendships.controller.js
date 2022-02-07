@@ -95,20 +95,34 @@ const deleteFriendship = async (req, res) => {
 // выводим все заявки на добавление в друзья конкретному юзеру
 const friendshipRequests = async (req, res) => {
   const id = +req.session.user.id;
-  console.log(id);
   try {
     const requestedFriendships = await Friendship.findAll({
       raw: true,
-      // include: {
-      //   model: User,
-      //   where: {
-      //     id: 3,
-      //   },
-      // },
+      include: {
+        model: User,
+        // where: {
+        //   id: 3,
+        // },
+      },
       order: [['updatedAt', 'DESC']],
       where: {
         resUserID: id,
       },
+    });
+    const formatedFriends = requestedFriendships.map((el) => {
+      if (el.reqUserID !== id) {
+        return +el.reqUserID;
+      }
+      return +el.resUserID;
+    });
+    const friends = await User.findAll({
+      raw: true,
+      where: {
+        id: formatedFriends,
+      },
+      // include: {
+      //   model: User,
+      // },
     });
     // try {
     //   const potentialFriends = User.findAll({
@@ -117,8 +131,8 @@ const friendshipRequests = async (req, res) => {
     // } catch (err) {
     //   res.status(404).json({ err });
     // }
-    console.log(requestedFriendships);
-    res.status(200).json(requestedFriendships);
+    console.log(friends);
+    res.status(200).json(friends);
   } catch (error) {
     res.status(404).json({ error });
   }
