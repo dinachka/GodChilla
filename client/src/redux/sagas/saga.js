@@ -3,8 +3,8 @@ import { initFriendsAC } from '../actionCreators/friendsAC';
 import { INIT_FRIENDS_ASYNC, INIT_FRIENDS } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
-import { getPublicEvents, getUsersEvents, addEventAC } from '../actionCreators/eventAC';
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC } from '../actionCreators/eventAC';
 
 // import { getCatAC } from './ActionCreators/catAC'
 
@@ -99,12 +99,22 @@ function* getUsersEventsAsync(action) {
 
 function* postEventAsync(action) {
   const newEvent = yield call(fetchData, {
-    url: `${process.env.REACT_APP_URL_POST_EVENT}`,
+    url: `${process.env.REACT_APP_URL_EVENT}`,
     headers: { 'Content-Type': 'Application/json' },
     method: 'POST',
     body: JSON.stringify(action.payload) });
 
   yield put(addEventAC(newEvent));
+}
+
+function* deleteEventAsync(action) {
+  const id = yield call(fetchData, {
+    url: `${process.env.REACT_APP_URL_EVENT}/${action.payload}`,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'DELETE' });
+
+  // put - аналог dispatch в redux-saga
+  yield put(deleteEventAC(id));
 }
 
 // function* initUserAsync() {
@@ -134,4 +144,6 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_POST_EVENT, postEventAsync);
   // Инициализация всех зарегестрированных пользователей 
   yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
+  // Удаление события автором
+  yield takeEvery(FETCH_DELETE_EVENT, deleteEventAsync)
 }
