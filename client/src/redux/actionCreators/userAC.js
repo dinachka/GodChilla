@@ -5,19 +5,20 @@ export const addUserAC = (payload) => {
     payload
   }
 }
+
 export const initUserAC = (payload) => {
   return {
     type: INIT_USER,
     payload
   }
 }
+
 export const deleteUserAC = (payload) => {
   return {
     type: DELETE_USER,
     payload
   }
 }
-
 
 export const initUserslistAC = (payload) => {
   return {

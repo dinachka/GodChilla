@@ -159,7 +159,6 @@ export function* sagaWatcher() {
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   // Инициализация все событий, кроме тех, что создал пользователь
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
-
   // Инициализация событий в профиле 
   yield takeEvery(INIT_USERS_EVENTS_FETCH, getUsersEventsAsync);
   // Создание нового события
