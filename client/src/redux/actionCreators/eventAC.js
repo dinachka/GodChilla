@@ -1,4 +1,4 @@
-import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, INIT_EVENTS_FETCH } from '../actionTypes/eventAT'
+import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, INIT_CLOSEST_EVENTS } from '../actionTypes/eventAT'
 
 export const getPublicEvents = (payload) => {
   return {
@@ -25,7 +25,7 @@ export const addEventAC = (payload) => {
 
 export const initEventsAC = (payload) => {
   return {
-    type: INIT_EVENTS_FETCH,
+    type: INIT_CLOSEST_EVENTS,
     payload,
   }
 }

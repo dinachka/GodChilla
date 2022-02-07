@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import SwiperCore, { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionCreators/eventAC.js'
 
 // Import Swiper styles
 import 'swiper/css';
@@ -18,10 +19,10 @@ function CaruselMain(props) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_INIT_EVENTS' })
+    dispatch({ type: INIT_CLOSEST_EVENTS_FETCH })
   }, [dispatch])
 
-  const { events } = useSelector(state => state.eventsReducer)
+  const { events } = useSelector(state => state.eventReducer)
   console.log(events);
 
   return (

@@ -3,7 +3,7 @@ import { initFriendsAC } from '../actionCreators/friendsAC';
 import { INIT_FRIENDS_ASYNC, INIT_FRIENDS } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
 import { getPublicEvents, getUsersEvents, addEventAC } from '../actionCreators/eventAC';
 import { initEventsAC } from '../actionCreators/eventAC.js';
 
@@ -115,7 +115,7 @@ function* postEventAsync(action) {
 //   yield put(initUserAC(user));
 // }
 
-
+// Инициализация ближайших событий 
 function* initEventsAsync(action) {
   const allEvents = yield call(fetchData, {
     url: process.env.REACT_APP_INIT_EVENTS,
@@ -146,5 +146,5 @@ export function* sagaWatcher() {
   // Инициализация всех зарегестрированных пользователей 
   yield takeEvery(INIT_USERSLIST_FETCH, initUsersListAsync);
 
-  yield takeEvery("FETCH_INIT_EVENTS", initEventsAsync);
+  yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initEventsAsync);
 }
