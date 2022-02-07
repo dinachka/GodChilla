@@ -70,10 +70,10 @@ function Profile() {
       {users.users?.length && <UserListModal users={users.users}/> }
 
       <div className='bottomLine'></div>
-      <div onClick={calendarSwitch}>
-        <h3>ваши события</h3>
+      <div >
+        {/* <h3>ваши события</h3> */}
         <div className='stateSwitcher'>
-        {calendarSwitcher ? <div className='display'>Лента</div> : <div className='display'>Календарь</div>}
+        {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
         </div>
         {calendarSwitcher ? 'Здесь будет красивый календарь' : <CurrentUsersEvents />}
       </div>
