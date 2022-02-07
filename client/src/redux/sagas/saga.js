@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { initFriendsAC, addFriendshipAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH } from '../actionTypes/friendsAT';
+import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC } from '../actionCreators/friendsAC';
+import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
@@ -89,9 +89,10 @@ function* getPublicEventsAsync() {
   yield put(getPublicEvents(events));
 }
 
-// Инициализация всех зарегистрированных пользователей 
-function* getUsersEventsAsync(action) {
-  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_FRIENDS });
+// Инициализация событий пользователя
+function* getUsersEventsAsync() {
+  console.log(123);
+  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_USERS_EVENTLIST });
   yield put(getUsersEvents(events));
 }
 
@@ -144,6 +145,15 @@ function* initClosestEventsAsync(action) {
   yield put(initClosestEventsAC(allEvents))
 }
 
+
+// вывод увдеомлений о добавлении в друзьями
+function* initFriendsRequestNotifications(action){
+  const allRequests  = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_USERS_FRIENDSHIP_NOTIFICATIONS,
+    headers: { 'Content-Type': 'application/json' },
+  })
+  yield put(initFriendsRequestNotificatiosnAC(allRequests))
+}
 export function* sagaWatcher() {
   // Запрос на регистрацию
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
@@ -159,7 +169,6 @@ export function* sagaWatcher() {
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   // Инициализация все событий, кроме тех, что создал пользователь
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
-
   // Инициализация событий в профиле 
   yield takeEvery(INIT_USERS_EVENTS_FETCH, getUsersEventsAsync);
   // Создание нового события
@@ -172,5 +181,7 @@ export function* sagaWatcher() {
   yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initClosestEventsAsync);
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
+
+  yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications)
 }
 
