@@ -1,14 +1,7 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 
 function CurrentEvent({event}) {
-  const { friendsId } = useSelector(state => state.eventReducer);
-  const [friend, setFriends] = useState(false)
-  useEffect(() => {
-    setFriends(friendsId.includes(+event.User.id))
-  }, [friendsId, friend, event.User.id])
   const clickJoinHandler = () => {}
   return (
     <div>
@@ -23,7 +16,7 @@ function CurrentEvent({event}) {
       <div> Описание </div>
       <div> { event.description } </div>
       <div> Инициатор </div>
-      <Link to={`/profile/${event.User.id}`}> { event.User.name } { event.User.lastName } { friend && <div>ДРУЖИЩЕ</div> } { event.User.photo && <img style={{maxWeigth: '1', maxHeight: "1"}} src={event.User.photo} alt=""/>}</Link>
+      <Link to={`/profile/${event.User.id}`}> { event.User.name } { event.User.lastName } { event.User.isFriend && <div>ДРУЖИЩЕ</div> } { event.User.photo && <img style={{maxWeigth: '1', maxHeight: "1"}} src={event.User.photo} alt=""/>}</Link>
       <button onClick={clickJoinHandler}>Присоединиться</button>
     </div>
   );
