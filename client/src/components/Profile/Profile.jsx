@@ -36,7 +36,7 @@ function Profile() {
 
   const changingHandler = (event) => {
     event.preventDefault()
-    dispatch(initUserslistFetchAC(user.id))
+    dispatch(initUserslistFetchAC(searchInput.current.value))
     console.log(searchInput.current.value);
   }
 

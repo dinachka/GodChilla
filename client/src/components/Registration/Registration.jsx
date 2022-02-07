@@ -33,7 +33,7 @@ function Registration(props) {
         foto: fotoRef.current.value
       }
       dispatch(registrationFetchAC(payload))
-      // navigate('/login')
+      navigate('/login')
     }
     else {
       setIsNotEqual(true)

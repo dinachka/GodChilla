@@ -2,8 +2,9 @@ const { Op } = require('sequelize');
 const { User } = require('../db/models');
 
 const allUsers = async (req, res) => {
-  const currentUserId = +req.params.id;
-  // console.log(+req.session.user.id);
+  let currentUserInput = req.params.word;
+  const currentUserId = +req.session.user.id;
+  currentUserInput = currentUserInput[0].toUpperCase() + currentUserInput.slice(1);
   try {
     const users = await User.findAll({
       raw: true,
@@ -11,6 +12,9 @@ const allUsers = async (req, res) => {
       where: {
         id: {
           [Op.ne]: currentUserId,
+        },
+        name: {
+          [Op.startsWith]: currentUserInput,
         },
       },
     });

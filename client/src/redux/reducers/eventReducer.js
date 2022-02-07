@@ -1,5 +1,6 @@
 import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, INIT_CLOSEST_EVENTS, DELETE_EVENT } from "../actionTypes/eventAT"
-const initialState = { events: {}, userEvents: {} }
+
+const initialState = { events: {}, userEvents: {}, closesEvents: {} }
 
 export const eventReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -14,10 +15,9 @@ export const eventReducer = (state = initialState, action) => {
       return { ...state, userEvents: action.payload.events}
 
     case INIT_CLOSEST_EVENTS:
-      return { ...state, events: action.payload }
+      return { ...state, closesEvents: action.payload }
 
     default:
       return state
   }
 }
-
