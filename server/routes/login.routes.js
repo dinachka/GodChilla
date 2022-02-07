@@ -33,6 +33,7 @@ router.post('/', async (req, res) => {
     phoneNumber: currentUser.phoneNumber,
     photo: currentUser.photo,
     email,
+    city: currentUser.city,
     signedUp: true,
   };
   res.status(200).json({
