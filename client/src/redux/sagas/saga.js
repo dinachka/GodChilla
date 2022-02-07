@@ -47,7 +47,6 @@ function* globalLoginUserAsync() {
 
 // Иницализация все друзей юзера
 function* initFriendsAsync(action){
-  console.log('friends', process.env.REACT_APP_URL_FRIENDS);
   const friends = yield call(fetchData, { 
     url: `${process.env.REACT_APP_URL_FRIENDS}/${action.payload}`,
     method: 'GET', 
@@ -108,8 +107,9 @@ function* postEventAsync(action) {
 }
 
 function* addFriendshipAsync(action) {
+  console.log(process.env.REACT_APP_URL_FRIEND_REQ, 'friendship');
   const newFriendship = yield call(fetchData, {
-    url: `${process.env.REACT_APP_URL_FRIEND_REQ}`,
+    url: process.env.REACT_APP_URL_FRIEND_REQ,
     headers: { 'Content-Type': 'Application/json' },
     method: 'POST',
     body: JSON.stringify(action.payload) });
