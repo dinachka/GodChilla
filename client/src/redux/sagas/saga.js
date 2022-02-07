@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { initFriendsAC, addFriendshipAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH } from '../actionTypes/friendsAT';
+import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC } from '../actionCreators/friendsAC';
+import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT } from '../../redux/actionTypes/eventAT'
@@ -78,20 +78,17 @@ function* logoutUserAsync() {
   yield put(deleteUserAC(user))
 }
 
-// function* getCatAsync() {
-//   const cat = yield call(fetchData, { url: 'https://aws.random.cat/meow', credentials: 'same-origin' });
-//   yield put(getCatAC(cat));
-// }
-
 // Инициализация все событий, кроме тех, что создал пользователь
 function* getPublicEventsAsync() {
   const events = yield call(fetchData, { url: process.env.REACT_APP_URL_PUBLIC_EVENTS });
   yield put(getPublicEvents(events));
 }
 
-// Инициализация всех зарегистрированных пользователей 
-function* getUsersEventsAsync(action) {
-  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_FRIENDS });
+// Инициализация событий пользователя
+function* getUsersEventsAsync() {
+  console.log(123);
+  console.log(process.env.REACT_APP_URL_USERS_EVENTLIST);
+  const events = yield call(fetchData, { url: process.env.REACT_APP_URL_USERS_EVENTLIST });
   yield put(getUsersEvents(events));
 }
 
@@ -130,11 +127,6 @@ function* addFriendshipAsync(action) {
 
 }
 
-// function* initUserAsync() {
-//   const user = yield call(fetchData, { url: "/api/registration" });
-//   yield put(initUserAC(user));
-// }
-
 // Инициализация ближайших событий 
 function* initClosestEventsAsync(action) {
   const allEvents = yield call(fetchData, {
@@ -155,6 +147,15 @@ function* editEventAsync(action) {
   yield put(editEventAC(editedEvent));
 }
 
+// вывод увдеомлений о добавлении в друзьями
+function* initFriendsRequestNotifications(action){
+  const allRequests  = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_USERS_FRIENDSHIP_NOTIFICATIONS,
+    headers: { 'Content-Type': 'application/json' },
+  })
+  yield put(initFriendsRequestNotificatiosnAC(allRequests))
+}
+
 export function* sagaWatcher() {
   // Запрос на регистрацию
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
@@ -164,13 +165,10 @@ export function* sagaWatcher() {
   yield takeEvery(INIT_FRIENDS_ASYNC, initFriendsAsync);
   // Прокидывание сессии и куков на все компоненты приложения
   yield takeEvery(GLOBAL_LOGIN_FETCH, globalLoginUserAsync);
-
-  // yield takeEvery("FETCH_INIT_USER", initUserAsync);
   // Запрос на logout, завершение сессии
   yield takeEvery(LOGOUT_FETCH, logoutUserAsync);
   // Инициализация все событий, кроме тех, что создал пользователь
   yield takeEvery(PUBLIC_EVENTS_FETCH, getPublicEventsAsync);
-
   // Инициализация событий в профиле 
   yield takeEvery(INIT_USERS_EVENTS_FETCH, getUsersEventsAsync);
   // Создание нового события
@@ -187,3 +185,6 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_EDIT_EVENT, editEventAsync);
 }
 
+
+  yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications)
+}

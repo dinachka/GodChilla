@@ -47,7 +47,6 @@ router.get('/', async (req, res) => {
           id: el.User.dataValues.id,
           isFriend: true,
         },
-        friend: true,
       } : {
         ...el.dataValues,
         User: {

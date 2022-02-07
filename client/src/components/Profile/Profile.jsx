@@ -28,6 +28,7 @@ function Profile() {
   }
 
   const { user } = useSelector(state => state.userReducer)
+  console.log(user);
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
@@ -35,7 +36,7 @@ function Profile() {
 
   const changingHandler = (event) => {
     event.preventDefault()
-    dispatch(initUserslistFetchAC(user.id))
+    dispatch(initUserslistFetchAC(searchInput.current.value))
     console.log(searchInput.current.value);
   }
 
@@ -71,7 +72,6 @@ function Profile() {
 
       <div className='bottomLine'></div>
       <div >
-        {/* <h3>ваши события</h3> */}
         <div className='stateSwitcher'>
           {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
         </div>
