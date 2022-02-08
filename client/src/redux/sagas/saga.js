@@ -57,7 +57,6 @@ function* initFriendsAsync(action) {
 
 // Инициализация всех зарегистрированных пользователей 
 function* initUsersListAsync(action) {
-  console.log(action.payload);
   const users = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_USERS}/${action.payload}`,
     // headers: { 'Content-Type': 'Application/json' },
