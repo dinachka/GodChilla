@@ -1,4 +1,4 @@
-import { FETCH_EDIT_EVENT, FETCH_JOIN_EVENT } from '../actionTypes/eventAT'
+import { FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT } from '../actionTypes/eventAT'
 
 export const editEventFetchAC = (payload) => {
   return {
@@ -10,6 +10,13 @@ export const editEventFetchAC = (payload) => {
 export const joinEventFetchAC = (payload) => {
   return {
     type: FETCH_JOIN_EVENT,
+    payload,
+  }
+}
+
+export const cancelJoinEventFetchAC = (payload) => {
+  return {
+    type: FETCH_CANCEL_JOIN_EVENT,
     payload,
   }
 }
