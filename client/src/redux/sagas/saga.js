@@ -149,6 +149,7 @@ function* acceptFriendship(action){
     url: process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
+    body: JSON.stringify(action.payload)
   })
   yield put(acceptFriendshipAC(accepted))
 }
@@ -158,7 +159,8 @@ function* rejectFriendship(action){
   const reject = yield call(fetchData, {
     url: process.env.REACT_APP_URL_REJECT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
-    method: 'DELETE'
+    method: 'DELETE',
+    body: JSON.stringify(action.payload)
   })
   yield put(rejectFriendshipAC(reject))
 }

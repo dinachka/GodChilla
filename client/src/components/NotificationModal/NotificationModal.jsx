@@ -11,7 +11,6 @@ function NotificationModal() {
   const friendsNotifications = useSelector(state => state.friendsReducer.notifications)
   const eventsNotifications = useSelector(state => state.eventReducer.notifications.participations)
   const dispatch = useDispatch()
-  
   useEffect(() => {
     dispatch(initFriendsRequestNotificatiosnAsyncAC())
     }, [dispatch])
