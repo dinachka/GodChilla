@@ -64,14 +64,12 @@ const currentFriendships = async (req, res) => {
 const friendshipAccepted = async (req, res) => {
   const { id } = req.session.user;
   const reqUserID = req.body.id;
-  console.log(reqUserID, 'req.bidy');
   // console.log(JSON.stringify(req.session), id);
   try {
     const acceptedFriendship = await Friendship.update(
       { status: 'Подтвержден' },
       { where: { resUserID: id, reqUserID } },
     );
-    console.log(acceptedFriendship);
     res.status(200).json(reqUserID);
   } catch (error) {
     res.status(404).json({ error: error.message });
@@ -111,7 +109,6 @@ const friendshipRequestsNotifications = async (req, res) => {
     });
 
     const filteredfriendship = requestedFriendships.filter((el) => el.status === 'В обработке');
-    console.log(requestedFriendships, 'requestedFriendships');
     const formatedFriends = filteredfriendship.map((el) => {
       if (el.reqUserID !== id) {
         return +el.reqUserID;
@@ -130,7 +127,6 @@ const friendshipRequestsNotifications = async (req, res) => {
         // },
       },
     });
-    console.log(friends, 'friends');
     res.status(200).json(friends);
   } catch (error) {
     res.status(404).json({ error });

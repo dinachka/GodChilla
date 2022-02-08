@@ -32,12 +32,15 @@ router.get('/getEventRequest', async (req, res) => {
 
 router.put('/acceptEventRequest', async (req, res) => {
   const { id } = req.session.user;
+  const { userID } = req.body;
+  const { eventID } = req.body;
+  console.log(userID, 'userID');
   try {
     const acceptedEventRequest = await Participation.update(
       { status: 'Подтвержден' },
-      { where: { resUserID: +id } },
+      { where: { userID, eventID } },
     );
-    res.status(200).json(acceptedEventRequest);
+    res.status(200).json(userID);
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
@@ -45,13 +48,17 @@ router.put('/acceptEventRequest', async (req, res) => {
 
 router.delete('/rejectEventRequest', async (req, res) => {
   const { id } = req.session.user;
+  const { userID } = req.body;
+  const { eventID } = req.body;
+  console.log(userID, 'userID', eventID, 'eventID');
   try {
     const rejectedEvent = await Participation.destroy({
       where: {
-        resUserID: +id,
+        userID,
+        eventID,
       },
     });
-    res.status(200).json(rejectedEvent);
+    res.status(200).json(userID);
   } catch (error) {
     res.status(404).json({ error });
   }

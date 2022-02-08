@@ -1,5 +1,5 @@
 
-import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, DELETE_EVENT, INIT_CLOSEST_EVENTS, EVENTS_REQUESTS_NOTIFICATIONS } from '../actionTypes/eventAT'
+import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, DELETE_EVENT, INIT_CLOSEST_EVENTS, EVENTS_REQUESTS_NOTIFICATIONS, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS, REJECT_EVENTS_REQUESTS_NOTIFICATIONS } from '../actionTypes/eventAT'
 
 
 export const getPublicEvents = (payload) => {
@@ -50,3 +50,18 @@ export const eventsRequestsNotificationsAC = (payload) => {
   }
 }
 
+export const acceptEventsRequestsNotificationsAC = (payload) => {
+  return {
+    type: ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS,
+    payload,
+
+  }
+}
+
+export const rejectEventsRequestsNotificationsAC = (payload) => {
+  return {
+    type: REJECT_EVENTS_REQUESTS_NOTIFICATIONS,
+    payload,
+
+  }
+}
