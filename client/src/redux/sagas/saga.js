@@ -2,8 +2,10 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 
 import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC, acceptFriendshipAC, rejectFriendshipAC } from '../actionCreators/friendsAC';
 import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC } from '../actionTypes/friendsAT';
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT } from '../../redux/actionTypes/eventAT';
-import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC, editEventAC, addParticipationAC, cancelJoinEventAC } from '../actionCreators/eventAC';
+
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT, EVENTS_REQUESTS_NOTIFICATIONS_FETCH } from '../../redux/actionTypes/eventAT';
+import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC, editEventAC, addParticipationAC, cancelJoinEventAC, eventsRequestsNotificationsAC } from '../actionCreators/eventAC';
+
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC, initAnotherUserAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH, INIT_ANOTHER_USER_FETCH  } from '../actionTypes/userAT'
 
@@ -181,6 +183,16 @@ function* rejectFriendship(action){
   })
   yield put(rejectFriendshipAC(reject))
 }
+
+function* eventsRequestNotifications(action){
+  const events = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_EVENTS_REQUESTS_NOTIFICATIONS,
+    headers: { 'Content-Type': 'application/json' },
+  })
+  yield put(eventsRequestsNotificationsAC(events))
+}
+// уведомления о запросе принятия участия в событии
+
 // запросить разрешение присоединиться к событию
 function* joinEventAsync(action) {
   const eventID = yield call(fetchData, {
@@ -240,4 +252,7 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_JOIN_EVENT, joinEventAsync);
   // отмена запроса на участие в событии
   yield takeEvery(FETCH_CANCEL_JOIN_EVENT, cancelJoinEventAsync);
+}
+
+  yield takeEvery(EVENTS_REQUESTS_NOTIFICATIONS_FETCH, eventsRequestNotifications)
 }
