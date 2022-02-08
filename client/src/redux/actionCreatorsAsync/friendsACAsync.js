@@ -1,4 +1,4 @@
-import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC } from '../actionTypes/friendsAT'
+import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC } from '../actionTypes/friendsAT'
 export const initFriendsFetchAC = (payload) => {
   return {
     type: INIT_FRIENDS_ASYNC,
@@ -16,6 +16,21 @@ export const addFriendshipFetchAC = (payload) => {
 export const initFriendsRequestNotificatiosnAsyncAC = (payload) => {
   return {
     type: INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC,
+    payload,
+  }
+}
+
+
+export const acceptFriendshipAsyncAC = (payload) => {
+  return {
+    type: ACCEPT_FRIENDSHIP_ASYNC,
+    payload,
+  }
+}
+
+export const rejectFriendshipAsyncAC = (payload) => {
+  return {
+    type: REJECT_FRIENDSHIP_ASYNC,
     payload,
   }
 }

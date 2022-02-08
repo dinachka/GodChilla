@@ -1,10 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS_ASYNC, INIT_FRIENDS, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC } from '../actionTypes/friendsAT';
+
+import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC, acceptFriendshipAC, rejectFriendshipAC } from '../actionCreators/friendsAC';
+import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC, initAnotherUserAC } from '../actionCreators/userAC';
-import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH, INIT_ANOTHER_USER_FETCH } from '../actionTypes/userAT'
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
-import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC } from '../actionCreators/eventAC';
+import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH, INIT_ANOTHER_USER_FETCH  } from '../actionTypes/userAT'
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC, editEventAC } from '../actionCreators/eventAC';
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
   const response = await fetch(url, {
@@ -57,7 +58,6 @@ function* initFriendsAsync(action) {
 
 // Инициализация всех зарегистрированных пользователей 
 function* initUsersListAsync(action) {
-  console.log(action.payload);
   const users = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_USERS}/${action.payload}`,
     // headers: { 'Content-Type': 'Application/json' },
@@ -86,8 +86,6 @@ function* getPublicEventsAsync() {
 
 // Инициализация событий пользователя
 function* getUsersEventsAsync() {
-  console.log(123);
-  console.log(process.env.REACT_APP_URL_USERS_EVENTLIST);
   const events = yield call(fetchData, { url: process.env.REACT_APP_URL_USERS_EVENTLIST });
   yield put(getUsersEvents(events));
 }
@@ -115,7 +113,6 @@ function* deleteEventAsync(action) {
 }
 
 function* addFriendshipAsync(action) {
-  console.log(process.env.REACT_APP_URL_FRIEND_REQ, 'friendship');
   const newFriendship = yield call(fetchData, {
     url: process.env.REACT_APP_URL_FRIEND_REQ,
     headers: { 'Content-Type': 'Application/json' },
@@ -136,6 +133,16 @@ function* initClosestEventsAsync(action) {
   yield put(initClosestEventsAC(allEvents))
 }
 
+function* editEventAsync(action) {
+  const editedEvent = yield call(fetchData, {
+    url: `${process.env.REACT_APP_URL_EVENT}/${action.payload.userID}`,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'PUT',
+    body: JSON.stringify(action.payload) });
+
+  // put - аналог dispatch в redux-saga
+  yield put(editEventAC(editedEvent));
+}
 
 // вывод увeдомлений о добавлении в друзьями
 function* initFriendsRequestNotifications(action){
@@ -145,6 +152,7 @@ function* initFriendsRequestNotifications(action){
   })
   yield put(initFriendsRequestNotificatiosnAC(allRequests))
 }
+
   // иницализация профиля другого юзера
 function* initAnotherUserAsync(action){
   const anotherUser  = yield call(fetchData, {
@@ -152,6 +160,26 @@ function* initAnotherUserAsync(action){
     headers: { 'Content-Type': 'application/json' },
   })
   yield put(initAnotherUserAC(anotherUser))
+
+// принять запрос на добавление друга 
+function* acceptFriendship(action){
+  console.log(process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP);
+  const accepted = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP,
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PUT',
+  })
+  yield put(acceptFriendshipAC(accepted))
+}
+
+//  отклонить запрос на добавление в друзья
+function* rejectFriendship(action){
+  const reject = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_REJECT_FRIENDSHIP,
+    headers: { 'Content-Type': 'application/json' },
+    method: 'DELETE'
+  })
+  yield put(rejectFriendshipAC(reject))
 }
 
 export function* sagaWatcher() {
@@ -179,8 +207,19 @@ export function* sagaWatcher() {
   yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initClosestEventsAsync);
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
+
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
   // Инициализация 
   yield takeEvery(INIT_ANOTHER_USER_FETCH, initAnotherUserAsync);
+
+  // Изменение событиях
+  yield takeEvery(FETCH_EDIT_EVENT, editEventAsync);
+  
+  yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications)
+
+  yield takeEvery(ACCEPT_FRIENDSHIP_ASYNC, acceptFriendship)
+
+  yield takeEvery(REJECT_FRIENDSHIP_ASYNC, rejectFriendship)
+
 }

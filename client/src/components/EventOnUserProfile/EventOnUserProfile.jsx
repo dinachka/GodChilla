@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT'
+import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT';
+import { useNavigate } from 'react-router-dom';
+import EditForm from '../EditForm/EditForm';
 
 function EventOnUserProfile({ event }) {
-
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const curEventId = event.id;
+
+  const [editFormVision, setEditFormVision] = useState(false);
+  const editFormVisionSwitcher = () => {
+    setEditFormVision(!editFormVision);
+  };
 
   const deleteHandle = event => {
     event.preventDefault();
-    // console.log('кнопка "delete" с eventId:',curEventId);
-    dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId })
-  };
-
-  const editHandle = (event) => {
-    event.preventDefault();
-    console.log('edit eventId:',curEventId);
+    dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId });
+    navigate('/events');
   };
 
   return (
@@ -29,12 +31,24 @@ function EventOnUserProfile({ event }) {
         ) : (
           <img src={`/pictures/${event.categoryID}.jpg`} alt="not found"></img>
         )}
-        <div> Заголовок: {event.title} </div>
-        <div> Локация: {event.location} </div>
-        <div> Дата: {event.dateTime} </div>
-        <div> Описание: {event.description} </div>
-        <button onClick={editHandle}>Изменить событие</button>&nbsp;
-        <button onClick={deleteHandle}>Отменить событие</button>
+        {!editFormVision && (
+          <div>
+            <div> Название встречи: {event.title} </div>
+            <div> Описание: {event.description} </div>
+            <div> Место: {event.location} </div>
+            <div> Дата: {event.dateTime} </div>
+          </div>
+        )}
+        {editFormVision && <EditForm key={event.id} event={event} />}
+        <br />
+        {editFormVision ? (
+          <button onClick={editFormVisionSwitcher}>Отменить изменения</button>
+        ) : (
+          <button onClick={editFormVisionSwitcher}>Изменить событие</button>
+        )}
+        {!editFormVision && (
+          <button onClick={deleteHandle}>Удалить событие</button>
+        )}
       </div>
     </div>
   );
