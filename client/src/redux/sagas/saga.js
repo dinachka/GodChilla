@@ -160,7 +160,7 @@ function* initAnotherUserAsync(action){
     headers: { 'Content-Type': 'application/json' },
   })
   yield put(initAnotherUserAC(anotherUser))
-
+}
 // принять запрос на добавление друга 
 function* acceptFriendship(action){
   console.log(process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP);
