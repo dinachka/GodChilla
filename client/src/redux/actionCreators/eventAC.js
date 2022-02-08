@@ -1,5 +1,6 @@
 
-import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, DELETE_EVENT, INIT_CLOSEST_EVENTS, EDIT_EVENT, JOIN_EVENT } from '../actionTypes/eventAT'
+import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, DELETE_EVENT, INIT_CLOSEST_EVENTS, EVENTS_REQUESTS_NOTIFICATIONS, EDIT_EVENT, JOIN_EVENT } from '../actionTypes/eventAT'
+
 
 
 export const getPublicEvents = (payload) => {
@@ -50,6 +51,15 @@ export const initClosestEventsAC = (payload) => {
   }
 }
 
+
+export const eventsRequestsNotificationsAC = (payload) => {
+  return {
+    type: EVENTS_REQUESTS_NOTIFICATIONS,
+      payload,
+
+  }
+}
+
 export const addParticipationAC = (payload) => {
   return {
     type: JOIN_EVENT,
@@ -57,5 +67,3 @@ export const addParticipationAC = (payload) => {
 
   }
 }
-
-

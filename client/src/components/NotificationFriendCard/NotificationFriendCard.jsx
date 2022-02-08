@@ -10,7 +10,7 @@ const dispatch = useDispatch()
   }
 
   const rejectFriendship = () => {
-    dispatch(rejectFriendshipAsyncAC())
+    dispatch(rejectFriendshipAsyncAC)
   }
   return (
     <>

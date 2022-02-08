@@ -1,5 +1,7 @@
 const { Op } = require('sequelize');
-const { User, Friendship } = require('../db/models');
+const {
+  User, Friendship, Participation, Event,
+} = require('../db/models');
 
 // создаем запись в БД с запросом на дружбу
 const createFriendship = async (req, res) => {
@@ -72,7 +74,7 @@ const friendshipAccepted = async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 };
-// удаляем запись дружбы из БД
+// удаляем (отклоняем запрос) запись дружбы из БД
 const rejectFriendship = async (req, res) => {
   const { id } = req.session.user;
   try {
