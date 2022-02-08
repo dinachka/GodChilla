@@ -16,7 +16,7 @@ function CurrentEvent({event}) {
       <div> Описание </div>
       <div> { event.description } </div>
       <div> Инициатор </div>
-      <Link to={`/profile/${event.User.id}`}> { event.User.name } { event.User.lastName } { event.User.isFriend && <div>ДРУЖИЩЕ</div> } { event.User.photo && <img style={{maxWeigth: '1', maxHeight: "1"}} src={event.User.photo} alt=""/>}</Link>
+      <Link to={`/profile/user/${event.User.id}`}> { event.User.name } { event.User.lastName } { event.User.isFriend && <div>ДРУЖИЩЕ</div> } { event.User.photo && <img style={{maxWeigth: '1', maxHeight: "1"}} src={event.User.photo} alt=""/>}</Link>
       <button onClick={clickJoinHandler}>Присоединиться</button>
     </div>
   );
