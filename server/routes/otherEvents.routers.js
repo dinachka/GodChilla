@@ -126,4 +126,24 @@ router.post('/join', async (req, res) => {
   }
 });
 
+router.delete('/join/:id', async (req, res) => {
+  const eventID = +(req.params.id);
+  const userID = +(req.session.user.id);
+  try {
+    await Participation.destroy({
+      where: {
+        eventID,
+        userID,
+      },
+    });
+    res.status(200).json({
+      eventID,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;

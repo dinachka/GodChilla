@@ -1,14 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { joinEventFetchAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
+import { joinEventFetchAC, cancelJoinEventFetchAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 
 function CurrentEvent({ event }) {
   const dispatch = useDispatch()
   const clickJoinHandler = () => {
     dispatch(joinEventFetchAC({eventID: event.id}))
   }
-  const clickCancelJoinHandler = () => {}
+  const clickCancelJoinHandler = () => {
+    dispatch(cancelJoinEventFetchAC(event.id))
+  }
   return (
     <div>
       {event.photo ? (
