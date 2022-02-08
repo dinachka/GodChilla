@@ -3,6 +3,7 @@ import './userCardInModal.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { addFriendshipFetchAC } from '../../redux/actionCreatorsAsync/friendsACAsync';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function UserCardInModal({ user }) {
 
@@ -19,15 +20,16 @@ function UserCardInModal({ user }) {
     dispatch(addFriendshipFetchAC(idForFriends))
     navigate('/profile');
   }
-  console.log(mainUser.user.id);
 
   return (
-    <div className='userCardInModal' >
-      <div>{ user.name }</div>
-      <div>{ user.lastName }</div>
-      <button onClick={getFriendship} >Добавить в друзья!</button>
-      <br />
-    </div>
+    <Link to={`/profile/user/${user.id}`} >
+      <div className='userCardInModal' >
+        <div>{ user.name }</div>
+        <div>{ user.lastName }</div>
+        <button onClick={getFriendship} >Добавить в друзья!</button>
+        <br />
+      </div>
+    </Link>
   )
 }
 

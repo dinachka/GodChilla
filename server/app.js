@@ -32,6 +32,7 @@ const closestEvents = require('./routes/closestEvents.routes');
 const acceptFriendship = require('./routes/friendship.routes');
 const rejectFriendship = require('./routes/friendship.routes');
 const eventsNotifications = require('./routes/eventsNotifications.routes');
+const userProfile = require('./routes/userProfile.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -82,6 +83,8 @@ app.use('/api/profile/acceptFriendship', acceptFriendship);
 app.use('/api/profile/rejectFriendship', rejectFriendship);
 // уведомления о запросах принять уччастие в событиях
 app.use('/api/profile/eventsNotifications', eventsNotifications);
+// профиль юзера для отображения для остальных пользователей
+app.use('/api/profile/user', userProfile);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

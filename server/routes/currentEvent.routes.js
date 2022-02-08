@@ -13,19 +13,21 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const eventId = req.params.id;
   const {
+    eventID,
     title,
     description,
     privateSettings,
     location,
     dateTime,
     photo,
+    userID,
+    categoryID,
   } = req.body;
 
   const partyToEdit = await Event.findOne({
     where: {
-      id: eventId,
+      id: eventID,
     },
   });
 
@@ -38,6 +40,8 @@ router.put('/:id', async (req, res) => {
   partyToEdit.location = location;
   partyToEdit.dateTime = dateTime;
   partyToEdit.photo = photo;
+  partyToEdit.userID = userID;
+  partyToEdit.categoryID = categoryID;
   partyToEdit.save();
   return res.status(200).json({
     message: 'Изменения записаны!',
@@ -45,7 +49,6 @@ router.put('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-
   const {
     userID,
     categoryID,

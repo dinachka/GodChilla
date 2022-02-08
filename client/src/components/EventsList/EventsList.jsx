@@ -5,50 +5,80 @@ import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
 
 function EventsList(props) {
   const dispatch = useDispatch()
-  const musicRef = useRef()
+  const creativeRef = useRef()
   const natureRef = useRef()
   const cultureRef = useRef()
-  const relaxRef = useRef()
-  const partyRef = useRef()
+  const cafeRef = useRef()
+  const walkRef = useRef()
   const sportRef = useRef()
+  const cozyRef = useRef()
   const dateInput = useRef()
+  const relationRef = useRef()
 
   const { events } = useSelector(state => state.eventReducer)
+
+  const [filtredEvents, setFilter] = useState(events)
+  const [needFilter, setNeedFilter] = useState(false)
+
   useEffect(() => {
     dispatch({ type: PUBLIC_EVENTS_FETCH })
   },[dispatch])
-  const privetStatus = () => {}
-  const [filter, setFilter] = useState(events)
-  const checkHandler = () => {
-    console.log( musicRef.current?.value,
-    natureRef.current?.value,
-    cultureRef.current?.value,
-    relaxRef.current?.value,
-    partyRef.current?.value,
-    sportRef.current?.value)
+  
+  useEffect(() => {
+    setFilter(events)
+  }, [events])
+
+  const filferHandler = () => {
+    const category = [creativeRef, natureRef, cultureRef, cafeRef, walkRef, sportRef, cozyRef]
+    .filter(el => el.current.checked)
+    .map(el => +el.current.value)
+    
+    setFilter(() => {
+      return events.filter(el => {
+        return (relationRef.current.value === "friend" ? el.User.isFriend :
+        relationRef.current.value === "notFriend" ? !el.User.isFriend : true) 
+                && category.includes(el.categoryID)
+                && (dateInput.current.value ? dateInput.current.value === el.dateTime : true)
+        })
+      }
+    )
   }
+
+  const dropDateHandler = () => {
+    dateInput.current.value = null;
+    filferHandler();
+  }
+
   return (
     <>
-    <form>
-      <label>
-        <select ref={privetStatus} required >
-          <option value="public">Все</option>
-          <option value="friend">Друзья</option>
-        </select>
-      </label>
-    </form>
-     <form onChecked={(value) => console.log(value)}>
-      <label>Музыка<input type="checkbox" onChange={checkHandler} ref={musicRef} value={1}/></label>
-      <label>Природа<input type="checkbox" ef={natureRef} onChange={checkHandler} value={2}/></label>
-      <label>Культура<input type="checkbox" ef={cultureRef} onChange={checkHandler} value={3}/></label> 
-      <label>Релакс<input type="checkbox" ef={relaxRef} onChange={checkHandler} value={4}/></label>
-      <label>Вечеринки<input type="checkbox" ef={partyRef} onChange={checkHandler} value={5}/></label>
-      <label>Активный отдых<input type="checkbox" ef={sportRef} onChange={checkHandler} value={6}/></label> 
-    </form>
-      <label className='eventCreatorForm'>Дата проведения 
-        <input ref={dateInput} className='eventCreatorForm' type="date"/>
-      </label>
-      { events?.length && events.map( el => <CurrentEvent key={el.id} event={el}/>)}
+      <button onClick={() => { setNeedFilter(!needFilter)}}>{needFilter ? "скрыть фильтр": "фильтровать"}</button>
+      { needFilter ?
+        <>
+        <form>
+          <label>
+            <select defaultValue="all" onChange={filferHandler} ref={relationRef} required >
+              <option value="all">все события</option>
+              <option value="friend">события друзей</option>
+              <option value="notFriend">события не добавленных в друзья</option>
+            </select>
+          </label>
+        </form>
+        <form>
+          <label>посиделки<input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/></label>
+          <label>отдых на природе<input type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2}/></label>
+          <label>культура, зрелищные мероприятия<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3}/></label>
+          <label>прогулка/поездка<input type="checkbox" ref={walkRef} onChange={filferHandler} defaultChecked="checked" value={4}/></label>
+          <label>активный отдых, спорт<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={sportRef} value={5}/></label>
+          <label>творчество<input type="checkbox" ref={creativeRef} onChange={filferHandler} defaultChecked="checked" value={6}/></label> 
+          <label>кафе, бар, ресторан<input type="checkbox" ref={cafeRef} onChange={filferHandler} defaultChecked="checked" value={7}/></label>
+        </form>
+          <label className='eventCreatorForm'>Дата проведения 
+            <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date"/>
+          </label>
+          <button onClick={dropDateHandler}>сбросить фильтр по дате</button>
+          { filtredEvents?.length && filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) }
+      </> : events?.length && events.map( el => <CurrentEvent key={el.id} event={el}/>)
+      }
     </>
   );
 }
