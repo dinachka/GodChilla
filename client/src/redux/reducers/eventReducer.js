@@ -1,5 +1,5 @@
 
-import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, INIT_CLOSEST_EVENTS, DELETE_EVENT, EDIT_EVENT } from "../actionTypes/eventAT"
+import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, INIT_CLOSEST_EVENTS, DELETE_EVENT, EDIT_EVENT, JOIN_EVENT } from "../actionTypes/eventAT"
 
 const initialState = { events: {}, userEvents: {}, closesEvents: {} }
 
@@ -20,6 +20,10 @@ export const eventReducer = (state = initialState, action) => {
     case EDIT_EVENT:
       console.log(state.userEvents);
       return { ...state, userEvents: action.payload.events }
+
+    case JOIN_EVENT:
+      return { ...state, events: state.events.map( el => el.id === action.payload.eventID ? 
+        {...el, status: 'В обработке'} : el)}
 
     default:
       return state

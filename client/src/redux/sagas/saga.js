@@ -3,8 +3,8 @@ import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC, acce
 import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT } from '../../redux/actionTypes/eventAT'
-import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC, editEventAC } from '../actionCreators/eventAC';
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC, editEventAC, addParticipationAC } from '../actionCreators/eventAC';
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
   const response = await fetch(url, {
@@ -170,6 +170,17 @@ function* rejectFriendship(action){
   })
   yield put(rejectFriendshipAC(reject))
 }
+// запросить разрешение присоединиться к событию
+function* joinEventAsync(action) {
+  const eventID = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_JOIN_EVENT,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'POST',
+    body: JSON.stringify(action.payload)
+  });
+
+  yield put(addParticipationAC(eventID));
+}
 
 export function* sagaWatcher() {
   // Запрос на регистрацию
@@ -199,9 +210,12 @@ export function* sagaWatcher() {
   // Изменение событиях
   yield takeEvery(FETCH_EDIT_EVENT, editEventAsync);
   
-  yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications)
+  yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications);
 
-  yield takeEvery(ACCEPT_FRIENDSHIP_ASYNC, acceptFriendship)
+  yield takeEvery(ACCEPT_FRIENDSHIP_ASYNC, acceptFriendship);
 
-  yield takeEvery(REJECT_FRIENDSHIP_ASYNC, rejectFriendship)
+  yield takeEvery(REJECT_FRIENDSHIP_ASYNC, rejectFriendship);
+  // запрос на участие в событии
+  yield takeEvery(FETCH_JOIN_EVENT, joinEventAsync);
+  
 }
