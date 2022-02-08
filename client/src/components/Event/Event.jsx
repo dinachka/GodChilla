@@ -5,6 +5,7 @@ function CurrentEvent({ event }) {
   const clickJoinHandler = () => {};
   return (
     <div>
+
       {event.photo ? (
         <img
           src="https://pbs.twimg.com/profile_images/445338647261229056/Gf5tt71x_400x400.jpeg"

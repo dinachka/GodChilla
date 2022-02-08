@@ -8,8 +8,8 @@ import Navigation from "./components/Navigation/Navigation";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
-// import CurrentProfile from "./components/CurrentProfile/CurrentProfile";
 import EventsList from "./components/EventsList/EventsList";
+import UserProfile from "./components/UserProfile/UserProfile";
 // import CurrentEvent from "./components/CurrentEvent/CurrentEvent";
 // import NotFound from "./components/NotFound/NotFound";
 
@@ -25,7 +25,7 @@ function App() {
             <Route path='/registration' element={<Registration />} />
             <Route path='/login' element={<Login />} />
             <Route path='/profile' element={<Profile />} />
-            {/* <Route path='/profile/:id' element={<CurrentProfile />} /> */}
+            <Route path='/profile/user/:id' element={<UserProfile />} />
             <Route path='/events' element={<EventsList />} />
             {/* <Route path='/events/:id' element={<CurrentEvent />} /> */}
             {/* <Route path='*' element={<NotFound />} /> */}
