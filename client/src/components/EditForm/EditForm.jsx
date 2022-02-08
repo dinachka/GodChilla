@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FETCH_EDIT_EVENT } from '../../redux/actionTypes/eventAT';
 import { useNavigate } from 'react-router-dom';
 import { editEventFetchAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 
@@ -16,11 +15,13 @@ function EditForm({ event }) {
   const photoInput = useRef();
   const categoryInput = useRef();
   const privateInput = useRef();
+  const eventID = event.id;
 
   const editHandle = event => {
     event.preventDefault();
 
     const editedEvent = {
+      eventID: eventID,
       userID: state.user.id,
       title: titleInput.current.value,
       description: descriptionInput.current.value,
@@ -31,11 +32,9 @@ function EditForm({ event }) {
       photo: photoInput.current.value,
     };
 
-    // console.log(editedEvent);
-
     dispatch(editEventFetchAC(editedEvent));
 
-    // navigate('/events')
+    navigate('/events')
   };
 
   return (
@@ -63,13 +62,14 @@ function EditForm({ event }) {
       <label>
         Категория
         <select ref={categoryInput} required>
-          <option></option>
-          <option value="1">Музыка</option>
-          <option value="2">Природа</option>
-          <option value="3">Культура</option>
-          <option value="4">Релакс</option>
-          <option value="5">Вечеринки</option>
-          <option value="6">Активный отдых</option>
+        <option></option>
+          <option value="1">посиделки</option>
+          <option value="2">отдых на природе</option>
+          <option value="3">культура, зрелищные мероприятия</option>
+          <option value="4">прогулка/поездка</option>
+          <option value="5">активный отдых, спорт</option>
+          <option value="6">творчество</option>
+          <option value="7">кафе, бар, ресторан</option>
         </select>
       </label>
 
