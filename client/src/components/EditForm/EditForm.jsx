@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FETCH_EDIT_EVENT } from '../../redux/actionTypes/eventAT';
 import { useNavigate } from 'react-router-dom';
 import { editEventFetchAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 
@@ -16,11 +15,13 @@ function EditForm({ event }) {
   const photoInput = useRef();
   const categoryInput = useRef();
   const privateInput = useRef();
+  const eventID = event.id;
 
   const editHandle = event => {
     event.preventDefault();
 
     const editedEvent = {
+      eventID: eventID,
       userID: state.user.id,
       title: titleInput.current.value,
       description: descriptionInput.current.value,
@@ -31,11 +32,9 @@ function EditForm({ event }) {
       photo: photoInput.current.value,
     };
 
-    // console.log(editedEvent);
-
     dispatch(editEventFetchAC(editedEvent));
 
-    // navigate('/events')
+    navigate('/events')
   };
 
   return (
