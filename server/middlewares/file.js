@@ -1,9 +1,11 @@
 const multer = require('multer');
 
 const storage = multer.diskStorage({
+  // куда сохранять фотки
   destination(req, file, cb) {
     cb(null, 'images/');
   },
+  // с каким именем запишется файл
   filename(req, file, cb) {
     const dateTime = new Date();
     cb(null, `${dateTime.toISOString()}-${file.originalname}`);
@@ -14,6 +16,7 @@ const storage = multer.diskStorage({
 
 const types = ['image/png', 'image/jpeg', 'image/jpg'];
 
+// фильтрует по типу файлов
 const fileFilter = (req, file, cb) => {
   if (types.includes(file.mimetype)) {
     cb(null, true);

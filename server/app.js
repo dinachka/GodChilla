@@ -18,6 +18,8 @@ const {
   SESSION_SECRET = 'my_secret',
 } = process.env;
 
+const sessionMiddleware = require('./middlewares/sessions');
+
 const publicEventsRouter = require('./routes/getEvents.routes');
 const registrationRouter = require('./routes/registration.routes');
 const loginRouter = require('./routes/login.routes');
@@ -61,6 +63,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
 app.use('/images/', express.static(path.join(__dirname, 'images')));
 
+app.use(sessionMiddleware);
+
 app.use('/api', publicEventsRouter);
 app.use('/api/registration', registrationRouter);
 app.use('/api/login', loginRouter);
@@ -87,7 +91,7 @@ app.use('/api/profile/rejectFriendship', rejectFriendship);
 // профиль юзера для отображения для остальных пользователей
 app.use('/api/profile/user', userProfile);
 // сохранение и изменение аватара на профиле пользователя
-app.use('/api/profile/uploadImage', uploadUserImage);
+app.use('/api/profile/uploadImage/', uploadUserImage);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

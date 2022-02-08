@@ -46,27 +46,30 @@ function Profile() {
   const [avatar, setAvatar] = useState(null)
   const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
 
+  const id = user.id
+
   const sendFile = useCallback(async () => {
     try {
       const data = new FormData()
       // name from uploadUserImage.routes
       data.append('avatar', img)
-      await axios.post('http://localhost:4000/api/profile/uploadImage/', data, {
+      await axios.put(`http://localhost:4000/api/profile/uploadImage/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
-        // .then(res => console.log(res.data.path))
-        // .then(res => setAvatar(res.data.path))
-        .then(res => setAvatar(res.updatedAva.photo))
+        .then(res => setAvatar(res.updatedAva))
     } catch (error) {
       console.log(error);
     }
-  }, [img])
+  }, [img, id])
 
   return (
     <div>
       <div>
+        <div>
+          <h1>{user.name}</h1>
+        </div>
         <div className="avatar_box">
           {avatar ? <img src={`${avatar}`} alt="avatar" />
             :

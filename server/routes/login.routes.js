@@ -8,6 +8,7 @@ router.post('/', async (req, res) => {
     where: {
       email,
     },
+    raw: true,
   });
   if (!currentUser) {
     res.status(404).json({
