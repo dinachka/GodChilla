@@ -1,19 +1,40 @@
 const router = require('express').Router();
+const path = require('path');
 const fileMiddleware = require('../middlewares/file');
+const { User } = require('../db/models');
 
 router
-  .get('/', (req, res) => {
-    res.send('/api/profile/uploadImage/')
+  .get('/', async (req, res) => {
+    const currentUser = await User.findOne({
+      where: {
+        id: req.session.user.id,
+      },
+    });
+    res.json(currentUser.photo);
   })
-  .post('/', fileMiddleware.single('avatar'), (req, res) => {
+  .put('/', fileMiddleware.single('avatar'), async (req, res) => {
     try {
-      if (req.file) {
-        // записать path в базу данных
-        res.json(req.file);
-      }
+      const updatedAva = await User.update(
+        { photo: `http://localhost:4000${req.file}` },
+        {
+          where: {
+            id: req.session.user.id,
+          },
+        },
+      );
+      res.status(200).json({ message: 'Фотография обновлена', updatedAva });
     } catch (error) {
-      console.log(error);
+      res.status(404).json({ error });
     }
+    // try {
+    //   if (req.file) {
+    //     // записать path в базу данных
+    //     res.json(req.file);
+    //     // res.sendFile(req.file);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   });
 
 module.exports = router;

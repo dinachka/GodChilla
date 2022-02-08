@@ -29,6 +29,7 @@ function Profile() {
   }
 
   const { user } = useSelector(state => state.userReducer)
+  console.log(user);
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
@@ -53,10 +54,11 @@ function Profile() {
       await axios.post('http://localhost:4000/api/profile/uploadImage/', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
-        }
+        },
       })
         // .then(res => console.log(res.data.path))
-        .then(res => setAvatar(res.data.path))
+        // .then(res => setAvatar(res.data.path))
+        .then(res => setAvatar(res.updatedAva.photo))
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +68,12 @@ function Profile() {
     <div>
       <div>
         <div className="avatar_box">
-          {avatar ? <img src={`${avatar}`} alt="avatar" /> : <img src={`${defaultAvatar}`} alt="avatar" />}
+          {avatar ? <img src={`${avatar}`} alt="avatar" />
+            :
+            user.photo ? <img src={`${user.photo}`} alt="avatar" />
+              :
+              <img src={`${defaultAvatar}`} alt="avatar" />
+          }
         </div>
         <div>
           <input type="file" onChange={e => setImg(e.target.files[0])} />

@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const path = require('path');
 
 const app = express();
-app.use(helmet());
+// app.use(helmet());
 app.use(morgan('dev'));
 
 dotenv.config();
@@ -59,7 +59,7 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.json());
 app.use(express.json({ extended: true }));
-app.use('images/', express.static(path.join(__dirname, 'images')));
+app.use('/images/', express.static(path.join(__dirname, 'images')));
 
 app.use('/api', publicEventsRouter);
 app.use('/api/registration', registrationRouter);
