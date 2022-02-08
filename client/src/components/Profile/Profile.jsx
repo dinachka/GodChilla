@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 
@@ -8,6 +8,7 @@ import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
+import axios from 'axios'
 
 function Profile() {
 
@@ -38,17 +39,40 @@ function Profile() {
     dispatch(initUserslistFetchAC(searchInput.current.value))
   }
 
+
+  // сохранение аватара
+  const [img, setImg] = useState(null)
+  const [avatar, setAvatar] = useState(null)
+  const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
+
+  const sendFile = useCallback(async () => {
+    try {
+      const data = new FormData()
+      // name from uploadUserImage.routes
+      data.append('avatar', img)
+      await axios.post('http://localhost:4000/api/profile/uploadImage/', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+        // .then(res => console.log(res.data.path))
+        .then(res => setAvatar(res.data.path))
+    } catch (error) {
+      console.log(error);
+    }
+  }, [img])
+
   return (
     <div>
-      <div className='profileContainer'>
-        <div id='mainPhoto'>
-          <img src={user.photo} alt="" />
+      <div>
+        <div className="avatar_box">
+          {avatar ? <img src={`${avatar}`} alt="avatar" /> : <img src={`${defaultAvatar}`} alt="avatar" />}
         </div>
         <div>
-          {user.name}
-          <br />
-          {user.message}
+          <input type="file" onChange={e => setImg(e.target.files[0])} />
+          <button onClick={sendFile}>Change avatar</button>
         </div>
+        <p>Если данная функция не работает, необходимо разрешение браузера на показ всплывающих окон</p>
       </div>
 
       <div className='bottomLine'></div>

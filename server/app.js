@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
+const path = require('path');
 
 const app = express();
 app.use(helmet());
@@ -32,6 +33,7 @@ const closestEvents = require('./routes/closestEvents.routes');
 const acceptFriendship = require('./routes/friendship.routes');
 const rejectFriendship = require('./routes/friendship.routes');
 const userProfile = require('./routes/userProfile.routes');
+const uploadUserImage = require('./routes/uploadUserImage.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -55,7 +57,9 @@ app.use(session(sessionConfig));
 app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.json());
+app.use(express.json({ extended: true }));
+app.use('images/', express.static(path.join(__dirname, 'images')));
 
 app.use('/api', publicEventsRouter);
 app.use('/api/registration', registrationRouter);
@@ -82,6 +86,8 @@ app.use('/api/profile/acceptFriends', acceptFriendship);
 app.use('/api/profile/rejectFriendship', rejectFriendship);
 // профиль юзера для отображения для остальных пользователей
 app.use('/api/profile/user', userProfile);
+// сохранение и изменение аватара на профиле пользователя
+app.use('/api/profile/uploadImage', uploadUserImage);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
