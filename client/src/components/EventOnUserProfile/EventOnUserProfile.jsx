@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import EditForm from '../EditForm/EditForm';
 
 function EventOnUserProfile({ event }) {
@@ -17,7 +17,7 @@ function EventOnUserProfile({ event }) {
   const deleteHandle = event => {
     event.preventDefault();
     dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId });
-    navigate('/events')
+    navigate('/events');
   };
 
   return (
@@ -33,10 +33,10 @@ function EventOnUserProfile({ event }) {
         )}
         {!editFormVision && (
           <div>
-            <div> Заголовок: {event.title} </div>
-            <div> Локация: {event.location} </div>
-            <div> Дата: {event.dateTime} </div>
+            <div> Название встречи: {event.title} </div>
             <div> Описание: {event.description} </div>
+            <div> Место: {event.location} </div>
+            <div> Дата: {event.dateTime} </div>
           </div>
         )}
         {editFormVision && <EditForm key={event.id} event={event} />}
