@@ -20,7 +20,6 @@ function UserCardInModal({ user }) {
     dispatch(addFriendshipFetchAC(idForFriends))
     navigate('/profile');
   }
-  console.log(mainUser.user.id);
 
   return (
     <Link to={`/profile/user/${user.id}`} >

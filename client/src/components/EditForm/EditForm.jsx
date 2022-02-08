@@ -62,13 +62,14 @@ function EditForm({ event }) {
       <label>
         Категория
         <select ref={categoryInput} required>
-          <option></option>
-          <option value="1">Музыка</option>
-          <option value="2">Природа</option>
-          <option value="3">Культура</option>
-          <option value="4">Релакс</option>
-          <option value="5">Вечеринки</option>
-          <option value="6">Активный отдых</option>
+        <option></option>
+          <option value="1">посиделки</option>
+          <option value="2">отдых на природе</option>
+          <option value="3">культура, зрелищные мероприятия</option>
+          <option value="4">прогулка/поездка</option>
+          <option value="5">активный отдых, спорт</option>
+          <option value="6">творчество</option>
+          <option value="7">кафе, бар, ресторан</option>
         </select>
       </label>
 
