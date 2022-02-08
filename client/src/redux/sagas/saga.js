@@ -146,6 +146,7 @@ function* initFriendsRequestNotifications(action){
 }
 // принять запрос на добавление друга 
 function* acceptFriendship(action){
+  console.log(process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP);
   const accepted = yield call(fetchData, {
     url: process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
