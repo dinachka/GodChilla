@@ -1,4 +1,11 @@
-import { FETCH_EDIT_EVENT, FETCH_JOIN_EVENT } from '../actionTypes/eventAT'
+import { EVENTS_REQUESTS_NOTIFICATIONS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT } from '../actionTypes/eventAT'
+export const eventsRequestsNotificationsAsyncAC = (payload) => {
+  return {
+    type: EVENTS_REQUESTS_NOTIFICATIONS_FETCH,
+    payload,
+
+  }
+}
 
 export const editEventFetchAC = (payload) => {
   return {
