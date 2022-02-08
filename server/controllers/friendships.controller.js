@@ -63,13 +63,16 @@ const currentFriendships = async (req, res) => {
 // меняем статус дружбы на "подтвержден"
 const friendshipAccepted = async (req, res) => {
   const { id } = req.session.user;
-  console.log(JSON.stringify(req.session), id);
+  const reqUserID = req.body.id;
+  console.log(reqUserID, 'req.bidy');
+  // console.log(JSON.stringify(req.session), id);
   try {
     const acceptedFriendship = await Friendship.update(
       { status: 'Подтвержден' },
-      { where: { resUserID: +id } },
+      { where: { resUserID: id, reqUserID } },
     );
-    res.status(200).json(acceptedFriendship);
+    console.log(acceptedFriendship);
+    res.status(200).json(reqUserID);
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
@@ -77,13 +80,14 @@ const friendshipAccepted = async (req, res) => {
 // удаляем (отклоняем запрос) запись дружбы из БД
 const rejectFriendship = async (req, res) => {
   const { id } = req.session.user;
+  const reqUserID = req.body.id;
   try {
     const rejected = await Friendship.destroy({
       where: {
-        resUserID: +id,
+        resUserID: +id, reqUserID,
       },
     });
-    res.status(200).json(rejected);
+    res.status(200).json(reqUserID);
   } catch (error) {
     res.status(404).json({ error });
   }
@@ -94,18 +98,21 @@ const friendshipRequestsNotifications = async (req, res) => {
   try {
     const requestedFriendships = await Friendship.findAll({
       raw: true,
-      include: {
-        model: User,
-        // where: {
-        //   id: 3,
-        // },
-      },
+      // include: {
+      //   model: User,
+      //   // where: {
+      //   //   id: 3,
+      //   // },
+      // },
       order: [['updatedAt', 'DESC']],
       where: {
         resUserID: id,
       },
     });
-    const formatedFriends = requestedFriendships.map((el) => {
+
+    const filteredfriendship = requestedFriendships.filter((el) => el.status === 'В обработке');
+    console.log(requestedFriendships, 'requestedFriendships');
+    const formatedFriends = filteredfriendship.map((el) => {
       if (el.reqUserID !== id) {
         return +el.reqUserID;
       }
@@ -116,10 +123,14 @@ const friendshipRequestsNotifications = async (req, res) => {
       where: {
         id: formatedFriends,
       },
-      // include: {
-      //   model: User,
-      // },
+      include: {
+        model: Friendship,
+        // where: {
+        //   resUserID: id,
+        // },
+      },
     });
+    console.log(friends, 'friends');
     res.status(200).json(friends);
   } catch (error) {
     res.status(404).json({ error });
