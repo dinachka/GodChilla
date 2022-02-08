@@ -5,6 +5,7 @@ const { User, Friendship } = require('../db/models');
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
+  const loginId = req.session.user.id;
   const userInfo = await User.findOne({
     raw: true,
     where: {
@@ -17,16 +18,23 @@ router.get('/:id', async (req, res) => {
     },
   });
 
-  const userFrendshipStatus = await Friendship.findAll({
-    where: {
-      [Op.or]: [{ reqUserID: id }, { resUserID: id }],
-    },
-  });
-  const data = {
-    user: userInfo,
-    friendship: userFrendshipStatus,
-  };
-  res.json(data);
+  try {
+    const [userFriendshipStatus] = await Friendship.findAll({
+      raw: true,
+      order: [['updatedAt', 'DESC']],
+      attributes: ['reqUserID', 'resUserID', 'status'],
+      where: {
+        [Op.or]: [{ reqUserID: id, resUserID: loginId }, { reqUserID: loginId, resUserID: id }],
+      },
+    });
+    if (userFriendshipStatus.length === 0) {
+      res.json({ status: 'Не друзья', info: userInfo });
+    }
+    res.json({ info: userInfo, friendship: userFriendshipStatus.status });
+  } catch (error) {
+    console.log('NONON');
+    res.status(404).json({ friendship: 'Не друзья', info: userInfo });
+  }
 });
 
 module.exports = router;

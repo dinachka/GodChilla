@@ -4,20 +4,22 @@ import { acceptFriendshipAsyncAC, rejectFriendshipAsyncAC } from '../../redux/ac
 
 function NotificationFriendCard({user}) {
 const dispatch = useDispatch()
-
   const acceptFriendship = () => {
-    dispatch(acceptFriendshipAsyncAC())
+    dispatch(acceptFriendshipAsyncAC(user))
   }
 
   const rejectFriendship = () => {
-    dispatch(rejectFriendshipAsyncAC())
+    dispatch(rejectFriendshipAsyncAC(user))
   }
   return (
     <>
+
+   {/* {user.status === 'В обработке' && */}
     <div>
       {user.name} {user.lastName}
       <button onClick={acceptFriendship}>Принять</button> <button onClick={rejectFriendship}>Отклонить</button>
     </div>
+    {/* } */}
     </>
   );
 }
