@@ -156,17 +156,21 @@ function* initFriendsRequestNotifications(action){
 }
 // принять запрос на добавление друга 
 function* acceptFriendship(action){
+  console.log(process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP);
   const accepted = yield call(fetchData, {
     url: process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
+    method: 'PUT',
   })
   yield put(acceptFriendshipAC(accepted))
 }
 
+//  отклонить запрос на добавление в друзья
 function* rejectFriendship(action){
   const reject = yield call(fetchData, {
     url: process.env.REACT_APP_URL_REJECT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
+    method: 'DELETE'
   })
   yield put(rejectFriendshipAC(reject))
 }

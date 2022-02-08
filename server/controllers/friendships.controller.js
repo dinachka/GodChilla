@@ -60,24 +60,25 @@ const currentFriendships = async (req, res) => {
 };
 // меняем статус дружбы на "подтвержден"
 const friendshipAccepted = async (req, res) => {
-  const { id } = +req.session.user;
+  const { id } = req.session.user;
+  console.log(JSON.stringify(req.session), id);
   try {
     const acceptedFriendship = await Friendship.update(
       { status: 'Подтвержден' },
-      { where: { resUserID: id } },
+      { where: { resUserID: +id } },
     );
     res.status(200).json(acceptedFriendship);
   } catch (error) {
-    res.status(404).json({ error: 'error' });
+    res.status(404).json({ error: error.message });
   }
 };
 // удаляем запись дружбы из БД
 const rejectFriendship = async (req, res) => {
-  const { id } = +req.session.user;
+  const { id } = req.session.user;
   try {
     const rejected = await Friendship.destroy({
       where: {
-        resUserID: id,
+        resUserID: +id,
       },
     });
     res.status(200).json(rejected);
