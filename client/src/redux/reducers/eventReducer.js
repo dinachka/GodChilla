@@ -18,7 +18,6 @@ export const eventReducer = (state = initialState, action) => {
       return { ...state, closesEvents: action.payload }
 
     case EDIT_EVENT:
-      console.log(state.userEvents);
       return { ...state, userEvents: action.payload.events }
 
     case JOIN_EVENT:

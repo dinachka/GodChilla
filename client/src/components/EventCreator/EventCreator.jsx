@@ -7,7 +7,6 @@ import './eventCreator.css'
 
 function EventCreator() {
 
-  // const { id } = useParams()
   const titleInput = useRef()
   const descriptionInput = useRef()
   const locationInput = useRef()
@@ -40,7 +39,7 @@ function EventCreator() {
       payload: newEvent
     })
 
-    // navigate('/events')
+    navigate('/events')
   }
 
   return (

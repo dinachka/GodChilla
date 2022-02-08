@@ -13,8 +13,8 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const eventId = req.params.id;
   const {
+    eventID,
     title,
     description,
     privateSettings,
@@ -27,7 +27,7 @@ router.put('/:id', async (req, res) => {
 
   const partyToEdit = await Event.findOne({
     where: {
-      id: eventId,
+      id: eventID,
     },
   });
 

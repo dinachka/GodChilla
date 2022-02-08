@@ -1,4 +1,4 @@
-import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH,GLOBAL_LOGIN_FETCH } from '../actionTypes/userAT'
+import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH,GLOBAL_LOGIN_FETCH, INIT_ANOTHER_USER_FETCH } from '../actionTypes/userAT'
 
 export const registrationFetchAC = (payload) => {
   return {
@@ -28,6 +28,13 @@ export const logoutFetchAC = () => {
 export const initUserslistFetchAC = (payload) => {
   return {
     type: INIT_USERSLIST_FETCH,
+    payload,
+  }
+}
+
+export const initAnotherUserFetchAC = (payload) => {
+  return {
+    type: INIT_ANOTHER_USER_FETCH,
     payload,
   }
 }
