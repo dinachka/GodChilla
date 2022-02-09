@@ -14,7 +14,6 @@ export const userReducer = (state = initialState, action) => {
       return {...state, user: {}}
 
     case INIT_ANOTHER_USER:
-      console.log(action.payload);
       return {...state, anotherUser: action.payload }
       
     default:
