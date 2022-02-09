@@ -6,12 +6,11 @@ import {initOtherEventsOnProfileAsyncAC} from '../../redux/actionCreatorsAsync/e
 function OtherEventsOnProfie(props) {
   const dispatch = useDispatch()
   const events = useSelector(state => state.eventReducer.otherEvents)
-  const filteredEvents = events.filter((el) => el.status !== 'Запрос отменен')
+  const filteredEvents = events?.length && events.filter((el) => !el.status)
 
   useEffect(() => {
     dispatch(initOtherEventsOnProfileAsyncAC())
   }, [dispatch])
-  console.log(events);
   return (
     <div>
           <h3>чужие события в которых вы учавствуете</h3>
