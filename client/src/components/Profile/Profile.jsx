@@ -60,8 +60,8 @@ function Profile() {
         body: data,
       };
       fetch(URL + id, options)
-        .then(res => setAvatar(res.photoURL))
-
+        .then(res => res.json())
+        .then(data => setAvatar(data.photoURL))
     } catch (error) {
       console.log(error);
     }
@@ -112,7 +112,7 @@ function Profile() {
         </div >
         <div >{calendarSwitcher
           ? < ></> : <CurrentUsersEvents />}</div>
-      <OtherEventsOnProfie />
+        <OtherEventsOnProfie />
       </div>
     </div>
   )
