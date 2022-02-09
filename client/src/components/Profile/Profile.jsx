@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 
@@ -29,6 +29,7 @@ function Profile() {
   }
 
   const { user } = useSelector(state => state.userReducer)
+  // console.log('!!!!!!!!!!!!!', user);
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
@@ -39,17 +40,52 @@ function Profile() {
     dispatch(initUserslistFetchAC(searchInput.current.value))
   }
 
+  // сохранение аватара
+
+  //переменная для получения файла на клиенте
+  const [img, setImg] = useState(null)
+  //переменная, обработаная на сервере 
+  const [avatar, setAvatar] = useState(null)
+  const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
+
+  const id = user.id
+
+  const sendFile = useCallback(async () => {
+    try {
+      const URL = 'http://localhost:4000/api/profile/uploadImage/'
+      const data = new FormData()
+      data.append('avatar', img)
+      const options = {
+        method: 'PUT',
+        body: data,
+      };
+      fetch(URL + id, options)
+        .then(res => res.json())
+        .then(data => setAvatar(data.photoURL))
+    } catch (error) {
+      console.log(error);
+    }
+  }, [img, id])
+
   return (
     <div>
-      <div className='profileContainer'>
-        <div id='mainPhoto'>
-          <img src={user.photo} alt="" />
+      <div>
+        <div>
+          <h1>{user.name}</h1>
+        </div>
+        <div className="avatar_box">
+          {avatar ? <img src={`${avatar}`} alt="avatar" />
+            :
+            user.photo ? <img src={`${user.photo}`} alt="avatar" />
+              :
+              <img src={`${defaultAvatar}`} alt="avatar" />
+          }
         </div>
         <div>
-          {user.name}
-          <br />
-          {user.message}
+          <input type="file" onChange={e => setImg(e.target.files[0])} />
+          <button onClick={sendFile}>Change avatar</button>
         </div>
+        <p>Если данная функция не работает, необходимо разрешение браузера на показ всплывающих окон</p>
       </div>
 
       <div className='bottomLine'></div>
@@ -76,7 +112,7 @@ function Profile() {
         </div >
         <div >{calendarSwitcher
           ? < ></> : <CurrentUsersEvents />}</div>
-      <OtherEventsOnProfie />
+        <OtherEventsOnProfie />
       </div>
     </div>
   )
