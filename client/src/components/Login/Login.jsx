@@ -33,7 +33,7 @@ function Login(props) {
       <form onSubmit={submitLoginHandler} className='form' >
         <label>email <input type="email" ref={emailRef} required/></label>
         <label>Пароль <input type="password" autoComplete="off" ref={passwordRef} required/></label>
-        { !user?.isUser && user?.message !== 'Сессия не найдена' &&  <div style={{color:'red', width:'147px', margin:'auto'}}>{user?.message}</div>}
+        { !user?.isUser && user?.message !== ('Сессия не найдена' || "Регистрация прошла успешно!") &&  <div style={{color:'red', width:'147px', margin:'auto'}}>{user?.message}</div>}
         <button className='btn btnStyle' >Войти</button>
       </form>
   );
