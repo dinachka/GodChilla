@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
       });
       return;
     }
-  
+
     const correctPassword = await bcrypt.compare(password, currentUser.password);
     if (!correctPassword) {
       res.status(401).json({
@@ -56,6 +56,7 @@ router.get('/', async (req, res) => {
       name: req.session.user.name,
       id: req.session.user.id,
       // message: 'Сессия найдена',
+      photo: req.session.user.photo,
     });
   } return res.status(404).json({
     isUser: false,
