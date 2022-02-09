@@ -52,7 +52,7 @@ function Registration(props) {
     <div>
       <form onSubmit={submitRegistrationHandler} encType="multipart/form-data" className='form' >
 
-        <input type="text" placeholder='Логин' ref={loginRef} required/>
+        {/* <input type="text" placeholder='Логин' ref={loginRef} required/> */}
         <input type="text" placeholder='Имя' ref={nameRef} required/>
         <input type="text" placeholder='Фамилия' ref={surnameRef} />
           <label>Выбор города</label>&nbsp;
@@ -61,7 +61,7 @@ function Registration(props) {
           <option value="Москва">Москва</option>
         </select>
         <input type="email" placeholder='email' required ref={emailRef} />
-        <input type="phone"  placeholder='Номер телефона' ref={telRef}/>
+        {/* <input type="phone"  placeholder='Номер телефона' ref={telRef}/> */}
         <input type="password" placeholder='Пароль' autoComplete="off" minLength="7" required ref={passwordRef}/>
         <input type="password" placeholder='Подтвердить пароль' autoComplete="off" minLength="7" required ref={confirmPasswordRef}/>
         { isNotEqual && <div style={{color:'red', width:'147px', margin:'auto'}}>Пароли не совпадают</div>}
