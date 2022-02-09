@@ -9,8 +9,6 @@ import NotificationModal from '../NotificationModal/NotificationModal';
 function Navigation() {
 
   const session = useSelector(state => state.userReducer)
-
-
   const dispath = useDispatch();
   const navigate = useNavigate();
   // Состояние для открытия/закрытия моадльного окна уведомлений

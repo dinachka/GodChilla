@@ -1,4 +1,4 @@
-import { ADD_USER, INIT_USER, DELETE_USER, INIT_USERSLIST, INIT_ANOTHER_USER } from '../actionTypes/userAT'
+import { ADD_USER, INIT_USER, DELETE_USER, INIT_USERSLIST, INIT_ANOTHER_USER, CLEAN_USERLIST } from '../actionTypes/userAT'
 export const addUserAC = (payload) => {
   return {
     type: ADD_USER,
@@ -31,5 +31,13 @@ export const initAnotherUserAC = (payload) => {
   return {
     type: INIT_ANOTHER_USER,
     payload
+  }
+}
+
+
+export const cleanUserListAC = (payload) => {
+  return {
+    type: CLEAN_USERLIST,
+    payload,
   }
 }

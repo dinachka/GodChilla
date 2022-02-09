@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { initUserslistFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
-
+import { cleanUserListAC } from '../../redux/actionCreators/userAC'
 import CurrentUsersEvents from '../CurrentUsersEvents/CurrentUsersEvents'
 import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
@@ -10,6 +10,7 @@ import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
 import PastEvents from '../PastEvents/PastEvents';
+import  { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
 
 function Profile() {
 
@@ -30,15 +31,13 @@ function Profile() {
   }
 
   const { user } = useSelector(state => state.userReducer)
-  // console.log('!!!!!!!!!!!!!', user);
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
 
-
-  const changingHandler = (event) => {
+const changingHandler = (event) => {
     event.preventDefault()
-    dispatch(initUserslistFetchAC(searchInput.current.value))
+    searchInput.current.value.length ? dispatch(initUserslistFetchAC(searchInput.current.value)) : dispatch(cleanUserListAC())
   }
 
   // сохранение аватара
@@ -95,11 +94,11 @@ function Profile() {
       </div>
       {eventCreatorVisible && <EventCreator setSwitcher={() => {setEventCreatorVisible(false)}}/>}
 
-      <hr class="uk-divider-icon" />
+      <hr className="uk-divider-icon" />
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
 
-        <input placeholder='Найти друзей' type='search' ref={searchInput}></input><button onClick={changingHandler} >искать</button>
+        <input onChange={changingHandler} placeholder='Найти друзей' type='search' ref={searchInput}></input><button>искать</button>
       </div>
       <div>
         {friendsVisible && <FriendList />}

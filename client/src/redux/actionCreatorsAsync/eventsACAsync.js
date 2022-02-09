@@ -1,4 +1,4 @@
-import { EVENTS_REQUESTS_NOTIFICATIONS_FETCH, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, REJECT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT, INIT_OTHER_EVENTS_ON_PROFILE_FETCH } from '../actionTypes/eventAT'
+import { EVENTS_REQUESTS_NOTIFICATIONS_FETCH, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, REJECT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT, INIT_OTHER_EVENTS_ON_PROFILE_FETCH, CANCEL_FOREIGN_EVENT_ON_PROFILE_FETCH } from '../actionTypes/eventAT'
 
 
 export const eventsRequestsNotificationsAsyncAC = (payload) => {
@@ -49,6 +49,15 @@ export const cancelJoinEventFetchAC = (payload) => {
 export const initOtherEventsOnProfileAsyncAC = (payload) => {
   return {
     type: INIT_OTHER_EVENTS_ON_PROFILE_FETCH,
+    payload,
+  }
+}
+
+
+
+export const cancelForeignEventsOnProfileAsyncAC = (payload) => {
+  return {
+    type: CANCEL_FOREIGN_EVENT_ON_PROFILE_FETCH,
     payload,
   }
 }

@@ -34,7 +34,6 @@ function UserProfile() {
     dispatch(initAnotherUserFetchAC(id));
   }
   
-  console.log(thisUser.info?.name);
   return (
     <>
       Имя: {thisUser.info?.name}
@@ -51,8 +50,8 @@ function UserProfile() {
         <div className='stateSwitcher'>
           <div className='display'>Лента</div>
         </div>
-        <ParticularUserPublicEvents/>
-        {thisUser.friendship === 'Подтвержден' && <ParticularUserEventsForFriends/> }
+        {thisUser.info && <ParticularUserPublicEvents user={thisUser}/>}
+        {thisUser.friendship === 'Подтвержден' && <ParticularUserEventsForFriends user={thisUser}/> }
       </div>
     </>
   );
