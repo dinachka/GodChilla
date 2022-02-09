@@ -238,8 +238,6 @@ export function* sagaWatcher() {
   yield takeEvery(INIT_CLOSEST_EVENTS_FETCH, initClosestEventsAsync);
   // Запрос на дружбу
   yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
-  // Запрос на дружбу
-  yield takeEvery(ADD_FRIENDSHIP_FETCH, addFriendshipAsync);
   // Инициализация 
   yield takeEvery(INIT_ANOTHER_USER_FETCH, initAnotherUserAsync);
   // Изменение событиях
@@ -254,7 +252,6 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_JOIN_EVENT, joinEventAsync);
   // отмена запроса на участие в событии
   yield takeEvery(FETCH_CANCEL_JOIN_EVENT, cancelJoinEventAsync);
-}
 
   yield takeEvery(EVENTS_REQUESTS_NOTIFICATIONS_FETCH, eventsRequestNotifications)
 }
