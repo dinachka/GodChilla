@@ -26,15 +26,17 @@ function EditForm({ event }) {
       title: titleInput.current.value,
       description: descriptionInput.current.value,
       location: locationInput.current.value,
-      dateTime: dateInput.current.value,
+      dateTime: dateInput.current.value.toLocaleString('ru'),
       categoryID: +categoryInput.current.value,
       privateSettings: privateInput.current.value,
       photo: photoInput.current.value,
     };
 
-    dispatch(editEventFetchAC(editedEvent));
+    console.log(editedEvent);
 
-    navigate('/events')
+    // dispatch(editEventFetchAC(editedEvent));
+
+    // navigate('/events')
   };
 
   return (
