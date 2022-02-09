@@ -5,11 +5,11 @@ const { User } = require('../db/models');
 
 router.post('/', async (req, res) => {
   const {
-    username,
+    // username,
     email,
     password,
-    phoneNumber,
-    photo,
+    // phoneNumber,
+    // photo,
     city,
   } = req.body;
   const name = req.body.name[0].toUpperCase() + req.body.name.slice(1).toLowerCase();
@@ -19,33 +19,35 @@ router.post('/', async (req, res) => {
     res.status(400).json({ user: false, message: 'Длина пароля должна быть больше 6 символов' });
   }
   let newUser;
-  const sameUser = await User.findOne({
-    where: {
-      [Op.or]: [
-        { username },
-        { email },
-      ],
-    },
-  });
-  if (!sameUser) {
-    const hashPassword = await bcrypt.hash(password, 10);
-    newUser = await User.create({
-      password: hashPassword,
-      username,
-      email,
-      name,
-      lastName,
-      phoneNumber,
-      photo,
-      city,
+  try {
+    const sameUser = await User.findOne({
+      where: {
+        [Op.or]: [
+          // { username },
+          { email },
+        ],
+      },
     });
-  } else {
-    res.status(400).json({ user: false, message: 'Юзер с таким логином или email уже существует' });
-  }
-  if (newUser) {
-    res.status(201).json({ user: newUser, message: 'Регистрация прошла успешно!' });
-  } else {
-    res.status(401).json({ user: false, message: 'Регистрация не прошла!' });
+    if (!sameUser) {
+      const hashPassword = await bcrypt.hash(password, 10);
+      newUser = await User.create({
+        password: hashPassword,
+        // username,
+        email,
+        name,
+        lastName,
+        // phoneNumber,
+        // photo,
+        city,
+      });
+    } else {
+      res.status(400).json({ user: false, message: 'Юзер с таким email уже существует' });
+    }
+    if (newUser) {
+      res.status(201).json({ user: true, message: 'Регистрация прошла успешно!' });
+    }
+  } catch (error) {
+    res.status(401).json({ user: false, message: 'Регистрация не прошла. Ошибка обращения к базе данных', error: error.message });
   }
 });
 
