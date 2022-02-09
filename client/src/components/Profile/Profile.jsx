@@ -44,8 +44,6 @@ function Profile() {
 
   //переменная для получения файла на клиенте
   const [img, setImg] = useState(null)
-  //переменная, обработаная на сервере 
-  const [avatar, setAvatar] = useState(null)
   const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
   const id = user.id
 
@@ -65,7 +63,7 @@ function Profile() {
     } catch (error) {
       console.log(error);
     }
-  }, [img, id, dispatch, avatar])
+  }, [img, id, dispatch])
 
   console.log('!!!!!USER', user);
 
@@ -80,8 +78,6 @@ function Profile() {
         </div>
         <div className="avatar_box">
           {
-            // avatar ? <img src={`${avatar}`} alt="avatar" />
-            //   :
             user.photo ? <img src={`${user.photo}`} alt="avatar" />
               :
               <img src={`${defaultAvatar}`} alt="avatar" />

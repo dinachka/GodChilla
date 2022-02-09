@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
@@ -11,7 +11,7 @@ function EventCreator() {
   const descriptionInput = useRef()
   const locationInput = useRef()
   const dateInput = useRef()
-  const photoInput = useRef()
+  // const photoInput = useRef()
   const categoryInput = useRef()
   const privateInput = useRef()
   const state = useSelector(state => state.userReducer)
@@ -31,7 +31,8 @@ function EventCreator() {
       privateSettings: privateInput.current.value,
       location: locationInput.current.value,
       dateTime: dateInput.current.value,
-      photo: photoInput.current.value,
+      // photo: photoInput.current.value,  eventImg
+      // здесь будет setAvatar(data.photoURL))
     }
 
     dispatch({
@@ -41,6 +42,29 @@ function EventCreator() {
 
     navigate('/events')
   }
+
+  // сохранение картинок 
+  const { user } = useSelector(state => state.userReducer)
+  const userId = user.id
+  // console.log(user);
+  const defaultImg = 'https://www.buro247.ua/thumb/670x830_0/images/2020/06/alabama-coronavirus-parties-01.jpg'
+  const [eventImg, setEventImg] = useState(null)
+
+  const sendImageToServer = useCallback(async () => {
+
+    const sendImageToServerURL = ''
+    const data = new FormData()
+    data.append('avatar', eventImg)
+    const options = {
+      method: 'PUT',
+      body: data,
+    }
+
+    fetch(sendImageToServerURL + userId, options)
+      .then(res => res.json())
+      .then(imgPath => setEventImg(imgPath))
+  }, [eventImg, userId])
+
 
 
 
@@ -91,8 +115,8 @@ function EventCreator() {
 
       <br />
       <label className='eventCreatorForm'>Фото
-        <img src="https://image.freepik.com/free-vector/the-word-hello-on-a-speech-bubble-vector_53876-60258.jpg" alt="" />
-        <input ref={photoInput} className='eventCreatorForm' type="file" name="photo" />
+        {/* <img src="https://image.freepik.com/free-vector/the-word-hello-on-a-speech-bubble-vector_53876-60258.jpg" alt="" /> */}
+        <input onSubmit={sendImageToServer} className='eventCreatorForm' type="file" name="photo" />
       </label>
 
       <br />
