@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const fileMiddleware = require('../middlewares/file');
+const fileMiddleware = require('../middlewares/avatarMiddleware');
 const { User } = require('../db/models');
 
 router

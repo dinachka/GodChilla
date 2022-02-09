@@ -37,6 +37,7 @@ const rejectFriendship = require('./routes/friendship.routes');
 const eventsNotifications = require('./routes/eventsNotifications.routes');
 const userProfile = require('./routes/userProfile.routes');
 const uploadUserImage = require('./routes/uploadUserImage.routes');
+const uploadEventImage = require('./routes/uploadEventImage.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -95,6 +96,8 @@ app.use('/api/profile/eventsNotifications', eventsNotifications);
 app.use('/api/profile/user', userProfile);
 // сохранение и изменение аватара на профиле пользователя
 app.use('/api/profile/uploadImage/', uploadUserImage);
+// сохранение и изменение фотографии события на профиле пользователя
+app.use('/api/profile/uploadEventImage/', uploadEventImage);
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

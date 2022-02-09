@@ -34,7 +34,6 @@ function Profile() {
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
 
-
   const changingHandler = (event) => {
     event.preventDefault()
     dispatch(initUserslistFetchAC(searchInput.current.value))
@@ -47,7 +46,6 @@ function Profile() {
   //переменная, обработаная на сервере 
   const [avatar, setAvatar] = useState(null)
   const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
-
   const id = user.id
 
   const sendFile = useCallback(async () => {
@@ -66,6 +64,9 @@ function Profile() {
       console.log(error);
     }
   }, [img, id])
+
+
+  // сохранение
 
   return (
     <div>
@@ -94,7 +95,7 @@ function Profile() {
       </div>
       {eventCreatorVisible && <EventCreator />}
 
-      <hr class="uk-divider-icon" />
+      <hr className="uk-divider-icon" />
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
 
