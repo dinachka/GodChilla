@@ -4,6 +4,8 @@ import { addFriendshipFetchAC } from '../../redux/actionCreatorsAsync/friendsACA
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import ParticularUserPublicEvents from '../ParticularUserPublicEvents/ParticularUserPublicEvents';
+import ParticularUserEventsForFriends from '../ParticularUserEventsForFriends/ParticularUserEventsForFriends';
 
 function UserProfile() {
   
@@ -37,11 +39,11 @@ function UserProfile() {
   console.log(thisUser.info?.name);
   return (
     <>
-      Имя: {thisUser.info?.name};
+      Имя: {thisUser.info?.name}
       <br />
-      Фамилия: {thisUser.info?.lastName};
+      Фамилия: {thisUser.info?.lastName}
       <br />
-      Город: {thisUser.info?.city};
+      Город: {thisUser.info?.city}
       <br />
       {thisUser.friendship === 'Не друзья' && <button onClick={addFriendHandler}>Добавить в друзья</button> }
       {thisUser.friendship === 'Подтвержден' && <button onClick={deleteFriendHandler}>Удалить из друзей</button> }
@@ -49,9 +51,10 @@ function UserProfile() {
       <div className='bottomLine'></div>
       <div >
         <div className='stateSwitcher'>
-          {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
+          <div className='display'>Лента</div>
         </div>
-        {calendarSwitcher ? 'Здесь будет красивый календарь' : "Здесь будет красивая лента"}
+        <ParticularUserPublicEvents/>
+        {thisUser.friendship === 'Подтвержден' && <ParticularUserEventsForFriends/> }
       </div>
     </>
   );

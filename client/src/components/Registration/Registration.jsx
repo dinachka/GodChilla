@@ -1,51 +1,58 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { registrationFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
 import './registration.css'
 
 function Registration(props) {
-  const loginRef = useRef();
+  // const loginRef = useRef();
   const nameRef = useRef();
   const surnameRef = useRef();
   const cityRef = useRef();
   const emailRef = useRef();
-  const telRef = useRef();
+  // const telRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const fotoRef = useRef();
+  // const fotoRef = useRef();
 
   const [isNotEqual, setIsNotEqual] = useState(false)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector(state => state.userReducer)
   const submitRegistrationHandler = (event) => {
     event.preventDefault()
+    setIsNotEqual(false)
     if(passwordRef.current.value === confirmPasswordRef.current.value) {
       const payload = {
-        username: loginRef.current.value,
+        // username: loginRef.current.value,
         name: nameRef.current.value,
         lastName: surnameRef.current.value,
         city: cityRef.current.value,
         email: emailRef.current.value,
-        phoneNumber: telRef.current.value,
+        // phoneNumber: telRef.current.value,
         password: passwordRef.current.value,
-        foto: fotoRef.current.value
+        // foto: fotoRef.current.value
       }
       dispatch(registrationFetchAC(payload))
-      navigate('/login')
     }
     else {
       setIsNotEqual(true)
-    }
-
-    
+    }   
   }
+
+  useEffect(() => {
+    if(user.user) {
+      navigate('/login') 
+    } 
+  }, [user, navigate])
+
   return (
     <div>
       <form onSubmit={submitRegistrationHandler} encType="multipart/form-data" className='form' >
 
-        <label>Логин <input type="text" ref={loginRef} required/></label>
+        {/* <label>Логин <input type="text" ref={loginRef} required/></label> */}
         <label>Имя <input type="text" ref={nameRef} required/></label>
         <label>Фамилия <input type="text" ref={surnameRef} /></label>
         <label>Город
@@ -56,11 +63,12 @@ function Registration(props) {
         </select>
         </label>
         <label>email <input type="email" required ref={emailRef} /></label>
-        <label>Номер телефона<input type="phone" ref={telRef}/></label>
+        {/* <label>Номер телефона<input type="phone" ref={telRef}/></label> */}
         <label>Пароль <input type="password" autoComplete="off" minLength="7" required ref={passwordRef}/></label>
         <label>Подтвердить пароль <input type="password" autoComplete="off" minLength="7" required ref={confirmPasswordRef}/></label>
         { isNotEqual && <div style={{color:'red', width:'147px', margin:'auto'}}>Пароли не совпадают</div>}
-        <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label>
+        {/* <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label> */}
+        { !user?.user && user?.message !== 'Сессия не найдена' &&  <div style={{color:'red', width:'147px', margin:'auto'}}>{user?.message}</div>}
         <button className='btn btnStyle' >Зарегистрироваться</button>
       </form>
     </div>
