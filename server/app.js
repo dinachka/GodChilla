@@ -29,13 +29,13 @@ const currentUsersEventRouter = require('./routes/currentUsersEvents.routes');
 const logoutRouter = require('./routes/logout.routes');
 const friendsRouter = require('./routes/friendship.routes');
 const allUsersRouter = require('./routes/allUsers.routes');
-const requestedFriendships = require('./routes/friendship.routes');
 const friendshipRequestsNotificationsRouter = require('./routes/friendship.routes');
 const closestEvents = require('./routes/closestEvents.routes');
 const acceptFriendship = require('./routes/friendship.routes');
 const rejectFriendship = require('./routes/friendship.routes');
 const eventsNotifications = require('./routes/eventsNotifications.routes');
 const userProfile = require('./routes/userProfile.routes');
+const anotherUsersEvents = require('./routes/anotherUsersEvents.routes');
 const uploadUserImage = require('./routes/uploadUserImage.routes');
 
 const sessionConfig = {
@@ -93,8 +93,11 @@ app.use('/api/profile/rejectFriendship', rejectFriendship);
 app.use('/api/profile/eventsNotifications', eventsNotifications);
 // профиль юзера для отображения для остальных пользователей
 app.use('/api/profile/user', userProfile);
+// профиль другого юзера с его событиями
+app.use('/api/profile/user/events/', anotherUsersEvents);
 // сохранение и изменение аватара на профиле пользователя
 app.use('/api/profile/uploadImage/', uploadUserImage);
+
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
