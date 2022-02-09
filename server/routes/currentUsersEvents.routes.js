@@ -33,10 +33,29 @@ router.get('/otherEventsOnProfile', async (req, res) => {
         id: myParticipationsIds,
       },
     });
-    console.log(events, 'events');
     res.status(200).json(events);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+router.delete('/rejectParticipationOnProfile/:id', async (req, res) => {
+  const eventID = +(req.params.id);
+  const userID = +(req.session.user.id);
+  try {
+    await Participation.destroy({
+      where: {
+        eventID,
+        userID,
+      },
+    });
+    res.status(200).json({
+      eventID,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
   }
 });
 module.exports = router;
