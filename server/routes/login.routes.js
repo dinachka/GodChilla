@@ -55,11 +55,11 @@ router.get('/', async (req, res) => {
       isUser: true,
       name: req.session.user.name,
       id: req.session.user.id,
-      message: 'Сессия найдена',
+      // message: 'Сессия найдена',
     });
   } return res.status(404).json({
     isUser: false,
-    message: 'Сессия не найдена',
+    // message: 'Сессия не найдена',
   });
 });
 
