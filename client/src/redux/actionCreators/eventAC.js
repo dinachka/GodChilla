@@ -1,5 +1,5 @@
 
-import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, DELETE_EVENT, INIT_CLOSEST_EVENTS, EVENTS_REQUESTS_NOTIFICATIONS, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS, REJECT_EVENTS_REQUESTS_NOTIFICATIONS, EDIT_EVENT, JOIN_EVENT, CANCEL_JOIN_EVENT, INIT_OTHER_EVENTS_ON_PROFILE, CANCEL_FOREIGN_EVENT_ON_PROFILE } from '../actionTypes/eventAT'
+import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, FETCH_POST_EVENT, DELETE_EVENT, INIT_CLOSEST_EVENTS, EVENTS_REQUESTS_NOTIFICATIONS, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS, REJECT_EVENTS_REQUESTS_NOTIFICATIONS, EDIT_EVENT, JOIN_EVENT, CANCEL_JOIN_EVENT, INIT_OTHER_EVENTS_ON_PROFILE, CANCEL_FOREIGN_EVENT_ON_PROFILE, INIT_PAST_EVENTS_ON_PROFILE } from '../actionTypes/eventAT'
 
 export const getPublicEvents = (payload) => {
   return {
@@ -25,14 +25,14 @@ export const addEventAC = (payload) => {
 export const deleteEventAC = (payload) => {
   return {
     type: DELETE_EVENT,
-    payload 
+    payload
   }
 }
 
 export const editEventAC = (payload) => {
   return {
     type: EDIT_EVENT,
-    payload 
+    payload
   }
 }
 
@@ -47,7 +47,7 @@ export const initClosestEventsAC = (payload) => {
 export const eventsRequestsNotificationsAC = (payload) => {
   return {
     type: EVENTS_REQUESTS_NOTIFICATIONS,
-      payload,
+    payload,
 
   }
 }
@@ -99,3 +99,9 @@ export const cancelForeignEventOnProfileAC = (payload) => {
   }
 }
 
+export const initPastEventsOnProfileAC = (payload) => {
+  return {
+    type: INIT_PAST_EVENTS_ON_PROFILE,
+    payload
+  }
+}
