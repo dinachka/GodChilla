@@ -36,7 +36,7 @@ function Profile() {
 
   const changingHandler = (event) => {
     event.preventDefault()
-    dispatch(initUserslistFetchAC(searchInput.current.value))
+    searchInput.current.value.length && dispatch(initUserslistFetchAC(searchInput.current.value))
   }
 
   return (
@@ -62,7 +62,7 @@ function Profile() {
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
 
-        <input placeholder='Найти друзей' type='search' ref={searchInput}></input><button onClick={changingHandler} >искать</button>
+        <input onChange={changingHandler} placeholder='Найти друзей' type='search' ref={searchInput}></input><button>искать</button>
       </div>
       <div>
         {friendsVisible && <FriendList />}
