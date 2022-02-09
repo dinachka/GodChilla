@@ -1,9 +1,12 @@
 import React from 'react';
 
-function ParticularUserPublicEvents(props) {
+function ParticularUserPublicEvents({ user }) {
+
+  const name = user.info.name
+
   return (
     <div>
-      Events for everyone
+      <h2>{name}'s public events</h2>
     </div>
   );
 }
