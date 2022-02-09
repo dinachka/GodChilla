@@ -14,6 +14,10 @@ const createFriendship = async (req, res) => {
     });
     const friendships = await Friendship.findAll({
       order: [['updatedAt', 'DESC']],
+      where: {
+        [Op.or]: [{ reqUserID }, { resUserID: reqUserID }],
+      },
+      attributes: ['resUserID', 'reqUserID', 'status'],
     });
     res.status(200).json(friendships);
   } catch (error) {
@@ -132,10 +136,30 @@ const friendshipRequestsNotifications = async (req, res) => {
   }
 };
 
+const deleteFriendship = async (req, res) => {
+  const userID = +(req.params.id);
+  const currentUserID = +(req.session.user.id);
+  try {
+    await Friendship.destroy({
+      where: {
+        [Op.or]: [
+          { reqUserID: userID, resUserID: currentUserID },
+          { resUserID: userID, reqUserID: currentUserID }],
+      },
+    });
+    res.status(200).json({ userID });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   currentFriendships,
   createFriendship,
   rejectFriendship,
   friendshipAccepted,
   friendshipRequestsNotifications,
+  deleteFriendship,
 };

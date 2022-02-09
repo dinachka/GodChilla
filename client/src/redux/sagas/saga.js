@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 
-import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC, acceptFriendshipAC, rejectFriendshipAC } from '../actionCreators/friendsAC';
-import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC } from '../actionTypes/friendsAT';
+import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC, acceptFriendshipAC, rejectFriendshipAC, deleteFriendAC } from '../actionCreators/friendsAC';
+import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC, DELETE_FRIENDSHIP_FETCH } from '../actionTypes/friendsAT';
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC, initAnotherUserAC } from '../actionCreators/userAC';
 import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH, INIT_ANOTHER_USER_FETCH } from '../actionTypes/userAT'
 import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, EVENTS_REQUESTS_NOTIFICATIONS_FETCH, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, REJECT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT, INIT_OTHER_EVENTS_ON_PROFILE_FETCH } from '../../redux/actionTypes/eventAT'
@@ -243,6 +243,16 @@ function* initOtherEventsOnProfile(action){
   yield put(initOtherEventsOnProfileAC(events))
 }
 
+function* deleteFriendshipAsync(action) {
+  const data = yield call(fetchData, {
+    url: `${process.env.REACT_APP_URL_FRIEND_REQ}/${action.payload}`,
+    headers: { 'Content-Type': 'Application/json' },
+    method: 'DELETE'
+  });
+
+  yield put(deleteFriendAC(data.userID));
+}
+
 export function* sagaWatcher() {
   // Запрос на регистрацию
   yield takeEvery(REGISTRATION_FETCH, registrationUserAsync);
@@ -290,6 +300,6 @@ export function* sagaWatcher() {
   yield takeEvery(REJECT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, rejectEventsRequestNotifications)
 
   yield takeEvery(INIT_OTHER_EVENTS_ON_PROFILE_FETCH, initOtherEventsOnProfile)
-
-
+  // удалить из друзей
+  yield takeEvery(DELETE_FRIENDSHIP_FETCH, deleteFriendshipAsync)
 }

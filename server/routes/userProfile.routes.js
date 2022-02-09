@@ -32,8 +32,7 @@ router.get('/:id', async (req, res) => {
     }
     res.json({ info: userInfo, friendship: userFriendshipStatus.status });
   } catch (error) {
-    console.log('NONON');
-    res.status(404).json({ friendship: 'Не друзья', info: userInfo });
+    res.json({ friendship: 'Не друзья', info: userInfo });
   }
 });
 
