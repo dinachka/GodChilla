@@ -108,7 +108,8 @@ function* deleteEventAsync(action) {
   const id = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_EVENT}/${action.payload}`,
     headers: { 'Content-Type': 'Application/json' },
-    method: 'DELETE' });
+    method: 'DELETE'
+  });
 
   yield put(deleteEventAC(id));
 }
@@ -139,32 +140,33 @@ function* editEventAsync(action) {
     url: `${process.env.REACT_APP_URL_EVENT}/${action.payload.userID}`,
     headers: { 'Content-Type': 'Application/json' },
     method: 'PUT',
-    body: JSON.stringify(action.payload) });
+    body: JSON.stringify(action.payload)
+  });
 
   // put - аналог dispatch в redux-saga
   yield put(editEventAC(editedEvent));
 }
 
 // вывод увeдомлений о добавлении в друзьями
-function* initFriendsRequestNotifications(action){
-  const allRequests  = yield call(fetchData, {
+function* initFriendsRequestNotifications(action) {
+  const allRequests = yield call(fetchData, {
     url: process.env.REACT_APP_URL_USERS_FRIENDSHIP_NOTIFICATIONS,
     headers: { 'Content-Type': 'application/json' },
   })
   yield put(initFriendsRequestNotificatiosnAC(allRequests))
 }
 
-  // иницализация профиля другого юзера
-function* initAnotherUserAsync(action){
-  const anotherUser  = yield call(fetchData, {
+// иницализация профиля другого юзера
+function* initAnotherUserAsync(action) {
+  const anotherUser = yield call(fetchData, {
     url: `${process.env.REACT_APP_URL_ANOTHER_USER_PROFILE}/${action.payload}`,
     headers: { 'Content-Type': 'application/json' },
   })
   yield put(initAnotherUserAC(anotherUser))
 }
 // принять запрос на добавление друга 
-function* acceptFriendship(action){
-  console.log(process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP);
+function* acceptFriendship(action) {
+  // console.log(process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP);
   const accepted = yield call(fetchData, {
     url: process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
@@ -175,7 +177,7 @@ function* acceptFriendship(action){
 }
 
 //  отклонить запрос на добавление в друзья
-function* rejectFriendship(action){
+function* rejectFriendship(action) {
   const reject = yield call(fetchData, {
     url: process.env.REACT_APP_URL_REJECT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
@@ -185,7 +187,7 @@ function* rejectFriendship(action){
   yield put(rejectFriendshipAC(reject))
 }
 
-function* eventsRequestNotifications(action){
+function* eventsRequestNotifications(action) {
   const events = yield call(fetchData, {
     url: process.env.REACT_APP_URL_EVENTS_REQUESTS_NOTIFICATIONS,
     headers: { 'Content-Type': 'application/json' },
@@ -277,7 +279,7 @@ export function* sagaWatcher() {
   yield takeEvery(INIT_ANOTHER_USER_FETCH, initAnotherUserAsync);
   // Изменение событиях
   yield takeEvery(FETCH_EDIT_EVENT, editEventAsync);
-  
+
   yield takeEvery(INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, initFriendsRequestNotifications);
 
   yield takeEvery(ACCEPT_FRIENDSHIP_ASYNC, acceptFriendship);

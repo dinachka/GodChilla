@@ -5,11 +5,13 @@ const {
 } = require('../db/models');
 
 router.get('/', async (req, res) => {
+  const now = (new Date()).toISOString();
   const otherEvents = await Event.findAll({
     where: {
       userID: {
         [Op.ne]: req.session.user.id,
       },
+      dateTime: { [Op.gte]: now },
       [Op.or]: [
         { privateSettings: 'public' },
         { privateSettings: 'forFriends' },

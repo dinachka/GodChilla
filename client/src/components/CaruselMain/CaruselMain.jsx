@@ -30,7 +30,7 @@ function CaruselMain(props) {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         // wrapperTag='ul'
         spaceBetween={50}
-        slidesPerView={2}
+        slidesPerView={1}
         navigation
         // navigation={{
         //   nextEl: '.swiper-button-next',
@@ -43,7 +43,7 @@ function CaruselMain(props) {
         speed={2000}
         pagination={{ clickable: true }}
         // scrollbar={{ draggable: true }}
-        style={{ height: '150px', padding: '40px' }}
+        style={{ height: '480px' }}
       >
         {events.length && events.map(event =>
           <SwiperSlide style={{ backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD8quM5ex_WfSkUizmCjCSCPBwOQCseCatiQ&usqp=CAU)', backgroundSize: 'cover', borderRadius: '20px' }} key={event.id} >

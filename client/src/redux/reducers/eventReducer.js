@@ -34,6 +34,7 @@ export const eventReducer = (state = initialState, action) => {
           state.notifications.filter((el) => el.userID !== action.payload)
       }
 
+
     case EDIT_EVENT:
       return { ...state, userEvents: action.payload.events }
 
@@ -57,6 +58,7 @@ export const eventReducer = (state = initialState, action) => {
         ...state, otherEvents: state.otherEvents.map(el => el.id === action.payload.eventID ?
           { ...el, status: 'Запрос отменен' } : el)
       }
+
 
     default:
       return state
