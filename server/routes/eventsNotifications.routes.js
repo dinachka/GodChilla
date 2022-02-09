@@ -19,12 +19,13 @@ router.get('/getEventRequest', async (req, res) => {
     const participations = await Participation.findAll({
       where: {
         eventID: { [Op.or]: eventsIds },
+        status: 'В обработке',
       },
       raw: true,
       include:
           { all: true },
     });
-    res.status(200).json({ participations });
+    res.status(200).json(participations);
   } catch (error) {
     res.status(404).json({ error });
   }

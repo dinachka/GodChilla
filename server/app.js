@@ -5,9 +5,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
+const path = require('path');
 
 const app = express();
-app.use(helmet());
+// app.use(helmet());
 app.use(morgan('dev'));
 
 dotenv.config();
@@ -16,6 +17,8 @@ const {
   PORT = 4000,
   SESSION_SECRET = 'my_secret',
 } = process.env;
+
+const sessionMiddleware = require('./middlewares/sessions');
 
 const publicEventsRouter = require('./routes/getEvents.routes');
 const registrationRouter = require('./routes/registration.routes');
@@ -33,6 +36,7 @@ const rejectFriendship = require('./routes/friendship.routes');
 const eventsNotifications = require('./routes/eventsNotifications.routes');
 const userProfile = require('./routes/userProfile.routes');
 const anotherUsersEvents = require('./routes/anotherUsersEvents.routes');
+const uploadUserImage = require('./routes/uploadUserImage.routes');
 
 const sessionConfig = {
   store: new SessionFileStore(),
@@ -56,7 +60,11 @@ app.use(session(sessionConfig));
 app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.json());
+app.use(express.json({ extended: true }));
+app.use('/images/', express.static(path.join(__dirname, 'images')));
+
+app.use(sessionMiddleware);
 
 app.use('/api', publicEventsRouter);
 app.use('/api/registration', registrationRouter);
@@ -87,6 +95,9 @@ app.use('/api/profile/eventsNotifications', eventsNotifications);
 app.use('/api/profile/user', userProfile);
 // профиль другого юзера с его событиями
 app.use('/api/profile/user/events/', anotherUsersEvents);
+// сохранение и изменение аватара на профиле пользователя
+app.use('/api/profile/uploadImage/', uploadUserImage);
+
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);

@@ -4,7 +4,7 @@ import { acceptEventsRequestsNotificationsAsyncAC, rejectEventsRequestsNotificat
 
 
 function NotificationEventCard({ event }) {
-console.log(event);
+console.log(event, 'event');
   const key = Object.values(event)
   const dispatch = useDispatch()
 
@@ -17,10 +17,12 @@ console.log(event);
   }
 
   return (
+    <>
     <div>
       пользователь {key[19]} {key[20]} хочет учавствовать в "{key[9]}"
       Вы можете <button onClick={acceptEventRequest}>принять</button> или <button onClick={rejectEventRequest}>отклонить</button> запрос
     </div>
+    </>
   );
 }
 

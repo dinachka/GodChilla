@@ -9,7 +9,6 @@ import NotificationModal from '../NotificationModal/NotificationModal';
 function Navigation() {
 
   const session = useSelector(state => state.userReducer)
-
   const dispath = useDispatch();
   const navigate = useNavigate();
   // Состояние для открытия/закрытия моадльного окна уведомлений
@@ -23,24 +22,34 @@ function Navigation() {
   return (
     <>
       {session.user.isUser ? 
-      <nav className='globalNav' >
-        <ul>
-          <li><Link to="/" className='Link' >Главная</Link></li>
-          <li><Link to="/events" className='Link' >События</Link></li>
-          <li><Link to="/profile" className='Link' >Профиль</Link></li>
-          <li onClick={leaveSession} className='Link' >Выйти</li>
-          <li onClick={()=>setIsModal(!isModal)} className='Link' >info</li>
-        </ul>
-      </nav> 
+      < >
+        <div className='uk-animation-slide-top'>
+        <div className='upper'></div>
+        <div className='logo_form'><Link to="/"><div className='godchilla'>GODCHILLA</div></Link></div>
+          <nav className='uk-navbar' >
+            <div className="uk-navbar-left" >
+              <ul className="uk-navbar-nav uk-animation-slide-top" >
+              <li onClick={()=>setIsModal(!isModal)} ><Link to="/#" className="uk-active bell"  ><div className='my' uk-icon="icon: bell; ratio: 1.2"></div></Link></li> 
+                <li><Link to="/profile" className="uk-active profile"><div className='my'>Профиль</div></Link></li>
+              </ul>
+            </div>
+            <div className="uk-navbar-right" >
+              <ul className="uk-navbar-nav uk-animation-slide-top" >
+                <li><Link to="/events" className="uk-active event" ><div className='my'>События</div></Link></li> 
+                <li onClick={leaveSession} ><Link to="/#" className="uk-active logout" ><div className='my' uk-icon="icon:sign-out; ratio: 1.2"></div></Link></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+    </>
       : 
-      <nav className='globalNav' >
-        <ul>
-          <li><Link to="/" className='Link' >Главная</Link></li>
-          <li><Link to="/registration" className='Link' >Регистрация</Link></li>
-          <li><Link to="/login" className='Link' >Авторизация</Link></li>
-          <li onClick={()=>setIsModal(!isModal)} className='Link' >info</li>
-        </ul>
-      </nav>}
+      < >
+        <div className='uk-animation-slide-top'>
+          <div className='upper'></div>
+          <div className='logo_form'><Link to="/"><div className='godchilla'>GODCHILLA</div></Link></div>
+        </div>
+      </>
+      }
       {isModal && <NotificationModal />}    
     </>
   )

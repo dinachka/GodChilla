@@ -1,0 +1,37 @@
+.homePageContainer{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  height: 480px;
+  margin: 10% auto auto 0;
+  /* background-color: cadetblue; */
+
+}
+
+.carusel{
+  width: 40%;
+}
+
+.loginBlock{
+  background-color: rgb(84, 173, 214);
+  border-radius: 5px;
+  height: 47%;
+  text-align: center;
+}
+
+.regBlock{
+  margin-top: 10%;
+  background-color: rgb(48, 107, 184);
+  border-radius: 5px;
+  height: 47%;
+  text-align: center;
+}
+
+.log-reg_Container{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.uk-grid-match{
+  margin-top: 5%;
+}

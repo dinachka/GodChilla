@@ -10,12 +10,12 @@ export const userReducer = (state = initialState, action) => {
     case INIT_USER:
       return { ...state, user: action.payload }
 
-    case DELETE_USER: 
-      return {...state, user: {}}
+    case DELETE_USER:
+      return { ...state, user: {} }
 
     case INIT_ANOTHER_USER:
       return {...state, anotherUser: action.payload }
-      
+
     default:
       return state
   }
