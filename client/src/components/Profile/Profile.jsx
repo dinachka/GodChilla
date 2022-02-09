@@ -106,8 +106,8 @@ function Profile() {
       <div >
         <div className='stateSwitcher'>
           {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
-        </div>
-        {calendarSwitcher ? 'Здесь будет красивый календарь' : <CurrentUsersEvents />}
+        </div >
+        <div >{calendarSwitcher ? < ></> : <CurrentUsersEvents />}</div>
       </div>
     </div>
   )
