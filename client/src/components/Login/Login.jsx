@@ -22,9 +22,9 @@ function Login(props) {
   return (
 
       <form onSubmit={submitLoginHandler} className='form' >
-        <label>email <input type="email" ref={emailRef} required/></label>
-        <label>Пароль <input type="password" autoComplete="off" ref={passwordRef} required/></label>
-        <button className='btn btnStyle' >Войти</button>
+        <input type="email"  placeholder='email' ref={emailRef} required/>
+        <input type="password" placeholder='Пароль' autoComplete="off" ref={passwordRef} required/>
+        <button className='btn_login btnStyle' >Войти</button>
       </form>
   );
 }

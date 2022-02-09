@@ -9,17 +9,20 @@
 }
 
 .carusel{
-  width: 40%;
+  width: 60%;
 }
 
-.loginBlock{
-  background-color: rgb(84, 173, 214);
+.regBlock{
+  text-decoration:none;
+  background: linear-gradient(rgb(48, 107, 184), rgb(63, 135, 197), rgb(84, 173, 214));
   border-radius: 5px;
   height: 47%;
   text-align: center;
 }
 
-.regBlock{
+.loginBlock{
+  text-decoration:none;
+  background: linear-gradient(rgb(84, 173, 214),rgb(84, 173, 214),rgb(72, 188, 196),rgb(38, 216, 162));
   margin-top: 10%;
   background-color: rgb(48, 107, 184);
   border-radius: 5px;
@@ -30,8 +33,12 @@
 .log-reg_Container{
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 30%;
 }
 .uk-grid-match{
   margin-top: 5%;
+}
+
+.logLink{
+  text-decoration: none;
 }

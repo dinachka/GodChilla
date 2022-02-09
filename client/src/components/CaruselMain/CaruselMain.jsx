@@ -9,7 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import './CaruselMain.module.css'
+import './caruselMain.css'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 SwiperCore.use([Autoplay]);
@@ -23,13 +23,45 @@ function CaruselMain(props) {
   }, [dispatch])
 
   const { closesEvents: events } = useSelector(state => state.eventReducer)
+  const session = useSelector(state => state.userReducer)
 
   return (
     <>
+      {session.user.isUser ? 
+      <Swiper
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      // wrapperTag='ul'
+      // spaceBetween={10}
+      slidesPerView={1}
+      navigation
+      // navigation={{
+      //   nextEl: '.swiper-button-next',
+      //   prevEl: '.swiper-button-prev',
+      // }}
+      autoplay={{
+        delay: 2000,
+        disableOnInteraction: true,
+      }}
+      speed={2000}
+      pagination={{ clickable: true }}
+      className='swiper_style_no_session'
+    >
+      {events.length && events.map(event =>
+        <SwiperSlide  className='swiper_style_no_session' style={{ backgroundImage: 'url(https://s0.rbk.ru/v6_top_pics/media/img/5/36/755840315954365.jpg)' }} key={event.id} >
+          <div className='down_flag_no_session'>
+          <h4>Цель: {event.title} </h4>
+            <span>Дата: {event.dateTime} </span>
+            <br />
+            <span>Место: {event.location} </span>
+          </div>
+        </SwiperSlide>
+      )}
+    </Swiper> 
+      : 
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         // wrapperTag='ul'
-        spaceBetween={50}
+        // spaceBetween={10}
         slidesPerView={1}
         navigation
         // navigation={{
@@ -42,20 +74,19 @@ function CaruselMain(props) {
         }}
         speed={2000}
         pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
-        style={{ height: '480px' }}
+        className='swiper_style'
       >
         {events.length && events.map(event =>
-          <SwiperSlide style={{ backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD8quM5ex_WfSkUizmCjCSCPBwOQCseCatiQ&usqp=CAU)', backgroundSize: 'cover', borderRadius: '20px' }} key={event.id} >
-            <div style={{ paddingLeft: '30px' }}>
-              <h2>{event.title} </h2>
-              <p>{event.dateTime} </p>
-              <p> {event.location} </p>
+          <SwiperSlide  className='swiper_style' style={{ backgroundImage: 'url(https://s0.rbk.ru/v6_top_pics/media/img/5/36/755840315954365.jpg)' }} key={event.id} >
+            <div className='down_flag'>
+            <h4>Цель: {event.title} </h4>
+              <span>Дата: {event.dateTime} </span>
+              <br />
+              <span>Место: {event.location} </span>
             </div>
           </SwiperSlide>
         )}
-
-      </Swiper>
+      </Swiper> }
     </>
   )
 }
