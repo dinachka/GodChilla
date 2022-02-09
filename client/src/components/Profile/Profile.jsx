@@ -28,7 +28,7 @@ function Profile() {
   }
 
   const { user } = useSelector(state => state.userReducer)
-  console.log(user);
+  // console.log('!!!!!!!!!!!!!', user);
   const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
@@ -39,9 +39,11 @@ function Profile() {
     dispatch(initUserslistFetchAC(searchInput.current.value))
   }
 
-
   // сохранение аватара
+
+  //переменная для получения файла на клиенте
   const [img, setImg] = useState(null)
+  //переменная, обработаная на сервере 
   const [avatar, setAvatar] = useState(null)
   const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
 
@@ -57,7 +59,7 @@ function Profile() {
         body: data,
       };
       fetch(URL + id, options)
-        .then(res => setAvatar(res.updatedAva))
+        .then(res => setAvatar(res.photoURL))
 
     } catch (error) {
       console.log(error);

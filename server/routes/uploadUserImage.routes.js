@@ -13,7 +13,8 @@ router
           },
         },
       );
-      res.status(200).json({ message: 'Фотография обновлена', updatedAva: updatedAva.photo });
+      console.log('!!!!!!!!!!!!!!!', updatedAva);
+      res.status(200).json({ message: 'Фотография обновлена', photoURL: updatedAva.photo });
     } catch (error) {
       console.log(error.message);
       // res.status(404).json({ error });
