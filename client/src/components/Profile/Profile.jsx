@@ -9,6 +9,7 @@ import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
+import { SAVE_AVATAR } from '../../redux/actionTypes/userAT'
 
 function Profile() {
 
@@ -59,11 +60,14 @@ function Profile() {
       };
       fetch(URL + id, options)
         .then(res => res.json())
-        .then(data => setAvatar(data.photoURL))
+        .then(data => dispatch({ type: SAVE_AVATAR, payload: data.photoURL }))
+      // .then(data => setAvatar(data.photoURL))
     } catch (error) {
       console.log(error);
     }
-  }, [img, id])
+  }, [img, id, dispatch, avatar])
+
+  console.log('!!!!!USER', user);
 
 
   // сохранение
@@ -75,8 +79,9 @@ function Profile() {
           <h1>{user.name}</h1>
         </div>
         <div className="avatar_box">
-          {avatar ? <img src={`${avatar}`} alt="avatar" />
-            :
+          {
+            // avatar ? <img src={`${avatar}`} alt="avatar" />
+            //   :
             user.photo ? <img src={`${user.photo}`} alt="avatar" />
               :
               <img src={`${defaultAvatar}`} alt="avatar" />
