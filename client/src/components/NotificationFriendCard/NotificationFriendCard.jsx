@@ -13,13 +13,10 @@ const dispatch = useDispatch()
   }
   return (
     <>
-
-   {/* {user.status === 'В обработке' && */}
     <div>
       {user.name} {user.lastName}
       <button onClick={acceptFriendship}>Принять</button> <button onClick={rejectFriendship}>Отклонить</button>
     </div>
-    {/* } */}
     </>
   );
 }

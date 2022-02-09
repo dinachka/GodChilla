@@ -2,12 +2,11 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 
 import { initFriendsAC, addFriendshipAC, initFriendsRequestNotificatiosnAC, acceptFriendshipAC, rejectFriendshipAC } from '../actionCreators/friendsAC';
 import { INIT_FRIENDS_ASYNC, ADD_FRIENDSHIP_FETCH, INIT_FRIENDS_REQUEST_NOTIFICATIONS_ASYNC, ACCEPT_FRIENDSHIP_ASYNC, REJECT_FRIENDSHIP_ASYNC } from '../actionTypes/friendsAT';
-
-import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT, EVENTS_REQUESTS_NOTIFICATIONS_FETCH } from '../../redux/actionTypes/eventAT';
-import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC, editEventAC, addParticipationAC, cancelJoinEventAC, eventsRequestsNotificationsAC } from '../actionCreators/eventAC';
-
 import { addUserAC, initUserAC, deleteUserAC, initUserslistAC, initAnotherUserAC } from '../actionCreators/userAC';
-import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH, INIT_ANOTHER_USER_FETCH  } from '../actionTypes/userAT'
+import { REGISTRATION_FETCH, LOGIN_FETCH, LOGOUT_FETCH, INIT_USERSLIST_FETCH, GLOBAL_LOGIN_FETCH, INIT_ANOTHER_USER_FETCH } from '../actionTypes/userAT'
+import { PUBLIC_EVENTS_FETCH, INIT_USERS_EVENTS_FETCH, FETCH_POST_EVENT, FETCH_DELETE_EVENT, INIT_CLOSEST_EVENTS_FETCH, EVENTS_REQUESTS_NOTIFICATIONS_FETCH, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, REJECT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, FETCH_EDIT_EVENT, FETCH_JOIN_EVENT, FETCH_CANCEL_JOIN_EVENT, } from '../../redux/actionTypes/eventAT'
+import { getPublicEvents, getUsersEvents, addEventAC, deleteEventAC, initClosestEventsAC,editEventAC, addParticipationAC, cancelJoinEventAC, eventsRequestsNotificationsAC, eventsRequestsNotificationsAC, acceptEventsRequestsNotificationsAC, rejectEventsRequestsNotificationsAC } from '../actionCreators/eventAC';
+
 
 async function fetchData({ url, method, headers, body, credentials = 'include' }) {
   const response = await fetch(url, {
@@ -193,6 +192,27 @@ function* eventsRequestNotifications(action){
   })
   yield put(eventsRequestsNotificationsAC(events))
 }
+
+function* acceptEventsRequestNotifications(action){
+  const events = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS,
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PUT',
+    body: JSON.stringify(action.payload),
+  })
+  yield put(acceptEventsRequestsNotificationsAC(events))
+}
+
+
+function* rejectEventsRequestNotifications(action){
+  const events = yield call(fetchData, {
+    url: process.env.REACT_APP_URL_REJECT_EVENTS_REQUESTS_NOTIFICATIONS,
+    headers: { 'Content-Type': 'application/json' },
+    method: 'DELETE',
+    body: JSON.stringify(action.payload),
+  })
+  yield put(rejectEventsRequestsNotificationsAC(events))
+}
 // уведомления о запросе принятия участия в событии
 
 // запросить разрешение присоединиться к событию
@@ -254,4 +274,9 @@ export function* sagaWatcher() {
   yield takeEvery(FETCH_CANCEL_JOIN_EVENT, cancelJoinEventAsync);
 
   yield takeEvery(EVENTS_REQUESTS_NOTIFICATIONS_FETCH, eventsRequestNotifications)
+
+  yield takeEvery(ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, acceptEventsRequestNotifications)
+
+  yield takeEvery(REJECT_EVENTS_REQUESTS_NOTIFICATIONS_FETCH, rejectEventsRequestNotifications)
+
 }
