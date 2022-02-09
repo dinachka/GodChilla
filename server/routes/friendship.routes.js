@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {
   rejectFriendship, createFriendship, currentFriendships, friendshipAccepted,
-  friendshipRequestsNotifications,
+  friendshipRequestsNotifications, deleteFriendship,
 } = require('../controllers/friendships.controller');
 
 // создание дружбы на собственной странице в поисковике
@@ -16,8 +16,8 @@ router.put('/', friendshipAccepted);
 // отклонение заявки добавления в друзья
 router.delete('/', rejectFriendship);
 
-// // расторжение дружбы на странице юзера
-// router.delete('/profile/:id', deleteFriendship);
+// расторжение дружбы на странице юзера
+router.delete('/:id', deleteFriendship);
 
 // список друзей конкретного юзера
 router.get('/:id', currentFriendships);

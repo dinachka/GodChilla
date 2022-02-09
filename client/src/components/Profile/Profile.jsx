@@ -94,7 +94,7 @@ const changingHandler = (event) => {
       </div>
       {eventCreatorVisible && <EventCreator setSwitcher={() => {setEventCreatorVisible(false)}}/>}
 
-      <hr class="uk-divider-icon" />
+      <hr className="uk-divider-icon" />
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
 
