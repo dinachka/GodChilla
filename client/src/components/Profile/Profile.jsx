@@ -56,7 +56,7 @@ function Profile() {
       <div className='createEventBtn' >
         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
-      {eventCreatorVisible && <EventCreator />}
+      {eventCreatorVisible && <EventCreator setSwitcher={() => {setEventCreatorVisible(false)}}/>}
 
       <div className='bottomLine'></div>
       <div className='friendsContainer'>
