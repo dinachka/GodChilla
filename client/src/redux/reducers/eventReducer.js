@@ -23,7 +23,7 @@ export const eventReducer = (state = initialState, action) => {
     case ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS:
       console.log(action.payload, 'action.payload');
       return { ...state, notifications: 
-         state.notifications.participations.filter((el) => el.userID === action.payload) 
+         state.notifications.participations.filter((el) => el.userID != action.payload) 
         }
 
     case REJECT_EVENTS_REQUESTS_NOTIFICATIONS:
