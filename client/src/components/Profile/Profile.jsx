@@ -9,6 +9,7 @@ import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
+import PastEvents from '../PastEvents/PastEvents';
 
 function Profile() {
 
@@ -108,11 +109,13 @@ function Profile() {
       <div className='bottomLine'></div>
       <div >
         <div className='stateSwitcher'>
-          {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
+          {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента будущих событий</div> : <div onClick={calendarSwitch} className='display'>Прошедшие события</div>}
         </div >
-        <div >{calendarSwitcher
-          ? < ></> : <CurrentUsersEvents />}</div>
-        <OtherEventsOnProfie />
+        <div >{calendarSwitcher ? <>
+        <CurrentUsersEvents />
+        <OtherEventsOnProfie/>
+        </> 
+        : <PastEvents />}</div>
       </div>
     </div>
   )
