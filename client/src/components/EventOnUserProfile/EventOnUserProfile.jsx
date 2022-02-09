@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT';
 import { useNavigate } from 'react-router-dom';
+import { cancelForeignEventsOnProfileAsyncAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 import EditForm from '../EditForm/EditForm';
 
 function EventOnUserProfile({ event }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const curEventId = event.id;
-
+  const session = useSelector(state => state.userReducer)
   const [editFormVision, setEditFormVision] = useState(false);
   const editFormVisionSwitcher = () => {
     setEditFormVision(!editFormVision);
@@ -20,6 +21,10 @@ function EventOnUserProfile({ event }) {
     navigate('/events');
   };
 
+    const rejectEvent = () => {
+      dispatch(cancelForeignEventsOnProfileAsyncAC(event.id))
+      console.log(123);
+    }
   return (
     <div>
       <div>
@@ -41,14 +46,15 @@ function EventOnUserProfile({ event }) {
         )}
         {editFormVision && <EditForm key={event.id} event={event} />}
         <br />
-        {editFormVision ? (
+        {session.user.id === event.userID ? (editFormVision ? (
           <button onClick={editFormVisionSwitcher}>Отменить изменения</button>
         ) : (
+          <>
           <button onClick={editFormVisionSwitcher}>Изменить событие</button>
-        )}
-        {!editFormVision && (
           <button onClick={deleteHandle}>Удалить событие</button>
-        )}
+          </>
+        ))
+          : <button onClick={rejectEvent}>Отменить участие</button>}
       </div>
     </div>
   );

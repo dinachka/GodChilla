@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
     return res.status(200).json(user);
   } return res.status(404).json({
     isUser: false,
-    message: 'Сессия не найдена',
+    // message: 'Сессия не найдена',
   });
 });
 

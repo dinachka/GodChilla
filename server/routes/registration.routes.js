@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
       res.status(400).json({ user: false, message: 'Юзер с таким email уже существует' });
     }
     if (newUser) {
-      res.status(201).json({ user: true, message: 'Регистрация прошла успешно!' });
+      res.status(201).json({ user: true });
     }
   } catch (error) {
     res.status(401).json({ user: false, message: 'Регистрация не прошла. Ошибка обращения к базе данных', error: error.message });

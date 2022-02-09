@@ -10,6 +10,7 @@ import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
 import { SAVE_AVATAR } from '../../redux/actionTypes/userAT'
+import PastEvents from '../PastEvents/PastEvents';
 
 function Profile() {
 
@@ -37,7 +38,7 @@ function Profile() {
 
   const changingHandler = (event) => {
     event.preventDefault()
-    dispatch(initUserslistFetchAC(searchInput.current.value))
+    searchInput.current.value.length && dispatch(initUserslistFetchAC(searchInput.current.value))
   }
 
   // сохранение аватара
@@ -94,13 +95,13 @@ function Profile() {
       <div className='createEventBtn' >
         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
-      {eventCreatorVisible && <EventCreator />}
+      {eventCreatorVisible && <EventCreator setSwitcher={() => { setEventCreatorVisible(false) }} />}
 
       <hr className="uk-divider-icon" />
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
 
-        <input placeholder='Найти друзей' type='search' ref={searchInput}></input><button onClick={changingHandler} >искать</button>
+        <input onChange={changingHandler} placeholder='Найти друзей' type='search' ref={searchInput}></input><button>искать</button>
       </div>
       <div>
         {friendsVisible && <FriendList />}
@@ -110,11 +111,13 @@ function Profile() {
       <div className='bottomLine'></div>
       <div >
         <div className='stateSwitcher'>
-          {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента</div> : <div onClick={calendarSwitch} className='display'>Календарь</div>}
+          {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента будущих событий</div> : <div onClick={calendarSwitch} className='display'>Прошедшие события</div>}
         </div >
-        <div >{calendarSwitcher
-          ? < ></> : <CurrentUsersEvents />}</div>
-        <OtherEventsOnProfie />
+        <div >{calendarSwitcher ? <>
+          <CurrentUsersEvents />
+          <OtherEventsOnProfie />
+        </>
+          : <PastEvents />}</div>
       </div>
     </div>
   )

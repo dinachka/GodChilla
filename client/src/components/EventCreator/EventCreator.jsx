@@ -1,11 +1,10 @@
 import React, { useRef, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
 
 import './eventCreator.css'
 
-function EventCreator() {
+function EventCreator({setSwitcher}) {
 
   const titleInput = useRef()
   const descriptionInput = useRef()
@@ -16,9 +15,7 @@ function EventCreator() {
   const privateInput = useRef()
   const state = useSelector(state => state.userReducer)
 
-  const navigate = useNavigate()
   const dispatch = useDispatch()
-
 
   const eventHandler = (event) => {
     event.preventDefault()
@@ -40,7 +37,7 @@ function EventCreator() {
       payload: newEvent
     })
 
-    navigate('/events')
+    setSwitcher()
   }
 
   // сохранение картинок 

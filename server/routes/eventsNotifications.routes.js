@@ -19,6 +19,7 @@ router.get('/getEventRequest', async (req, res) => {
     const participations = await Participation.findAll({
       where: {
         eventID: { [Op.or]: eventsIds },
+        status: 'В обработке',
       },
       raw: true,
       include:

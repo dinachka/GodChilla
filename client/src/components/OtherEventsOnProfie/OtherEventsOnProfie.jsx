@@ -6,6 +6,7 @@ import { initOtherEventsOnProfileAsyncAC } from '../../redux/actionCreatorsAsync
 function OtherEventsOnProfie(props) {
   const dispatch = useDispatch()
   const events = useSelector(state => state.eventReducer.otherEvents)
+  const filteredEvents = events?.length && events.filter((el) => !el.status)
 
   useEffect(() => {
     dispatch(initOtherEventsOnProfileAsyncAC())
@@ -13,8 +14,8 @@ function OtherEventsOnProfie(props) {
   return (
     <div>
       <h3>чужие события в которых вы учавствуете</h3>
-      {events?.length ?
-        events.map(event => < EventOnUserProfile key={event.id} event={event} />)
+      {filteredEvents?.length ?
+        filteredEvents.map(event => < EventOnUserProfile key={event.id} event={event} />)
         : "вы не учавствуете ни в одном чужом событии"}
     </div>
   );
