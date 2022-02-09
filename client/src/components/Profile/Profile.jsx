@@ -57,7 +57,7 @@ function Profile() {
       </div>
       {eventCreatorVisible && <EventCreator />}
 
-      <div className='bottomLine'></div>
+      <hr class="uk-divider-icon" />
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
 
