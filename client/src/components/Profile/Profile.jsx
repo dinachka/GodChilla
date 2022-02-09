@@ -8,7 +8,6 @@ import FriendList from '../FriendList/FriendList';
 import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
-import axios from 'axios'
 
 function Profile() {
 
@@ -50,15 +49,26 @@ function Profile() {
 
   const sendFile = useCallback(async () => {
     try {
+      // const data = new FormData()
+      // // name from uploadUserImage.routes
+      // data.append('avatar', img)
+      // await axios.put(`http://localhost:4000/api/profile/uploadImage/${id}`, data, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // })
+      // .then(res => setAvatar(res.updatedAva))
+
       const data = new FormData()
-      // name from uploadUserImage.routes
       data.append('avatar', img)
-      await axios.put(`http://localhost:4000/api/profile/uploadImage/${id}`, data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+
+      const options = {
+        method: 'PUT',
+        body: data,
+      };
+      fetch(`http://localhost:4000/api/profile/uploadImage/${id}`, options)
         .then(res => setAvatar(res.updatedAva))
+
     } catch (error) {
       console.log(error);
     }
