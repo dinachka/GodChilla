@@ -24,7 +24,7 @@ router.get('/getEventRequest', async (req, res) => {
       include:
           { all: true },
     });
-    res.status(200).json({ participations });
+    res.status(200).json(participations);
   } catch (error) {
     res.status(404).json({ error });
   }

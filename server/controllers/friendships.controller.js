@@ -64,7 +64,6 @@ const currentFriendships = async (req, res) => {
 const friendshipAccepted = async (req, res) => {
   const { id } = req.session.user;
   const reqUserID = req.body.id;
-  // console.log(JSON.stringify(req.session), id);
   try {
     const acceptedFriendship = await Friendship.update(
       { status: 'Подтвержден' },

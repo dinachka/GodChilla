@@ -12,6 +12,7 @@ function CurrentUsersEvents(props) {
   
   return (
     <>
+    <h3>ваши события</h3>
       { userEvents?.length && userEvents.map( el => <EventOnUserProfile key={el.id} event={el}/>)}
     </>
   );
