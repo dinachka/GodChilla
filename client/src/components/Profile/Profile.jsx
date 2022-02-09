@@ -49,24 +49,14 @@ function Profile() {
 
   const sendFile = useCallback(async () => {
     try {
-      // const data = new FormData()
-      // // name from uploadUserImage.routes
-      // data.append('avatar', img)
-      // await axios.put(`http://localhost:4000/api/profile/uploadImage/${id}`, data, {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      // })
-      // .then(res => setAvatar(res.updatedAva))
-
+      const URL = 'http://localhost:4000/api/profile/uploadImage/'
       const data = new FormData()
       data.append('avatar', img)
-
       const options = {
         method: 'PUT',
         body: data,
       };
-      fetch(`http://localhost:4000/api/profile/uploadImage/${id}`, options)
+      fetch(URL + id, options)
         .then(res => setAvatar(res.updatedAva))
 
     } catch (error) {
