@@ -25,39 +25,44 @@ const createFriendship = async (req, res) => {
 };
 
 // вынимаем из БД спиок друзей
+const loadCurrentFriendships = async userId => {
+  const friends = await Friendship.findAll({
+    raw: true,
+    order: [['updatedAt', 'DESC']],
+    attributes: ['reqUserID', 'resUserID'],
+    where: {
+      [Op.or]: [{ reqUserID: userId }, { resUserID: userId }],
+      status: 'Подтвержден',
+    },
+    // include: {
+    //   model: User,
+    // },
+  });
+  const formatedFriends = friends.map(el => {
+    if (el.reqUserID !== userid) {
+      return +el.reqUserID;
+    }
+    return +el.resUserID;
+  });
+
+  const friendships = await User.findAll({
+    raw: true,
+    where: {
+      id: formatedFriends,
+    },
+    // include: {
+    //   model: User,
+    // },
+  });
+
+  return friendships;
+};
 
 const currentFriendships = async (req, res) => {
   const userid = +req.params.id;
   // const userid = 2;
   try {
-    const friends = await Friendship.findAll({
-      raw: true,
-      order: [['updatedAt', 'DESC']],
-      attributes: ['reqUserID', 'resUserID'],
-      where: {
-        [Op.or]: [{ reqUserID: userid }, { resUserID: userid }],
-        status: 'Подтвержден',
-      },
-      // include: {
-      //   model: User,
-      // },
-    });
-    const formatedFriends = friends.map(el => {
-      if (el.reqUserID !== userid) {
-        return +el.reqUserID;
-      }
-      return +el.resUserID;
-    });
-
-    const friendships = await User.findAll({
-      raw: true,
-      where: {
-        id: formatedFriends,
-      },
-      // include: {
-      //   model: User,
-      // },
-    });
+    const friendships = await loadCurrentFriendships(userid);
     res.status(200).json(friendships);
   } catch (error) {
     res.status(404).json({ error: 'error1111' });
