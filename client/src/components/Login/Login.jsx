@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { loginFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
 import './login.css'
 
+
 function Login(props) {
+  const dispatch = useDispatch()
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
 
   const { user } = useSelector(state => state.userReducer)
   
-  const dispatch = useDispatch();
   const submitLoginHandler = (event) => {
     event.preventDefault()
       const payload = {
