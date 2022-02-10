@@ -34,8 +34,6 @@ function UserProfile() {
     dispatch(initAnotherUserFetchAC(id));
   }
   
-  console.log(thisUser);
-
   return (
     <>
       Имя: {thisUser.info?.name}

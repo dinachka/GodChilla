@@ -17,7 +17,6 @@ export const userReducer = (state = initialState, action) => {
       return { ...state, anotherUser: action.payload }
 
     case INIT_ANOTHER_USER_EVENTS:
-      console.log(action.payload);
       return { ...state, anotherUser: {...state.anotherUser, events:action.payload} }
 
     case SAVE_AVATAR:
