@@ -1,15 +1,22 @@
 import React from 'react';
 
 function ParticularUserPublicEvents({ user }) {
-  
+
+ const inviteHandler = (event) => {
+   console.log(111, '111');
+   console.log(user.title);
+ }
+
   return (
-    <div>
+    <h5>
       <p>Название встречи: {user.title}</p>
       <p>Описание: {user.description}</p>
       <p>Место: {user.location}</p>
-      <br />
-    </div>
+      <button onClick={inviteHandler} style={{ color:'red'}}>Присоединиться</button>
+      <br/>
+    </h5>
   );
 }
+
 
 export default ParticularUserPublicEvents;
