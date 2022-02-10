@@ -1,4 +1,4 @@
-import { ADD_USER, INIT_USER, DELETE_USER, INIT_ANOTHER_USER, SAVE_AVATAR } from "../actionTypes/userAT"
+import { ADD_USER, INIT_USER, DELETE_USER, INIT_ANOTHER_USER, SAVE_AVATAR, INIT_ANOTHER_USER_EVENTS } from "../actionTypes/userAT"
 
 const initialState = { user: {}, anotherUser: {} }
 
@@ -15,6 +15,10 @@ export const userReducer = (state = initialState, action) => {
 
     case INIT_ANOTHER_USER:
       return { ...state, anotherUser: action.payload }
+
+    case INIT_ANOTHER_USER_EVENTS:
+      console.log(action.payload);
+      return { ...state, anotherUser: {...state.anotherUser, events:action.payload} }
 
     case SAVE_AVATAR:
       return {
