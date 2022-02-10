@@ -3,8 +3,9 @@
 }
 
 .avatar_img{
-  width: 200px;
+  width: 320px;
   border: 40px;
+  border-radius: 3px 0 0 3px;
 }
 
 .bottomLine{
@@ -60,7 +61,6 @@ input{
 .avatar_box{
   display: flex;
   flex-direction:column;
-  margin:  2% 0 0 0; 
 }
 
 .photoInput{
@@ -70,12 +70,45 @@ input{
   display: flex;
   width: 60%;
   height: 330px;
-  justify-content: center;
+  /* justify-content: space-evenly; */
   margin: 0 auto 0 auto;
   border-radius: 5px;
   border: 2px solid rgb(48, 107, 184);
 }
 
 .user_info{
-  margin:  5% 0 0 0;
+  height: 45%;
+  padding: 3%;
+  border: 1px solid rgb(229, 229, 229);
+  border-radius: 5px 5px 0 0;
+  background-color: rgb(247, 247, 247);
+}
+
+.extra_style{
+  width: 245px;
+  padding: 0;
+  border-radius: 0 0 5px 5px;
+}
+
+.my_settings{
+  width: 245px;
+}
+
+.user_info_container{
+  margin: 7% 0 0 15%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.first_span{
+  color: rgb(48, 107, 184);
+}
+
+.first_span:hover{
+  cursor: pointer;
+  color: rgb(45 175 181); 
+  transition: 1s;
+  background-color: rgb(247, 247, 247);
+  border-radius: 5px;
 }

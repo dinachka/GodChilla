@@ -5,7 +5,7 @@ function FriendCard({friend}) {
   
   return (
     <Link to={`/profile/user/${friend.id}`} >
-      <div>
+      <div >
         {friend.name}
         <br />
         {friend.lastName}
