@@ -11,21 +11,22 @@ function UserCardInModal({ user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  const getFriendship = (event) => {
-    const idForFriends = {
-      reqUserID: mainUser.user.id,
-      resUserID: user.id
-    }
-    event.preventDefault();
-    dispatch(addFriendshipFetchAC(idForFriends))
-    navigate('/profile');
-  }
+  // const getFriendship = (event) => {
+  //   const idForFriends = {
+  //     reqUserID: mainUser.user.id,
+  //     resUserID: user.id
+  //   }
+  //   event.preventDefault();
+  //   dispatch(addFriendshipFetchAC(idForFriends))
+  //   navigate('/profile');
+  // }
 
   return (
     <Link to={`/profile/user/${user.id}`} >
       <div className='userCardInModal' >
         <div>{ user.name }</div>
         <div>{ user.lastName }</div>
+        {user.photo ? <img src={user.photo} alt='none'></img> : <img src={user.photo} alt='none'></img>}
         {/* <button onClick={getFriendship} >Добавить в друзья!</button> */}
         <br />
       </div>

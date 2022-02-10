@@ -50,7 +50,7 @@ function EventsList(props) {
   }
 
   return (
-    <>
+    <div div style={{margin: '50px'}} >
       <button onClick={() => { setNeedFilter(!needFilter)}}>{needFilter ? "скрыть фильтр": "фильтровать"}</button>
       { needFilter ?
         <>
@@ -79,7 +79,7 @@ function EventsList(props) {
           { filtredEvents?.length && filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) }
       </> : events?.length && events.map( el => <CurrentEvent key={el.id} event={el}/>)
       }
-    </>
+    </div>
   );
 }
 
