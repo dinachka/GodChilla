@@ -69,7 +69,7 @@ const changingHandler = (event) => {
 
   return (
     <div className='profileContainer'>
-      <div>
+      <div className='profile_info_container'>
         <div className="avatar_box">
           {avatar ? <img src={`${avatar}`} alt="avatar" />
             :
@@ -82,15 +82,12 @@ const changingHandler = (event) => {
           <input type="file" multiple onChange={e => setImg(e.target.files[0])} />
           <button className="uk-button uk-button-default" type="button" tabIndex="-1">Select</button>
         </div>
-        <br />
-        <br />
         <div>
           <button onClick={sendFile}>Change avatar</button>
         </div>
         <div>
           <h3>{user.name}</h3>
         </div>
-        <p>Если данная функция не работает, необходимо разрешение браузера на показ всплывающих окон</p>
       </div>
 
       <div className='bottomLine'></div>
