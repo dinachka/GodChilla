@@ -7,8 +7,8 @@ const storage = multer.diskStorage({
   },
   // с каким именем запишется файл
   filename(req, file, cb) {
-    const dateTime = new Date();
-    cb(null, `${dateTime.toISOString()}-${file.originalname}`);
+    const dateTime = new Date().getTime();
+    cb(null, `${dateTime}-${file.originalname}`);
   },
 });
 
