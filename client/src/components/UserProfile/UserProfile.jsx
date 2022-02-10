@@ -25,12 +25,10 @@ function UserProfile() {
 
   const addFriendHandler = () => {
     dispatch(addFriendshipFetchAC(idForFriends));
-    // dispatch(initAnotherUserFetchAC(id));
   }
 
   const deleteFriendHandler = () => {
     dispatch(deleteFriendshipFetchAC(id));
-    dispatch(initAnotherUserFetchAC(id));
   }
   
   return (
