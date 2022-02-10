@@ -68,7 +68,7 @@ const changingHandler = (event) => {
   }, [img, id])
 
   return (
-    <div>
+    <div className='profileContainer'>
       <div>
         <div>
           <h1>{user.name}</h1>
@@ -82,7 +82,7 @@ const changingHandler = (event) => {
           }
         </div>
         <div>
-          <input type="file" onChange={e => setImg(e.target.files[0])} />
+          <input className='photoInput' type="file" onChange={e => setImg(e.target.files[0])} />
           <button onClick={sendFile}>Change avatar</button>
         </div>
         <p>Если данная функция не работает, необходимо разрешение браузера на показ всплывающих окон</p>

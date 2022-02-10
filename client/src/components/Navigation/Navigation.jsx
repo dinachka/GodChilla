@@ -25,18 +25,20 @@ function Navigation() {
       < >
         <div className='uk-animation-slide-top'>
         <div className='upper'></div>
-        <div className='logo_form'><Link to="/"><div className='godchilla'>GODCHILLA</div></Link></div>
+        <div className='logo_form'>
+          <div onClick={()=> navigate('/')} className='godchilla'>GODCHILLA</div>
+        </div>
           <nav className='uk-navbar' >
             <div className="uk-navbar-left" >
               <ul className="uk-navbar-nav uk-animation-slide-top" >
-              <li onClick={()=>setIsModal(!isModal)} ><Link to="/#" className="uk-active bell"  ><div className='my' uk-icon="icon: bell; ratio: 1.2"></div></Link></li> 
+              <li onClick={()=>setIsModal(!isModal)} className="bell" ><div className='my uk-active bell' uk-icon="icon: bell; ratio: 1.2"></div></li> 
                 <li><Link to="/profile" className="uk-active profile"><div className='my'>Профиль</div></Link></li>
               </ul>
             </div>
             <div className="uk-navbar-right" >
               <ul className="uk-navbar-nav uk-animation-slide-top" >
-                <li><Link to="/events" className="uk-active event" ><div className='my'>События</div></Link></li> 
-                <li onClick={leaveSession} ><Link to="/#" className="uk-active logout" ><div className='my' uk-icon="icon:sign-out; ratio: 1.2"></div></Link></li>
+              <li><Link to="/events" className="uk-active event" ><div className='my'>События</div></Link></li>
+                <li onClick={leaveSession} className='logout' ><div className='my uk-active logout' uk-icon="icon:sign-out; ratio: 1.2"></div></li>
               </ul>
             </div>
           </nav>
@@ -46,7 +48,9 @@ function Navigation() {
       < >
         <div className='uk-animation-slide-top'>
           <div className='upper'></div>
-          <div className='logo_form'><Link to="/"><div className='godchilla'>GODCHILLA</div></Link></div>
+          <div className='logo_form'>
+            <div onClick={()=> navigate('/')} className='godchilla'>GODCHILLA</div>
+          </div>
         </div>
       </>
       }

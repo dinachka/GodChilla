@@ -1,6 +1,5 @@
 .profileContainer{
-  margin-top: 10%;
-  display: flex;
+  margin-top: 5%;
 }
 
 img{
@@ -56,4 +55,12 @@ input{
   background-color: rgb(48, 107, 184);
   padding-top: 8px;
   padding-bottom: 8px; 
+}
+
+.avatar_box{
+  width: 30rem;
+}
+
+.photoInput{
+  width: 50rem;
 }
