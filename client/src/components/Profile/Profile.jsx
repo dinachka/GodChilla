@@ -58,6 +58,7 @@ const changingHandler = (event) => {
       const options = {
         method: 'PUT',
         body: data,
+        credentials: 'include',
       };
       fetch(URL + id, options)
         .then(res => res.json())

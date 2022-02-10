@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
       isUser: true,
       name: req.session.user.name,
       lastName: req.session.user.lastName,
+      photo: req.session.user.photo,
     });
   } catch (error) {
     res.status(401).json({ isUser: false, message: 'Ошибка обращения к базе данных', error: error.message });
