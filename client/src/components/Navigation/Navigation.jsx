@@ -56,7 +56,7 @@ function Navigation() {
         </div>
       </>
       }
-      {isModal && <NotificationModal />}    
+      {isModal && <NotificationModal handling={setIsModal}/>}    
     </>
   );
 }
