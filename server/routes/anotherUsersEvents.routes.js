@@ -1,7 +1,9 @@
 const router = require('express').Router();
+const { Op } = require('sequelize');
 const { Event } = require('../db/models');
 
 router.get('/:id', async (req, res) => {
+  const now = (new Date()).toISOString();
   const { id } = req.params;
 
   try {
@@ -10,6 +12,7 @@ router.get('/:id', async (req, res) => {
       where: {
         userID: id,
         privateSettings: 'public',
+        dateTime: { [Op.gte]: now },
       },
     });
 
@@ -18,6 +21,7 @@ router.get('/:id', async (req, res) => {
       where: {
         userID: id,
         privateSettings: 'forFriends',
+        dateTime: { [Op.gte]: now },
       },
     });
     res.status(200).json({ publicEvents, forFriendsEvents });

@@ -1,7 +1,7 @@
-import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, INIT_CLOSEST_EVENTS, DELETE_EVENT, EVENTS_REQUESTS_NOTIFICATIONS, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS, REJECT_EVENTS_REQUESTS_NOTIFICATIONS, EDIT_EVENT, JOIN_EVENT, CANCEL_JOIN_EVENT, INIT_OTHER_EVENTS_ON_PROFILE, CANCEL_FOREIGN_EVENT_ON_PROFILE } from "../actionTypes/eventAT"
+import { INIT_PUBLIC_EVENTS, INIT_USERS_EVENTS, INIT_CLOSEST_EVENTS, DELETE_EVENT, EVENTS_REQUESTS_NOTIFICATIONS, ACCEPT_EVENTS_REQUESTS_NOTIFICATIONS, REJECT_EVENTS_REQUESTS_NOTIFICATIONS, EDIT_EVENT, JOIN_EVENT, CANCEL_JOIN_EVENT, INIT_OTHER_EVENTS_ON_PROFILE, CANCEL_FOREIGN_EVENT_ON_PROFILE, INIT_PAST_EVENTS_ON_PROFILE } from "../actionTypes/eventAT"
 
 
-const initialState = { events: {}, userEvents: {}, closesEvents: {}, notifications: [], otherEvents: {} }
+const initialState = { events: {}, userEvents: {}, closesEvents: {}, notifications: [], otherEvents: {}, pastEvents: {} }
 
 export const eventReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -59,7 +59,10 @@ export const eventReducer = (state = initialState, action) => {
           { ...el, status: 'Запрос отменен' } : el)
       }
 
-
+      case INIT_PAST_EVENTS_ON_PROFILE: 
+      return {
+        ...state, pastEvents: action.payload
+      }
     default:
       return state
   }

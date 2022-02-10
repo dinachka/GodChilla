@@ -52,20 +52,20 @@ function Registration(props) {
     <div>
       <form onSubmit={submitRegistrationHandler} encType="multipart/form-data" className='form' >
 
-        {/* <label>Логин <input type="text" ref={loginRef} required/></label> */}
-        <label>Имя <input type="text" ref={nameRef} required/></label>
-        <label>Фамилия <input type="text" ref={surnameRef} /></label>
-        <label>Город
-        <select ref={cityRef} required >
-          <option></option>
+        {/* <input type="text" placeholder='Логин' ref={loginRef} required/> */}
+        <input type="text" placeholder='Имя' ref={nameRef} required/>
+        <input type="text" placeholder='Фамилия' ref={surnameRef} />
+          <label>Выбор города</label>&nbsp;
+          <select ref={cityRef} required >
           <option value="Санкт-Петербург">Санкт-Петербург</option>
           <option value="Москва">Москва</option>
         </select>
-        </label>
-        <label>email <input type="email" required ref={emailRef} /></label>
-        {/* <label>Номер телефона<input type="phone" ref={telRef}/></label> */}
-        <label>Пароль <input type="password" autoComplete="off" minLength="7" required ref={passwordRef}/></label>
-        <label>Подтвердить пароль <input type="password" autoComplete="off" minLength="7" required ref={confirmPasswordRef}/></label>
+        <input type="email" placeholder='email' required ref={emailRef} />
+        {/* <input type="phone"  placeholder='Номер телефона' ref={telRef}/> */}
+        <input type="password" placeholder='Пароль' autoComplete="off" minLength="7" required ref={passwordRef}/>
+        <input type="password" placeholder='Подтвердить пароль' autoComplete="off" minLength="7" required ref={confirmPasswordRef}/>
+        { isNotEqual && <div style={{color:'red', width:'147px', margin:'auto'}}>Пароли не совпадают</div>}
+
         { isNotEqual && <div style={{color:'red', width:'147px', margin:'auto'}}>Пароли не совпадают</div>}
         {/* <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label> */}
         { !user?.user && user?.message !== 'Сессия не найдена' &&  <div style={{color:'red', width:'147px', margin:'auto'}}>{user?.message}</div>}

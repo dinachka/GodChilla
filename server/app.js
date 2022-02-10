@@ -1,11 +1,11 @@
 const express = require('express');
-const session = require('express-session');
-const SessionFileStore = require('session-file-store')(session);
 const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const path = require('path');
+const { initWebSockets } = require('./ws');
+const { extractUser, sessionMW } = require('./middlewares/sessions');
 
 const app = express();
 // app.use(helmet());
@@ -13,12 +13,7 @@ app.use(morgan('dev'));
 
 dotenv.config();
 
-const {
-  PORT = 4000,
-  SESSION_SECRET = 'my_secret',
-} = process.env;
-
-const sessionMiddleware = require('./middlewares/sessions');
+const { PORT = 4000 } = process.env;
 
 const publicEventsRouter = require('./routes/getEvents.routes');
 const registrationRouter = require('./routes/registration.routes');
@@ -39,25 +34,13 @@ const anotherUsersEvents = require('./routes/anotherUsersEvents.routes');
 const uploadUserImage = require('./routes/uploadUserImage.routes');
 const uploadEventImage = require('./routes/uploadEventImage.routes');
 
-const sessionConfig = {
-  store: new SessionFileStore(),
-  name: 'user_sid',
-  secret: SESSION_SECRET,
-  resave: true,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 24 * 60 * 60 * 1000,
-    httpOnly: true,
-  },
-};
-
 const corsOptions = {
   origin: ['http://localhost:3000'],
   credentials: true,
   optionsSuccessStatus: 200,
 };
 
-app.use(session(sessionConfig));
+app.use(sessionMW);
 app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: true }));
@@ -65,7 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ extended: true }));
 app.use('/images/', express.static(path.join(__dirname, 'images')));
 
-app.use(sessionMiddleware);
+app.use(extractUser);
 
 app.use('/api', publicEventsRouter);
 app.use('/api/registration', registrationRouter);
@@ -81,7 +64,10 @@ app.use('/api/profile/allUsers', allUsersRouter);
 // список событий пользователя на профиле
 app.use('/api/profile/events', currentUsersEventRouter);
 // уведомления о запросе о дружбе
-app.use('/api/profile/friendshipNotifications', friendshipRequestsNotificationsRouter);
+app.use(
+  '/api/profile/friendshipNotifications',
+  friendshipRequestsNotificationsRouter
+);
 // запрос на дружбу
 app.use('/api/profile/friendRequest', friendsRouter);
 // ближайшие мероприятия на главной странице
@@ -101,7 +87,8 @@ app.use('/api/profile/uploadImage/', uploadUserImage);
 // сохранение и изменение фотографии события на профиле пользователя
 app.use('/api/profile/uploadEventImage/', uploadEventImage);
 
+const server = initWebSockets(app);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
 });
