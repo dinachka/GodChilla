@@ -1,5 +1,5 @@
 import React from 'react';
-import { initAnotherUserFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
+import { initAnotherUserFetchAC, initAnotherUserEventsFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 import { addFriendshipFetchAC, deleteFriendshipFetchAC } from '../../redux/actionCreatorsAsync/friendsACAsync';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ function UserProfile() {
   const dispatch = useDispatch();
   const thisUser = useSelector(state => state.userReducer.anotherUser)
   const mainUser = useSelector(state => state.userReducer.user)
-
+  
   const idForFriends = {
     reqUserID: mainUser.id,
     resUserID: id
@@ -21,6 +21,7 @@ function UserProfile() {
   
   useEffect(() => {
     dispatch(initAnotherUserFetchAC(id))
+    dispatch(initAnotherUserEventsFetchAC(id))
   },[dispatch, id]);
 
   const addFriendHandler = () => {
@@ -33,6 +34,8 @@ function UserProfile() {
     dispatch(initAnotherUserFetchAC(id));
   }
   
+  console.log(thisUser);
+
   return (
     <>
       Имя: {thisUser.info?.name}
@@ -49,8 +52,12 @@ function UserProfile() {
         <div className='stateSwitcher'>
           <div className='display'>Лента</div>
         </div>
-        {thisUser.info && <ParticularUserPublicEvents user={thisUser}/>}
-        {thisUser.friendship === 'Подтвержден' && <ParticularUserEventsForFriends user={thisUser}/> }
+        <h2>{thisUser?.info?.name}'s public events</h2>
+        {thisUser?.info && thisUser?.events?.publicEvents?.length ? thisUser?.events?.publicEvents.map(el => 
+        <ParticularUserPublicEvents key={el.id} user={el} />) : <div>None!</div>}
+      <h2>{thisUser?.info?.name}'s events for friends</h2>
+        {thisUser?.friendship === 'Подтвержден' && thisUser?.events?.forFriendsEvents?.length ? (thisUser.events.forFriendsEvents).map(el =>
+        <ParticularUserEventsForFriends key={el.id} user={el} />) : <div>None!</div>}
       </div>
     </>
   );
