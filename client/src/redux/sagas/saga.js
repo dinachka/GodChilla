@@ -248,8 +248,8 @@ function* deleteFriendshipAsync(action) {
     headers: { 'Content-Type': 'Application/json' },
     method: 'DELETE'
   });
-
   yield put(deleteFriendAC(data.userID));
+  yield put({type: "CHANGE_FRIEND_STATUS_DELETE"});
 }
 
 function* cancelForeignEventOnProfileAsync(action) {

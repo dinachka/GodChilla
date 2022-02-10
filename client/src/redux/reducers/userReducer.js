@@ -24,7 +24,20 @@ export const userReducer = (state = initialState, action) => {
         }
       }
     case "CHANGE_FRIEND_STATUS_ADD":
-      return { ...state, anotherUser: {...state.anotherUser, friendship: 'Подтвержден'} }
+      return { 
+        ...state, 
+        anotherUser: {
+          ...state.anotherUser, 
+          friendship: 'В обработке'
+        }
+      }
+    case "CHANGE_FRIEND_STATUS_DELETE":
+      return { ...state, 
+        anotherUser: {
+          ...state.anotherUser, 
+          friendship: 'Не друзья'
+        }
+      }
     default:
       return state
   }
