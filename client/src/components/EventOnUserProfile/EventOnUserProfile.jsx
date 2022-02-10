@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { cancelForeignEventsOnProfileAsyncAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 import EditForm from '../EditForm/EditForm';
 import { Link } from 'react-router-dom';
+import './EventOnUserProfile.css'
 
 function EventOnUserProfile({ event }) {
   const navigate = useNavigate();
@@ -28,19 +29,27 @@ function EventOnUserProfile({ event }) {
     console.log(123);
   }
   return (
-    <div>
-      <div>
+
+    <div className="uk-card uk-card-default eventProfile_box">
+
+      <div className='eventProfile_box__image'>
         {event.photo ? (
           <img
-            src="https://pbs.twimg.com/profile_images/445338647261229056/Gf5tt71x_400x400.jpeg"
+            className='eventProfile_box__image__contain'
+            src={event.photo}
             alt="not found"
           ></img>
         ) : (
-          <img src={`/pictures/${event.categoryID}.jpg`} alt="not found"></img>
+          <img
+            className='eventProfile_box__image__contain'
+            src={`/pictures/${event.categoryID}.jpg`} alt="not found"></img>
         )}
+      </div>
+
+      <div className='uk-card-body eventProfile_box__cardBody'>
         {!editFormVision && (
           <div>
-            <div> Название встречи: {event.title} </div>
+            <h6 className='uk-card-title'> Название встречи: {event.title} </h6>
             <div> Описание: {event.description} </div>
             <div> Место: {event.location} </div>
             <div> Дата: {event.dateTime} </div>
@@ -50,22 +59,27 @@ function EventOnUserProfile({ event }) {
               <Link to={`/profile/user/${event.User.id}`} />
               {' '}
               {event.User.name} {event.User.lastName}{' '}</div> */}
-
+            {/* 1644491987209-helloo2.png */}
           </div>
         )}
         {editFormVision && <EditForm key={event.id} event={event} />}
-        <br />
-        {session.user.id === event.userID ? (editFormVision ? (
-          <button onClick={editFormVisionSwitcher}>Отменить изменения</button>
-        ) : (
-          <>
-            <button onClick={editFormVisionSwitcher}>Изменить событие</button>
-            <button onClick={deleteHandle}>Удалить событие</button>
-          </>
-        ))
-          : <button onClick={rejectEvent}>Отменить участие</button>}
+
+        <div className='eventProfile_box__buttons'>
+          {session.user.id === event.userID ? (editFormVision ? (
+            <button className='eventProfile_box__buttons__style' onClick={editFormVisionSwitcher}>Отменить изменения</button>
+          ) : (
+            <>
+              <button className='eventProfile_box__buttons__style btnLeft' onClick={editFormVisionSwitcher}>Изменить событие</button>
+              <button className='eventProfile_box__buttons__style ' onClick={deleteHandle}>Удалить событие</button>
+            </>
+          ))
+            : <button className='eventProfile_box__buttons__style' onClick={rejectEvent}>Отменить участие</button>}
+        </div>
+
+
       </div>
     </div>
+
   );
 }
 
