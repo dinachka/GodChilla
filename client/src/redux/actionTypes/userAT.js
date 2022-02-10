@@ -12,3 +12,6 @@ export const INIT_ANOTHER_USER = 'INIT_ANOTHER_USER';
 export const SAVE_AVATAR = 'SAVE_AVATAR';
 export const SAVE_AVATAR_FETCH = 'SAVE_AVATAR_FETCH';
 export const CLEAN_USERLIST = 'CLEAN_USERLIST'
+
+export const NEW_MESSAGE = 'NEW_MESSAGE'
+

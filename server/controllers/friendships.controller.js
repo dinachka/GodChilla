@@ -1,16 +1,14 @@
 const { Op } = require('sequelize');
-const {
-  User, Friendship, Participation, Event,
-} = require('../db/models');
+const { User, Friendship, Participation, Event } = require('../db/models');
 
 // создаем запись в БД с запросом на дружбу
 const createFriendship = async (req, res) => {
-  const {
-    reqUserID, resUserID,
-  } = req.body;
+  const { reqUserID, resUserID } = req.body;
   try {
     await Friendship.create({
-      reqUserID, resUserID, status: 'В обработке',
+      reqUserID,
+      resUserID,
+      status: 'В обработке',
     });
     const friendships = await Friendship.findAll({
       order: [['updatedAt', 'DESC']],
@@ -21,6 +19,7 @@ const createFriendship = async (req, res) => {
     });
     res.status(200).json(friendships);
   } catch (error) {
+    console.log(error);
     res.status(404).json({ error });
   }
 };
@@ -43,7 +42,7 @@ const currentFriendships = async (req, res) => {
       //   model: User,
       // },
     });
-    const formatedFriends = friends.map((el) => {
+    const formatedFriends = friends.map(el => {
       if (el.reqUserID !== userid) {
         return +el.reqUserID;
       }
@@ -71,7 +70,7 @@ const friendshipAccepted = async (req, res) => {
   try {
     const acceptedFriendship = await Friendship.update(
       { status: 'Подтвержден' },
-      { where: { resUserID: id, reqUserID } },
+      { where: { resUserID: id, reqUserID } }
     );
     res.status(200).json(reqUserID);
   } catch (error) {
@@ -85,7 +84,8 @@ const rejectFriendship = async (req, res) => {
   try {
     const rejected = await Friendship.destroy({
       where: {
-        resUserID: +id, reqUserID,
+        resUserID: +id,
+        reqUserID,
       },
     });
     res.status(200).json(reqUserID);
@@ -111,8 +111,10 @@ const friendshipRequestsNotifications = async (req, res) => {
       },
     });
 
-    const filteredfriendship = requestedFriendships.filter((el) => el.status === 'В обработке');
-    const formatedFriends = filteredfriendship.map((el) => {
+    const filteredfriendship = requestedFriendships.filter(
+      el => el.status === 'В обработке'
+    );
+    const formatedFriends = filteredfriendship.map(el => {
       if (el.reqUserID !== id) {
         return +el.reqUserID;
       }
@@ -137,14 +139,15 @@ const friendshipRequestsNotifications = async (req, res) => {
 };
 
 const deleteFriendship = async (req, res) => {
-  const userID = +(req.params.id);
-  const currentUserID = +(req.session.user.id);
+  const userID = +req.params.id;
+  const currentUserID = +req.session.user.id;
   try {
     await Friendship.destroy({
       where: {
         [Op.or]: [
           { reqUserID: userID, resUserID: currentUserID },
-          { resUserID: userID, reqUserID: currentUserID }],
+          { resUserID: userID, reqUserID: currentUserID },
+        ],
       },
     });
     res.status(200).json({ userID });
