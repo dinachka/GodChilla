@@ -28,12 +28,12 @@
 }
 
 .godchilla{
-  text-decoration:none;
   color: white;
   transition: 1s;
 }
 
 .godchilla:hover{
+  cursor: pointer;
   text-decoration:none;
   color: rgb(45 175 181);
   transition: 1s;
@@ -71,17 +71,21 @@
   margin-right: 11rem;
 }
 .bell{
+  margin-top: 14px;
   margin-left: 1rem;
-  width: 4rem;
+  width: 2rem;
+}
+
+.bell:hover{
+  cursor: pointer;
 }
 
 .logout{
+  margin-top: 14px;
   margin-right: 1rem;
-  width: 4rem;
+  width: 2rem;
 }
 
-
-
-
-
-/* border-top: 10px solid rgb(45 175 181); */
+.logout:hover{
+  cursor: pointer;
+}
