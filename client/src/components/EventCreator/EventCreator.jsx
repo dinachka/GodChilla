@@ -75,17 +75,11 @@ function EventCreator({ setSwitcher }) {
 
   return (
     <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data">
-      <label className='eventCreatorForm'>Название
-        <input ref={titleInput} className='eventCreatorForm' type="text" required />
-      </label>
 
-      <br />
-      <label className='eventCreatorForm'>Описание
-        <input ref={descriptionInput} className='eventCreatorForm' type="text" required />
-      </label>
-
-      <br />
-      <label className='eventCreatorForm'>Категория
+      <input ref={titleInput} className='eventCreatorForm' type="text" required placeholder='Название' />
+      <input ref={descriptionInput} className='eventCreatorForm' type="text" required placeholder='Описание' />
+      <div className='eventCreatorForm'>
+        <p>Категория</p>
         <select ref={categoryInput} required >
           <option></option>
           <option value="1">посиделки</option>
@@ -96,43 +90,34 @@ function EventCreator({ setSwitcher }) {
           <option value="6">творчество</option>
           <option value="7">кафе, бар, ресторан</option>
         </select>
-      </label>
+      </div>
 
-      <br />
-      <label className='eventCreatorForm'>Статус события
+      <div className='eventCreatorForm'>
+        <p>Статус события</p>
         <select ref={privateInput} required >
           <option></option>
           <option value="public">Публичный</option>
           <option value="forFriends">Для друзей</option>
           <option value="private">Личный</option>
         </select>
-      </label>
+      </div>
+      <input ref={locationInput} className='eventCreatorForm' type="text" placeholder='Место проведения' />
+      <input ref={dateInput} className='eventCreatorForm' type="date" placeholder='Дата проведения' />
 
-      <br />
-      <label className='eventCreatorForm'>Место проведения
-        <input ref={locationInput} className='eventCreatorForm' type="text" />
-      </label>
-
-      <br />
-      <label className='eventCreatorForm'>Дата проведения
-        <input ref={dateInput} className='eventCreatorForm' type="date" />
-      </label>
-
-      <br />
-      <label className='eventCreatorForm'>Фото
-        <img src={`${defaultImg}`} alt="avatar" />
+      <div className='eventCreatorForm'>
+        <p>Фото</p>
         {/* {
           eventImg ?
             <img src={`${eventImg}`} alt="avatar" />
             :
             <img src={`${defaultImg}`} alt="avatar" />
         } */}
-        {/* <img src="https://image.freepik.com/free-vector/the-word-hello-on-a-speech-bubble-vector_53876-60258.jpg" alt="" /> */}
         <input onChange={e => setEventImg(e.target.files[0])} className='eventCreatorForm' type="file" name="photo" />
-      </label>
+      </div>
 
-      <br />
-      <button className='eventCreatorForm'>Создать событие</button>
+      <div>
+        <button className='eventCreatorForm'>Создать событие</button>
+      </div>
     </form>
   )
 }
