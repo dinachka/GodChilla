@@ -57,6 +57,10 @@
   text-align: center;
 }
 
+.my .active{
+
+}
+
 .my:hover{
   color: rgb(45 175 181); 
   transition: 1s;
@@ -77,13 +81,43 @@
   width: 2rem;
 }
 
+.my_bell{
+  animation: ch-color-1 2s infinite alternate;
+}
+
+@keyframes ch-color-1 {
+  from {
+    color: rgb(48, 107, 184);
+    transform: rotate(20deg)
+  }
+  /* 25% {
+    color: rgb(206, 10, 10);
+    transform: rotate(10deg)
+  } */
+  50% {
+    color: rgb(206, 10, 10);
+  }
+
+  /* 75% {
+    color: rgb(206, 10, 10);
+    transform: rotate(-10deg)
+  } */
+  to {
+    color: rgb(48, 107, 184);
+    transform: rotate(-20deg)
+  }
+}
+
+
+
+
 .bell:hover{
   cursor: pointer;
 }
 
 .logout{
   margin-top: 14px;
-  margin-right: 1rem;
+  margin-right: 1.4rem;
   width: 2rem;
 }
 
