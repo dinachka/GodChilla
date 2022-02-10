@@ -1,12 +1,10 @@
 const router = require('express').Router();
-const eventsImageMiddleware = require('../middlewares/eventsImageMiddleware')
-const { Event } = require('../db/models');
+const eventsImageMiddleware = require('../middlewares/eventsImageMiddleware');
+// const { Event } = require('../db/models');
 
-router.get('/', async (req, res) => {
-  res.send('hello events');
-})
-// .put('/:id', (req, res) => {
-
-// })
+router.post('/', eventsImageMiddleware.single('eventImage'), async (req, res) => {
+  const eventImagePath = `http://localhost:4000/${req.file.path}`;
+  res.json(eventImagePath);
+});
 
 module.exports = router;

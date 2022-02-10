@@ -5,7 +5,7 @@ const { User } = require('../db/models');
 router
   .put('/:id', fileMiddleware.single('avatar'), async (req, res) => {
     try {
-      const newAva = await User.update(
+      await User.update(
         { photo: `http://localhost:4000/${req.file.path}` },
         {
           where: {

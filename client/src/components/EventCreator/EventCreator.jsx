@@ -4,7 +4,7 @@ import { FETCH_POST_EVENT } from '../../redux/actionTypes/eventAT'
 
 import './eventCreator.css'
 
-function EventCreator({setSwitcher}) {
+function EventCreator({ setSwitcher }) {
 
   const titleInput = useRef()
   const descriptionInput = useRef()
@@ -17,9 +17,13 @@ function EventCreator({setSwitcher}) {
 
   const dispatch = useDispatch()
 
-  const eventHandler = (event) => {
-    event.preventDefault()
+  const defaultImg = 'https://www.buro247.ua/thumb/670x830_0/images/2020/06/alabama-coronavirus-parties-01.jpg'
 
+  const eventHandler = async (event) => {
+    event.preventDefault()
+    //  тут должна срабоать функция sendImageToServer()
+    // и должна быть функция асинхронной
+    const newEventPhoto = await sendImageToServer()
     const newEvent = {
       userID: state.user.id,
       categoryID: +categoryInput.current.value,
@@ -28,8 +32,7 @@ function EventCreator({setSwitcher}) {
       privateSettings: privateInput.current.value,
       location: locationInput.current.value,
       dateTime: dateInput.current.value,
-      // photo: photoInput.current.value,  eventImg
-      // здесь будет setAvatar(data.photoURL))
+      photo: newEventPhoto || defaultImg,
     }
 
     dispatch({
@@ -40,27 +43,30 @@ function EventCreator({setSwitcher}) {
     setSwitcher()
   }
 
+
+
   // сохранение картинок 
   const { user } = useSelector(state => state.userReducer)
   const userId = user.id
-  // console.log(user);
-  const defaultImg = 'https://www.buro247.ua/thumb/670x830_0/images/2020/06/alabama-coronavirus-parties-01.jpg'
   const [eventImg, setEventImg] = useState(null)
 
   const sendImageToServer = useCallback(async () => {
 
-    const sendImageToServerURL = ''
+    const sendImageToServerURL = 'http://localhost:4000/api/profile/uploadEventImage/'
     const data = new FormData()
-    data.append('avatar', eventImg)
+    data.append('eventImage', eventImg)
     const options = {
-      method: 'PUT',
+      method: 'POST',
       body: data,
     }
 
-    fetch(sendImageToServerURL + userId, options)
-      .then(res => res.json())
-      .then(imgPath => setEventImg(imgPath))
-  }, [eventImg, userId])
+    const result = await fetch(sendImageToServerURL, options)
+    const response = await result.json()
+    setEventImg(response)
+    // .then(res => res.json())
+    // .then(imgPath => setEventImg(imgPath))
+    return response
+  }, [eventImg])
 
 
 
@@ -112,8 +118,15 @@ function EventCreator({setSwitcher}) {
 
       <br />
       <label className='eventCreatorForm'>Фото
+        <img src={`${defaultImg}`} alt="avatar" />
+        {/* {
+          eventImg ?
+            <img src={`${eventImg}`} alt="avatar" />
+            :
+            <img src={`${defaultImg}`} alt="avatar" />
+        } */}
         {/* <img src="https://image.freepik.com/free-vector/the-word-hello-on-a-speech-bubble-vector_53876-60258.jpg" alt="" /> */}
-        <input onSubmit={sendImageToServer} className='eventCreatorForm' type="file" name="photo" />
+        <input onChange={e => setEventImg(e.target.files[0])} className='eventCreatorForm' type="file" name="photo" />
       </label>
 
       <br />
