@@ -6,6 +6,7 @@ function FriendCard({ friend }) {
 
   return (
     <Link to={`/profile/user/${friend.id}`} >
+
       <div className="uk-card uk-card-default uk-animation-slide-bottom friendsCard_box">
         <div className="uk-width-auto friendsCard_box__img">
           <img className="uk-border-circle" width="40" height="40" src={friend.photo} alt='friends ava' />
