@@ -70,9 +70,6 @@ const changingHandler = (event) => {
   return (
     <div className='profileContainer'>
       <div>
-        <div>
-          <h1>{user.name}</h1>
-        </div>
         <div className="avatar_box">
           {avatar ? <img src={`${avatar}`} alt="avatar" />
             :
@@ -81,9 +78,17 @@ const changingHandler = (event) => {
               <img src={`${defaultAvatar}`} alt="avatar" />
           }
         </div>
+        <div className="js-upload" uk-form-custom='true'>
+          <input type="file" multiple onChange={e => setImg(e.target.files[0])} />
+          <button className="uk-button uk-button-default" type="button" tabIndex="-1">Select</button>
+        </div>
+        <br />
+        <br />
         <div>
-          <input className='photoInput' type="file" onChange={e => setImg(e.target.files[0])} />
           <button onClick={sendFile}>Change avatar</button>
+        </div>
+        <div>
+          <h3>{user.name}</h3>
         </div>
         <p>Если данная функция не работает, необходимо разрешение браузера на показ всплывающих окон</p>
       </div>
