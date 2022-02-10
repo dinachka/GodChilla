@@ -15,7 +15,6 @@ function EventOnUserProfile({ event }) {
   const editFormVisionSwitcher = () => {
     setEditFormVision(!editFormVision);
   };
-  console.log(event, 'event');
 
   const deleteHandle = event => {
     event.preventDefault();
