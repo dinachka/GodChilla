@@ -11,10 +11,9 @@ router.get('/', async (req, res) => {
       order: [['dateTime', 'ASC']],
       raw: true,
     });
-    // console.log(closestEvents);
     res.json(closestEvents);
   } catch (error) {
-    console.log(error);
+    res.json({error: error.message});
   }
 });
 

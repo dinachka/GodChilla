@@ -15,7 +15,6 @@ function EventOnUserProfile({ event }) {
   const editFormVisionSwitcher = () => {
     setEditFormVision(!editFormVision);
   };
-  console.log(event, 'event');
 
   const deleteHandle = event => {
     event.preventDefault();
@@ -25,7 +24,6 @@ function EventOnUserProfile({ event }) {
 
   const rejectEvent = () => {
     dispatch(cancelForeignEventsOnProfileAsyncAC(event.id))
-    console.log(123);
   }
   return (
     <div>

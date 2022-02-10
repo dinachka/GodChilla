@@ -62,7 +62,6 @@ function EventCreator({ setSwitcher }) {
 
     const result = await fetch(sendImageToServerURL, options)
     const response = await result.json()
-    console.log(response);
     setEventImg(response)
     // .then(res => res.json())
     // .then(imgPath => setEventImg(imgPath))
