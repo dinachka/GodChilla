@@ -26,7 +26,7 @@ function UserCardInModal({ user }) {
       <div className='userCardInModal' >
         <div>{ user.name }</div>
         <div>{ user.lastName }</div>
-        <button onClick={getFriendship} >Добавить в друзья!</button>
+        {/* <button onClick={getFriendship} >Добавить в друзья!</button> */}
         <br />
       </div>
     </Link>

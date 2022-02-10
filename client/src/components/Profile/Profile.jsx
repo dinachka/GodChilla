@@ -106,13 +106,12 @@ const changingHandler = (event) => {
       <hr className="uk-divider-icon" />
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
-
         <input onChange={changingHandler} placeholder='Найти друзей' type='search' ref={searchInput}></input>
       </div>
       <div>
         {friendsVisible && <FriendList />}
       </div>
-      {users.users?.length && <UserListModal users={users.users} />}
+      {users.users?.length ? <UserListModal users={users.users}/> : <p>Пользователи не найдены</p>}
 
       <div className='bottomLine'></div>
       <div >
