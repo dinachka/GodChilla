@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { editEventFetchAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 
-function EditForm({ event }) {
+function EditForm({ event, switcher }) {
   const state = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ function EditForm({ event }) {
     };
 
     dispatch(editEventFetchAC(editedEvent));
-    navigate('/profile')
+    switcher()
   };
 
   return (

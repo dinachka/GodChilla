@@ -17,13 +17,17 @@ function EventCreator({ setSwitcher }) {
 
   const dispatch = useDispatch()
 
-  const defaultImg = 'https://www.buro247.ua/thumb/670x830_0/images/2020/06/alabama-coronavirus-parties-01.jpg'
+  // const defaultImg = 'https://www.buro247.ua/thumb/670x830_0/images/2020/06/alabama-coronavirus-parties-01.jpg'
+  let newEventPhoto;
+  const setImgHandler = async () => { newEventPhoto = await sendImageToServer() }
 
   const eventHandler = async (event) => {
     event.preventDefault()
     //  тут должна срабоать функция sendImageToServer()
     // и должна быть функция асинхронной
-    const newEventPhoto = await sendImageToServer()
+    // const newEventPhoto = await sendImageToServer()
+    const seedPhoto = newEventPhoto || null
+    console.log(seedPhoto);
     const newEvent = {
       userID: state.user.id,
       categoryID: +categoryInput.current.value,
@@ -32,7 +36,8 @@ function EventCreator({ setSwitcher }) {
       privateSettings: privateInput.current.value,
       location: locationInput.current.value,
       dateTime: dateInput.current.value,
-      photo: newEventPhoto || defaultImg,
+      photo: seedPhoto 
+      // || defaultImg,
     }
 
     dispatch({
@@ -97,13 +102,13 @@ function EventCreator({ setSwitcher }) {
         </select>
       </label>
 
-      <input ref={locationInput} placeholder='Место проведения' type="text" />
+      <input ref={locationInput} placeholder='Место проведения' type="text" required/>
 
-      <input ref={dateInput} placeholder='Дата проведения' type="date" />
+      <input ref={dateInput} placeholder='Дата проведения' type="date" required/>
 
       <div className="js-upload " uk-form-custom='true'>
         <input type="file" multiple onChange={e => setEventImg(e.target.files[0])} />
-        <button className="uk-button uk-button-default " tabIndex="-1">Загрузить фото</button>
+        <button onClick={setImgHandler} className="uk-button uk-button-default " tabIndex="-1">Загрузить фото</button>
       </div>
       <br />
       <button className='uk-button uk-button-default my_btn'>Создать событие</button>
