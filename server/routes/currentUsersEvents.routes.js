@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
-const { Event, Participation } = require('../db/models');
+const { Event, Participation, Category } = require('../db/models');
 
 router.get('/', async (req, res) => {
   const now = (new Date()).toISOString();
@@ -13,6 +13,13 @@ router.get('/', async (req, res) => {
 
     },
   });
+
+  // const currentCategory = await Category.findOne({
+  //   raw: true,
+  //   where: {
+      
+  //   }
+  // });
   res.status(200).json({
     events: currentUsersEvents,
   });
