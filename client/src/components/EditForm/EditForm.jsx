@@ -68,7 +68,6 @@ function EditForm({ event }) {
           <option value="7">кафе, бар, ресторан</option>
         </select>
       </div>
-
       <div>
         <p>Статус события</p>
         <select ref={privateInput} defaultValue={event.privateSettings}>
