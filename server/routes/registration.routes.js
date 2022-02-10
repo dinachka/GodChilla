@@ -12,11 +12,17 @@ router.post('/', async (req, res) => {
     // photo,
     city,
   } = req.body;
-  const name = req.body.name[0].toUpperCase() + req.body.name.slice(1).toLowerCase();
-  const lastName = req.body.lastName[0].toUpperCase() + req.body.lastName.slice(1).toLowerCase();
+  const name =
+    req.body.name[0].toUpperCase() + req.body.name.slice(1).toLowerCase();
+  const lastName =
+    req.body.lastName[0].toUpperCase() +
+    req.body.lastName.slice(1).toLowerCase();
 
   if (password.length < 6) {
-    res.status(400).json({ user: false, message: 'Длина пароля должна быть больше 6 символов' });
+    res.status(400).json({
+      user: false,
+      message: 'Длина пароля должна быть больше 6 символов',
+    });
   }
   let newUser;
   try {
@@ -24,7 +30,7 @@ router.post('/', async (req, res) => {
       where: {
         [Op.or]: [
           // { username },
-          { email },
+          { email: { [Op.iLike]: email } },
         ],
       },
     });
@@ -41,13 +47,20 @@ router.post('/', async (req, res) => {
         city,
       });
     } else {
-      res.status(400).json({ user: false, message: 'Юзер с таким email уже существует' });
+      res
+        .status(400)
+        .json({ user: false, message: 'Юзер с таким email уже существует' });
     }
     if (newUser) {
       res.status(201).json({ user: true });
     }
   } catch (error) {
-    res.status(401).json({ user: false, message: 'Регистрация не прошла. Ошибка обращения к базе данных', error: error.message });
+    console.log(error);
+    res.status(401).json({
+      user: false,
+      message: 'Регистрация не прошла. Ошибка обращения к базе данных',
+      error: error.message,
+    });
   }
 });
 

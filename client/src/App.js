@@ -10,6 +10,7 @@ import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import EventsList from "./components/EventsList/EventsList";
 import UserProfile from "./components/UserProfile/UserProfile";
+import { Dialogs } from "./components/Dialogs/Dialogs";
 // import CurrentEvent from "./components/CurrentEvent/CurrentEvent";
 // import NotFound from "./components/NotFound/NotFound";
 
@@ -27,6 +28,7 @@ function App() {
             <Route path='/profile' element={<Profile />} />
             <Route path='/profile/user/:id' element={<UserProfile />} />
             <Route path='/events' element={<EventsList />} />
+            <Route path='/dialogs' element={<Dialogs />} />
             {/* <Route path='/events/:id' element={<CurrentEvent />} /> */}
             {/* <Route path='*' element={<NotFound />} /> */}
           </Routes>
