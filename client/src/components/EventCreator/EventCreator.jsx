@@ -63,7 +63,6 @@ function EventCreator({ setSwitcher }) {
 
     const result = await fetch(sendImageToServerURL, options)
     const response = await result.json()
-    console.log(response);
     setEventImg(response)
     // .then(res => res.json())
     // .then(imgPath => setEventImg(imgPath))
@@ -74,14 +73,11 @@ function EventCreator({ setSwitcher }) {
 
 
   return (
-    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data">
-
-      <input ref={titleInput} className='eventCreatorForm' type="text" required placeholder='Название' />
-      <input ref={descriptionInput} className='eventCreatorForm' type="text" required placeholder='Описание' />
-      <div className='eventCreatorForm'>
-        <p>Категория</p>
+    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data" className='event_create_form'>
+      <input ref={titleInput} placeholder="Название" type="text" required />
+      <input ref={descriptionInput} placeholder='Описание' type="text" required />
+      <label className='eventCreatorForm'>Категория&nbsp;
         <select ref={categoryInput} required >
-          <option></option>
           <option value="1">посиделки</option>
           <option value="2">отдых на природе</option>
           <option value="3">культура, зрелищные мероприятия</option>
@@ -92,32 +88,24 @@ function EventCreator({ setSwitcher }) {
         </select>
       </div>
 
-      <div className='eventCreatorForm'>
-        <p>Статус события</p>
+      <label className='eventCreatorForm'>Статус события&nbsp;
         <select ref={privateInput} required >
-          <option></option>
           <option value="public">Публичный</option>
           <option value="forFriends">Для друзей</option>
           <option value="private">Личный</option>
         </select>
-      </div>
-      <input ref={locationInput} className='eventCreatorForm' type="text" placeholder='Место проведения' />
-      <input ref={dateInput} className='eventCreatorForm' type="date" placeholder='Дата проведения' />
+      </label>
 
-      <div className='eventCreatorForm'>
-        <p>Фото</p>
-        {/* {
-          eventImg ?
-            <img src={`${eventImg}`} alt="avatar" />
-            :
-            <img src={`${defaultImg}`} alt="avatar" />
-        } */}
-        <input onChange={e => setEventImg(e.target.files[0])} className='eventCreatorForm' type="file" name="photo" />
-      </div>
+      <input ref={locationInput} placeholder='Место проведения' type="text" />
 
-      <div>
-        <button className='eventCreatorForm'>Создать событие</button>
+      <input ref={dateInput} placeholder='Дата проведения' type="date" />
+
+      <div className="js-upload " uk-form-custom='true'>
+        <input type="file" multiple onChange={e => setEventImg(e.target.files[0])} />
+        <button className="uk-button uk-button-default " tabIndex="-1">Загрузить фото</button>
       </div>
+      <br />
+      <button className='uk-button uk-button-default my_btn'>Создать событие</button>
     </form>
   )
 }

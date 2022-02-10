@@ -55,7 +55,6 @@ router.post('/', async (req, res) => {
       res.status(201).json({ user: true });
     }
   } catch (error) {
-    console.log(error);
     res.status(401).json({
       user: false,
       message: 'Регистрация не прошла. Ошибка обращения к базе данных',
