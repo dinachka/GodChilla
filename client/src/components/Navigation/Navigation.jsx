@@ -1,22 +1,21 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import './navigation.css'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './navigation.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 import { useNavigate } from 'react-router-dom';
 import NotificationModal from '../NotificationModal/NotificationModal';
 
 function Navigation() {
-
-  const session = useSelector(state => state.userReducer)
+  const session = useSelector(state => state.userReducer);
   const dispath = useDispatch();
   const navigate = useNavigate();
   // Состояние для открытия/закрытия моадльного окна уведомлений
   const [isModal, setIsModal] = useState(false);
-  
+
   const leaveSession = () => {
-    dispath(logoutFetchAC())
-    navigate('/')  
+    dispath(logoutFetchAC());
+    navigate('/');
   };
 
   return (
@@ -27,6 +26,9 @@ function Navigation() {
         <div className='upper'></div>
         <div className='logo_form'>
           <div onClick={()=> navigate('/')} className='godchilla'>GODCHILLA</div>
+          <Link to="/dialogs">
+                <div>Сообщения</div>
+          </Link>
         </div>
           <nav className='uk-navbar' >
             <div className="uk-navbar-left" >
@@ -56,7 +58,7 @@ function Navigation() {
       }
       {isModal && <NotificationModal />}    
     </>
-  )
+  );
 }
 
-export default Navigation
+export default Navigation;

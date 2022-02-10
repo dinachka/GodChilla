@@ -1,21 +1,33 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
-const { Event, Participation } = require('../db/models');
+const { Event, Participation, Category } = require('../db/models');
 
 router.get('/', async (req, res) => {
+  const now = (new Date()).toISOString();
   const currentUsersEvents = await Event.findAll({
     where: {
       userID: {
         [Op.eq]: req.session.user.id,
       },
+      dateTime: { [Op.gte]: now },
+
     },
   });
+
+  // const currentCategory = await Category.findOne({
+  //   raw: true,
+  //   where: {
+      
+  //   }
+  // });
   res.status(200).json({
     events: currentUsersEvents,
   });
 });
 
 router.get('/otherEventsOnProfile', async (req, res) => {
+  const now = (new Date()).toISOString();
+
   const { id } = req.session.user;
   try {
     const myParticipations = await Participation.findAll({
@@ -31,6 +43,7 @@ router.get('/otherEventsOnProfile', async (req, res) => {
       raw: true,
       where: {
         id: myParticipationsIds,
+        dateTime: { [Op.gte]: now },
       },
     });
     res.status(200).json(events);
@@ -56,6 +69,24 @@ router.delete('/rejectParticipationOnProfile/:id', async (req, res) => {
     res.status(400).json({
       message: error.message,
     });
+  }
+});
+
+router.get('/pastEvents', async (req, res) => {
+  const now = (new Date()).toISOString();
+  const { id } = req.session.user;
+
+  try {
+    const myPastEvents = await Event.findAll({
+      raw: true,
+      where: {
+        userID: +id,
+        dateTime: { [Op.lt]: now },
+      },
+    });
+    res.status(200).json({ myPastEvents });
+  } catch (error) {
+    res.status(404).json({ error: error.message, message: 'События не найдены!' });
   }
 });
 module.exports = router;
