@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Participation extends Model {
     /**
@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     eventID: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
     status: {
       type: DataTypes.TEXT,
