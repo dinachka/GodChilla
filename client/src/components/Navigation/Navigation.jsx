@@ -11,7 +11,6 @@ function Navigation() {
 
   const eventsNotifications = useSelector(state => state.eventReducer.notifications)
   const friendsNotifications = useSelector(state => state.friendsReducer.notifications)
-  console.log(friendsNotifications, 'eventsNotifications');
   const dispath = useDispatch();
   const navigate = useNavigate();
   // Состояние для открытия/закрытия моадльного окна уведомлений
