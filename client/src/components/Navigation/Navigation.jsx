@@ -8,8 +8,10 @@ import NotificationModal from '../NotificationModal/NotificationModal';
 
 function Navigation() {
   const session = useSelector(state => state.userReducer);
+
   const eventsNotifications = useSelector(state => state.eventReducer.notifications)
-  console.log(eventsNotifications, 'eventsNotifications');
+  const friendsNotifications = useSelector(state => state.friendsReducer.notifications)
+  console.log(friendsNotifications, 'eventsNotifications');
   const dispath = useDispatch();
   const navigate = useNavigate();
   // Состояние для открытия/закрытия моадльного окна уведомлений
@@ -35,7 +37,7 @@ function Navigation() {
           <nav className='uk-navbar' >
             <div className="uk-navbar-left" >
               <ul className="uk-navbar-nav uk-animation-slide-top" >
-              <li onClick={()=>setIsModal(!isModal)}className="bell" ><div className={eventsNotifications.length ? 'uk-alert-danger ' : 'my uk-active bell'} uk-icon="icon: bell; ratio: 1.2"></div></li> 
+              <li onClick={()=>setIsModal(!isModal)} className="bell" ><div className={eventsNotifications.length || friendsNotifications.length ? 'uk-alert-danger ' : 'my uk-active bell'} uk-icon="icon: bell; ratio: 1.2"></div></li> 
                 <li><Link to="/profile" className="uk-active profile"><div className='my'>Профиль</div></Link></li>
               </ul>
             </div>

@@ -11,8 +11,18 @@ import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
 import PastEvents from '../PastEvents/PastEvents';
 import { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
+import { initFriendsRequestNotificatiosnAsyncAC } from '../../redux/actionCreatorsAsync/friendsACAsync'
+import { eventsRequestsNotificationsAsyncAC } from '../../redux/actionCreatorsAsync/eventsACAsync';
 
 function Profile() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(initFriendsRequestNotificatiosnAsyncAC())
+    }, [dispatch])
+
+    useEffect(() => {
+      dispatch(eventsRequestsNotificationsAsyncAC())
+      }, [dispatch])
 
   // Логика переключения календаря и ленты-событий
   const [calendarSwitcher, setCalendarSwitcher] = useState(true)
@@ -31,7 +41,6 @@ function Profile() {
   }
 
   const { user } = useSelector(state => state.userReducer)
-  const dispatch = useDispatch()
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
 
