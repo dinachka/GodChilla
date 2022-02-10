@@ -73,10 +73,11 @@ function EventCreator({ setSwitcher }) {
 
 
   return (
-    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data" className='event_create_form'>
+    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data"  className='event_create_form uk-animation-slide-bottom' >
+
       <input ref={titleInput} placeholder="Название" type="text" required />
       <input ref={descriptionInput} placeholder='Описание' type="text" required />
-      <label className='eventCreatorForm'>Категория&nbsp;
+      <div className='eventCreatorForm'>Категория&nbsp;
         <select ref={categoryInput} required >
           <option value="1">посиделки</option>
           <option value="2">отдых на природе</option>
