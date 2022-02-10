@@ -1,10 +1,10 @@
 import React from 'react';
 
-function PastEvent({event}) {
+function PastEvent({ event }) {
   return (
     <div>
-         <div>
-         {event.photo ? (
+      <div>
+        {event.photo ? (
           <img
             src={event.photo}
             alt="not found"
@@ -12,11 +12,11 @@ function PastEvent({event}) {
         ) : (
           <img src={`/pictures/${event.categoryID}.jpg`} alt="not found"></img>
         )}
-            <div> Название встречи: {event.title} </div>
-            <div> Описание: {event.description} </div>
-            <div> Место: {event.location} </div>
-            <div> Дата: {event.dateTime} </div>
-          </div>
+        <div> Название встречи: {event.title} </div>
+        <div> Описание: {event.description} </div>
+        <div> Место: {event.location} </div>
+        <div> Дата: {event.dateTime} </div>
+      </div>
     </div>
   );
 }

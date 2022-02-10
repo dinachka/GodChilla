@@ -14,12 +14,6 @@ router.get('/', async (req, res) => {
     },
   });
 
-  // const currentCategory = await Category.findOne({
-  //   raw: true,
-  //   where: {
-      
-  //   }
-  // });
   res.status(200).json({
     events: currentUsersEvents,
   });

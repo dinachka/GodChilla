@@ -10,24 +10,29 @@ import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
 import PastEvents from '../PastEvents/PastEvents';
-import  { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
+import { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
 
 function Profile() {
 
   // Логика переключения календаря и ленты-событий
   const [calendarSwitcher, setCalendarSwitcher] = useState(true)
-  const calendarSwitch = () => {
+    const calendarSwitch = () => {
     setCalendarSwitcher(!calendarSwitcher)
   }
   // Логика отображения списка друзей
   const [friendsVisible, setFriendsVisible] = useState(false)
-  const friendsVisibleSwitcher = () => {
+    const friendsVisibleSwitcher = () => {
     setFriendsVisible(!friendsVisible)
   }
   // Логика отображения создания событий
   const [eventCreatorVisible, setEventCreatorVisible] = useState(false)
-  const eventCreatorVisibleSwitcher = () => {
+    const eventCreatorVisibleSwitcher = () => {
     setEventCreatorVisible(!eventCreatorVisible)
+  }
+  // Логика отображения поисковика друзей
+  const [searchVisible, setSearchVisible] = useState(false)
+    const searchVisibleSwitcher = () => {
+    setSearchVisible(!searchVisible)
   }
 
   const { user } = useSelector(state => state.userReducer)
@@ -35,7 +40,7 @@ function Profile() {
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
 
-const changingHandler = (event) => {
+  const changingHandler = (event) => {
     event.preventDefault()
     searchInput.current.value.length ? dispatch(initUserslistFetchAC(searchInput.current.value)) : dispatch(cleanUserListAC())
   }
@@ -52,7 +57,8 @@ const changingHandler = (event) => {
 
   const sendFile = useCallback(async () => {
     try {
-      const URL = 'http://localhost:4000/api/profile/uploadImage/'
+      // const URL = 'http://localhost:4000/api/profile/uploadImage/'
+      const URL = process.env.REACT_APP_SAVE_AVATAR_ON_PROFILE
       const data = new FormData()
       data.append('avatar', img)
       const options = {
@@ -78,53 +84,68 @@ const changingHandler = (event) => {
               :
               <img className='avatar_img'  src={`${defaultAvatar}`} alt="avatar" />
           }
-        <div className="js-upload" uk-form-custom='true'>
-          <input type="file" multiple onChange={e => setImg(e.target.files[0])} />
-          <button className="uk-button uk-button-default" type="button" tabIndex="-1">Загрузить аватар</button>
-        </div>
-        <div>
-          <button onClick={sendFile} className="uk-button uk-button-default" >Установить аватар</button>
-        </div>
         </div>
         
         <br />
-        <div className='user_info'>
-          <div>ИМЯ: {user.name}</div>
-          <br />
-          <div>ФАМИЛИЯ: {user.lastName}</div>
-          <br />
-          <div>ГОРОД: {user.city}</div>
+        <div className='user_info_container' >
+          <div className='user_info'>
+            <div>ИМЯ: {user.name}</div>
+            <br />
+            <div>ФАМИЛИЯ: {user.lastName}</div>
+            <br />
+            <div>ГОРОД: {user.city}</div>
+          </div>
+          <div className="js-upload" uk-form-custom='true'>
+              <input type="file" multiple onChange={e => setImg(e.target.files[0])} className='inpload' />
+              <button className="uk-button uk-button-default my_settings" type="button" tabIndex="-1">Загрузить аватар</button>
+            </div>
+            <div>
+              <button onClick={sendFile} className="uk-button uk-button-default extra_style" >Установить аватар</button>
+            </div>
         </div>
       </div>
 
-      <div className='bottomLine'></div>
-      <div className='createEventBtn' >
-        <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
-      </div>
+      <h3 className="uk-heading-line uk-text-center" onClick={eventCreatorVisibleSwitcher}>
+        {eventCreatorVisible ? <span className='first_span' uk-icon="chevron-up" >создать событие</span> : <span className='first_span' uk-icon="chevron-down" >создать событие</span> }
+      </h3>
       {eventCreatorVisible && <EventCreator setSwitcher={() => {setEventCreatorVisible(false)}}/>}
 
-      <hr className="uk-divider-icon" />
-      <div className='friendsContainer'>
-        <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
+       
+      <h3 className="uk-heading-line uk-text-center" onClick={searchVisibleSwitcher}>
+        { searchVisible ? <span className='first_span' uk-icon="chevron-up" >найти людей</span>
+       : <span className='first_span' uk-icon="chevron-down" >найти людей</span> }
+       </h3>
+        { searchVisible && <form className="uk-search uk-search-large">
+          <span uk-search-icon='true'></span>
+          <input className="uk-search-input" type="search" placeholder="введите имя" onChange={changingHandler}  ref={searchInput}/>
+          </form> }
+          {users.users?.length ? <UserListModal users={users.users}/> : searchVisible && 
+          <p className='notification_searchbar'> Нет доступных пользователей</p>}
+        
 
-        <input onChange={changingHandler} placeholder='Найти друзей' type='search' ref={searchInput}></input>
-      </div>
+
+      <h3 className="uk-heading-line uk-text-center" onClick={friendsVisibleSwitcher}>
+        {friendsVisible ? <span className='first_span' uk-icon="chevron-up" >мои друзья</span> : <span className='first_span' uk-icon="chevron-down" > мои друзья</span> }
+      </h3>
       <div>
-        {friendsVisible && <FriendList />}
+        {friendsVisible && <FriendList /> }
       </div>
-      {users.users?.length && <UserListModal users={users.users} />}
 
-      <div className='bottomLine'></div>
+      <h3 className="uk-heading-line uk-text-center" onClick={calendarSwitch}>
+        {calendarSwitcher ? <span className='first_span' uk-icon="chevron-up" >лента событий</span> : <span className='first_span' uk-icon="chevron-down" >лента событий</span> }
+      </h3>
       <div >
-        <div className='stateSwitcher'>
-          {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента будущих событий</div> : <div onClick={calendarSwitch} className='display'>Прошедшие события</div>}
-        </div >
-        <div >{calendarSwitcher ? <>
-        <CurrentUsersEvents />
-        <OtherEventsOnProfie/>
-        </> 
-        : <PastEvents />}</div>
+        <div> 
+          {calendarSwitcher && <>
+          <CurrentUsersEvents />
+          <OtherEventsOnProfie />
+          <PastEvents /> </>} 
+          </div>
       </div>
+      
+
+
+      
     </div>
   )
 }

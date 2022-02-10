@@ -30,6 +30,7 @@
 .godchilla{
   color: white;
   transition: 1s;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .godchilla:hover{

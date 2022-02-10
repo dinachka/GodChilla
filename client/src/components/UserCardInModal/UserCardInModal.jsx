@@ -27,7 +27,6 @@ function UserCardInModal({ user }) {
         <div>{ user.name }</div>
         <div>{ user.lastName }</div>
         {user.photo ? <img src={user.photo} alt='none'></img> : <img src={user.photo} alt='none'></img>}
-        
         {/* <button onClick={getFriendship} >Добавить в друзья!</button> */}
         <br />
       </div>
