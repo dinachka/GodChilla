@@ -52,7 +52,8 @@ function EventCreator({ setSwitcher }) {
 
   const sendImageToServer = useCallback(async () => {
 
-    const sendImageToServerURL = 'http://localhost:4000/api/profile/uploadEventImage/'
+    // const sendImageToServerURL = 'http://localhost:4000/api/profile/uploadEventImage/'
+    const sendImageToServerURL = process.env.REACT_APP_SAVE_EVENT_IMAGE_EVENT_CREATOR
     const data = new FormData()
     data.append('eventImage', eventImg)
     const options = {
@@ -72,7 +73,7 @@ function EventCreator({ setSwitcher }) {
 
 
   return (
-    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data"  className='event_create_form'>
+    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data" className='event_create_form'>
       <input ref={titleInput} placeholder="Название" type="text" required />
       <input ref={descriptionInput} placeholder='Описание' type="text" required />
       <label className='eventCreatorForm'>Категория&nbsp;
@@ -97,10 +98,10 @@ function EventCreator({ setSwitcher }) {
 
       <input ref={locationInput} placeholder='Место проведения' type="text" />
 
-      <input ref={dateInput}placeholder='Дата проведения' type="date" />
+      <input ref={dateInput} placeholder='Дата проведения' type="date" />
 
       <div className="js-upload " uk-form-custom='true'>
-        <input type="file" multiple onChange={e => setEventImg(e.target.files[0])}/>
+        <input type="file" multiple onChange={e => setEventImg(e.target.files[0])} />
         <button className="uk-button uk-button-default " tabIndex="-1">Загрузить фото</button>
       </div>
       <br />

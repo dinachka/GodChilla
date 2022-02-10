@@ -1,0 +1,16 @@
+.friendsCard_box {
+  display: flex;
+  max-height: 100px;
+  padding: 10px;
+  width: 50vw;
+  align-items: center;
+}
+
+.friendsCard_box__img {
+  padding-left: 20px;
+}
+
+.friendsCard_box__friendsName {
+  display: flex;
+  flex-direction: column;
+}
