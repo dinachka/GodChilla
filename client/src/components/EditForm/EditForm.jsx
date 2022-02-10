@@ -32,10 +32,7 @@ function EditForm({ event }) {
       photo: photoInput.current.value,
     };
 
-    console.log(editedEvent);
-
     dispatch(editEventFetchAC(editedEvent));
-
     navigate('/profile')
   };
 

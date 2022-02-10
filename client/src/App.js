@@ -15,7 +15,6 @@ import { Dialogs } from "./components/Dialogs/Dialogs";
 // import NotFound from "./components/NotFound/NotFound";
 
 function App() {
-  console.log();
   return (
     <Provider store={store}>
       <LoginWraper>

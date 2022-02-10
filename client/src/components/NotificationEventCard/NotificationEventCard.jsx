@@ -4,7 +4,7 @@ import { acceptEventsRequestsNotificationsAsyncAC, rejectEventsRequestsNotificat
 
 
 function NotificationEventCard({ event }) {
-console.log(event, 'event');
+
   const key = Object.values(event)
   const dispatch = useDispatch()
 

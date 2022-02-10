@@ -26,7 +26,6 @@ router.post('/', async (req, res) => {
       });
       return;
     }
-    console.log(currentUser.photo);
     req.session.user = {
       id: currentUser.id,
       // username: currentUser.username,

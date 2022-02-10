@@ -17,14 +17,14 @@ export const userReducer = (state = initialState, action) => {
       return { ...state, anotherUser: action.payload }
 
     case SAVE_AVATAR:
-      console.log(action.payload);
       return {
         ...state, user: {
           ...state.user,
           photo: action.payload,
         }
       }
-
+    case "CHANGE_FRIEND_STATUS_ADD":
+      return { ...state, anotherUser: {...state.anotherUser, friendship: 'Подтвержден'} }
     default:
       return state
   }
