@@ -85,10 +85,11 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const eventId = req.params.id;
+  console.log(eventId);
   try {
     const deleted = await Event.destroy({
       where: {
-        id: eventId,
+        id: +eventId,
       },
     });
     if (deleted) {
@@ -103,6 +104,7 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     res.status(400).json({
       message: 'Что-то пошло не так, попробуйте снова!',
+      error: error.message,
     });
   }
 });
