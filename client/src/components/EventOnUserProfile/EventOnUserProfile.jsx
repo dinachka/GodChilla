@@ -60,7 +60,7 @@ function EventOnUserProfile({ event }) {
             {/* 1644491987209-helloo2.png */}
           </div>
         )}
-        {editFormVision && <EditForm key={event.id} event={event} />}
+        {editFormVision && <EditForm key={event.id} switcher={editFormVisionSwitcher} event={event} />}
 
         <div className='eventProfile_box__buttons'>
           {session.user.id === event.userID ? (editFormVision ? (

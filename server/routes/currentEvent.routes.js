@@ -52,6 +52,7 @@ router.put('/:id', async (req, res) => {
   partyToEdit.categoryID = categoryID;
   partyToEdit.save();
   return res.status(200).json({
+    updated: partyToEdit,
     message: 'Изменения записаны!',
   });
 });
@@ -102,6 +103,7 @@ router.delete('/:id', async (req, res) => {
     });
     if (deleted) {
       res.status(200).json({
+        id: eventId,
         message: 'Событие удалилось успешно, создайте новое!',
       });
     } else {
