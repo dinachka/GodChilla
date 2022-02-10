@@ -34,9 +34,9 @@ function EditForm({ event }) {
 
     console.log(editedEvent);
 
-    // dispatch(editEventFetchAC(editedEvent));
+    dispatch(editEventFetchAC(editedEvent));
 
-    // navigate('/events')
+    navigate('/profile')
   };
 
   return (
@@ -63,7 +63,9 @@ function EditForm({ event }) {
 
       <label>
         Категория
-        <select ref={categoryInput} required>
+        <select ref={categoryInput} required v-model="selected">
+        
+
         <option></option>
           <option value="1">посиделки</option>
           <option value="2">отдых на природе</option>
@@ -77,7 +79,7 @@ function EditForm({ event }) {
 
       <label>
         Статус события
-        <select ref={privateInput} required>
+        <select ref={privateInput} defaultValue={event.privateSettings}>
           <option></option>
           <option value="public">Публичный</option>
           <option value="forFriends">Для друзей</option>

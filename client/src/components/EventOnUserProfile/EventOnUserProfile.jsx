@@ -4,6 +4,7 @@ import { FETCH_DELETE_EVENT } from '../../redux/actionTypes/eventAT';
 import { useNavigate } from 'react-router-dom';
 import { cancelForeignEventsOnProfileAsyncAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
 import EditForm from '../EditForm/EditForm';
+import { Link } from 'react-router-dom';
 
 function EventOnUserProfile({ event }) {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function EventOnUserProfile({ event }) {
   const editFormVisionSwitcher = () => {
     setEditFormVision(!editFormVision);
   };
+  console.log(event, 'event');
 
   const deleteHandle = event => {
     event.preventDefault();
@@ -21,10 +23,10 @@ function EventOnUserProfile({ event }) {
     navigate('/events');
   };
 
-    const rejectEvent = () => {
-      dispatch(cancelForeignEventsOnProfileAsyncAC(event.id))
-      console.log(123);
-    }
+  const rejectEvent = () => {
+    dispatch(cancelForeignEventsOnProfileAsyncAC(event.id))
+    console.log(123);
+  }
   return (
     <div>
       <div>
@@ -42,6 +44,13 @@ function EventOnUserProfile({ event }) {
             <div> Описание: {event.description} </div>
             <div> Место: {event.location} </div>
             <div> Дата: {event.dateTime} </div>
+            {/* <div>
+              {' '}
+              Автор:
+              <Link to={`/profile/user/${event.User.id}`} />
+              {' '}
+              {event.User.name} {event.User.lastName}{' '}</div> */}
+
           </div>
         )}
         {editFormVision && <EditForm key={event.id} event={event} />}
@@ -50,8 +59,8 @@ function EventOnUserProfile({ event }) {
           <button onClick={editFormVisionSwitcher}>Отменить изменения</button>
         ) : (
           <>
-          <button onClick={editFormVisionSwitcher}>Изменить событие</button>
-          <button onClick={deleteHandle}>Удалить событие</button>
+            <button onClick={editFormVisionSwitcher}>Изменить событие</button>
+            <button onClick={deleteHandle}>Удалить событие</button>
           </>
         ))
           : <button onClick={rejectEvent}>Отменить участие</button>}
