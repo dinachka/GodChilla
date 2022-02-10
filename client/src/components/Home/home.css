@@ -12,21 +12,27 @@
   width: 60%;
 }
 
-.regBlock{
-  text-decoration:none;
+.loginBlock{
   background: linear-gradient(rgb(48, 107, 184), rgb(63, 135, 197), rgb(84, 173, 214));
   border-radius: 5px;
-  height: 47%;
+  height: 15%;
   text-align: center;
 }
 
-.loginBlock{
-  text-decoration:none;
+.regBlock{
   background: linear-gradient(rgb(84, 173, 214),rgb(84, 173, 214),rgb(72, 188, 196),rgb(38, 216, 162));
-  margin-top: 10%;
+  margin-top: 7%;
   background-color: rgb(48, 107, 184);
   border-radius: 5px;
-  height: 47%;
+  height: 15%;
+  text-align: center;
+}
+
+.infoBlock{
+  background-color: aquamarine;
+  height: 60%;
+  border-radius: 5px;
+  margin-top: 7%;
   text-align: center;
 }
 
@@ -41,4 +47,7 @@
 
 .logLink{
   text-decoration: none;
+}
+h4{
+  
 }
