@@ -19,10 +19,10 @@ router
         },
         raw: true,
       });
+      req.session.user.photo = updatedAva.photo;
       res.status(200).json({ photoURL: updatedAva.photo });
     } catch (error) {
-      console.log(error.message);
-      // res.status(404).json({ error });
+      res.status(404).json({ error: error.message });
     }
   });
 
