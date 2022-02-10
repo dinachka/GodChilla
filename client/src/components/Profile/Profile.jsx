@@ -89,6 +89,10 @@ function Profile() {
           <input type="file" multiple onChange={e => setImg(e.target.files[0])} />
           <button className="uk-button uk-button-default" type="button" tabIndex="-1">Select</button>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
         <div>
           <button onClick={sendFile}>Change avatar</button>
         </div>
