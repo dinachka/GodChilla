@@ -1,12 +1,7 @@
-import { useEffect, useRef } from 'react';
-import io from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
 export const Dialogs = () => {
-  const ws = useRef(null);
-  useEffect(() => {
-    ws.current = new io();
-
-    ws.current.on('message', message => console.log(message));
-  }, []);
+  const friends = useSelector(state => state.friendsReducer.friends);
+  console.log(friends);
   return <>dialogs</>;
 };
