@@ -35,7 +35,6 @@ router.put('/acceptEventRequest', async (req, res) => {
   const { id } = req.session.user;
   const { userID } = req.body;
   const { eventID } = req.body;
-  console.log(userID, 'userID', eventID, 'eventID');
   try {
     const acceptedEventRequest = await Participation.update(
       { status: 'Подтвержден' },
@@ -51,7 +50,6 @@ router.delete('/rejectEventRequest', async (req, res) => {
   const { id } = req.session.user;
   const { userID } = req.body;
   const { eventID } = req.body;
-  console.log(userID, 'userID', eventID, 'eventID');
   try {
     const rejectedEvent = await Participation.destroy({
       where: {

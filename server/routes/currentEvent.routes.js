@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Event } = require('../db/models');
+const { Event, Category } = require('../db/models');
 
 router.get('/:id', async (req, res) => {
   const eventId = req.params.id;
@@ -9,6 +9,14 @@ router.get('/:id', async (req, res) => {
     },
   });
   const partyExists = eventToEdit;
+
+  // const currentCategory = await Category.findOne({
+  //   raw: true,
+  //   where: {
+  //     id: eventToEdit.categoryID,
+  //   },
+  // });
+  // console.log(currentCategory.title, 'currentCategory');
   res.status(200).json('editEvent', { party: eventToEdit, partyExists });
 });
 
@@ -30,7 +38,7 @@ router.put('/:id', async (req, res) => {
       id: eventID,
     },
   });
-
+ 
   if (!title || !privateSettings || !location || !dateTime) {
     return res.status(400).json({ message: 'Эти поля не могут быть пустыми!', status: false });
   }

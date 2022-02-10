@@ -123,7 +123,7 @@ function* addFriendshipAsync(action) {
   });
 
   yield put(addFriendshipAC(newFriendship));
-
+  yield put({type: "CHANGE_FRIEND_STATUS_ADD"});
 }
 
 // Инициализация ближайших событий 
@@ -166,7 +166,6 @@ function* initAnotherUserAsync(action) {
 }
 // принять запрос на добавление друга 
 function* acceptFriendship(action) {
-  // console.log(process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP);
   const accepted = yield call(fetchData, {
     url: process.env.REACT_APP_URL_ACCEPT_FRIENDSHIP,
     headers: { 'Content-Type': 'application/json' },
@@ -249,8 +248,8 @@ function* deleteFriendshipAsync(action) {
     headers: { 'Content-Type': 'Application/json' },
     method: 'DELETE'
   });
-
   yield put(deleteFriendAC(data.userID));
+  yield put({type: "CHANGE_FRIEND_STATUS_DELETE"});
 }
 
 function* cancelForeignEventOnProfileAsync(action) {

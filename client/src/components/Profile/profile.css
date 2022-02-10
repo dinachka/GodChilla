@@ -112,3 +112,7 @@ input{
   background-color: rgb(247, 247, 247);
   border-radius: 5px;
 }
+
+.notification_searchbar{
+  margin-left: 20px;
+}
