@@ -72,22 +72,28 @@ const changingHandler = (event) => {
     <div className='profileContainer'>
       <div className='profile_info_container'>
         <div className="avatar_box">
-          {avatar ? <img src={`${avatar}`} alt="avatar" />
+          {avatar ? <img className='avatar_img' src={`${avatar}`} alt="avatar" />
             :
-            user.photo ? <img src={`${user.photo}`} alt="avatar" />
+            user.photo ? <img className='avatar_img'  src={`${user.photo}`} alt="avatar" />
               :
-              <img src={`${defaultAvatar}`} alt="avatar" />
+              <img className='avatar_img'  src={`${defaultAvatar}`} alt="avatar" />
           }
-        </div>
         <div className="js-upload" uk-form-custom='true'>
           <input type="file" multiple onChange={e => setImg(e.target.files[0])} />
-          <button className="uk-button uk-button-default" type="button" tabIndex="-1">Select</button>
+          <button className="uk-button uk-button-default" type="button" tabIndex="-1">Загрузить аватар</button>
         </div>
         <div>
-          <button onClick={sendFile}>Change avatar</button>
+          <button onClick={sendFile} className="uk-button uk-button-default" >Установить аватар</button>
         </div>
-        <div>
-          <h3>{user.name}</h3>
+        </div>
+        
+        <br />
+        <div className='user_info'>
+          <div>ИМЯ: {user.name}</div>
+          <br />
+          <div>ФАМИЛИЯ: {user.lastName}</div>
+          <br />
+          <div>ГОРОД: {user.city}</div>
         </div>
       </div>
 
@@ -101,7 +107,7 @@ const changingHandler = (event) => {
       <div className='friendsContainer'>
         <div onClick={friendsVisibleSwitcher} className='stateSwitcher display' >Мои друзья </div>
 
-        <input onChange={changingHandler} placeholder='Найти друзей' type='search' ref={searchInput}></input><button>искать</button>
+        <input onChange={changingHandler} placeholder='Найти друзей' type='search' ref={searchInput}></input>
       </div>
       <div>
         {friendsVisible && <FriendList />}
