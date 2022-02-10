@@ -11,11 +11,12 @@ function CurrentEvent({ event }) {
   const clickCancelJoinHandler = () => {
     dispatch(cancelJoinEventFetchAC(event.id))
   }
+  console.log(event);
   return (
     <div>
-      {event.photo ? (
+      {event?.photo ? (
         <img
-          src="https://pbs.twimg.com/profile_images/445338647261229056/Gf5tt71x_400x400.jpeg"
+          src={event.photo}
           alt="not found"
         ></img>
       ) : (

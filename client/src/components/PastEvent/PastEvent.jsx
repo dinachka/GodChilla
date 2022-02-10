@@ -6,7 +6,7 @@ function PastEvent({ event }) {
       <div>
         {event.photo ? (
           <img
-            src="https://pbs.twimg.com/profile_images/445338647261229056/Gf5tt71x_400x400.jpeg"
+            src={event.photo}
             alt="not found"
           ></img>
         ) : (
