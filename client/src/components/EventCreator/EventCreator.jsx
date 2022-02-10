@@ -87,7 +87,7 @@ function EventCreator({ setSwitcher }) {
           <option value="6">творчество</option>
           <option value="7">кафе, бар, ресторан</option>
         </select>
-      </label>
+      </div>
 
       <label className='eventCreatorForm'>Статус события&nbsp;
         <select ref={privateInput} required >
