@@ -1,13 +1,22 @@
 import React from 'react';
 
 function ParticularUserEventsForFriends({ user }) {
-
-  const name = user.info.name
+console.log(user);
+ const clickJoinHandler = (event) => {
+   console.log(111, user, '111');
+   console.log(user.title);
+ }
 
   return (
-    <div>
-      <h2>{name}'s events for friends</h2>
-    </div>
+    <h5>
+      <p>Название встречи: {user.title}</p>
+      <p>Описание: {user.description}</p>
+      <p>Место: {user.location}</p>
+      <button onClick={clickJoinHandler} style={{ color:'red'}}>Присоединиться</button>
+      {/* {event.status === 'В обработке' ? <button onClick={clickCancelJoinHandler}>Не участвовать</button>
+      : <button onClick={clickJoinHandler}>Присоединиться</button> */}
+      <br/>
+    </h5>
   );
 }
 

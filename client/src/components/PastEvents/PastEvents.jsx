@@ -13,7 +13,7 @@ function PastEvents(props) {
   return (
     <>
     <h3>ваши прошедшие события</h3>
-      { pastEvents?.length && pastEvents.map( el => <PastEvent key={el.id} event={el}/>)}
+      { pastEvents?.length ? pastEvents.map( el => <PastEvent key={el.id} event={el}/>) : 'У вас еще нет событий в архиве'}
     </>
   );
   

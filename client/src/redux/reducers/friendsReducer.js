@@ -16,7 +16,7 @@ export const friendsReducer = (state = initialState, action) => {
     case REJECT_FRIENDSHIP:
       return { ...state, notifications:  [...state.notifications].filter((el) => el.id !== action.payload) }
     case DELETE_FRIENDSHIP:
-      return { ...state, friends: state.friendship.filter(el => (el.reqUserID !== action.payload) && (el.resUserID !== action.payload))}
+      return { ...state, friends: state.friendship?.filter(el => (el.reqUserID !== action.payload) && (el.resUserID !== action.payload))}
     default:
       return state
   }
