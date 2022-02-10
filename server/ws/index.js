@@ -3,7 +3,7 @@ const { sessionMW } = require('../middlewares/sessions');
 const sockets = {};
 
 module.exports = {
-  initWebSockets: expressApp => {
+  initWebSockets: (expressApp) => {
     const server = require('http').createServer(expressApp);
     const io = require('socket.io')(server, {
       cors: { origin: ['http://localhost:3000'] },

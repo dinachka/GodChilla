@@ -16,7 +16,6 @@ import { store } from './redux/store';
 // import NotFound from "./components/NotFound/NotFound";
 
 function App() {
-  console.log();
 
   return (
     <Provider store={store}>

@@ -26,7 +26,6 @@ router.post('/', async (req, res) => {
       });
       return;
     }
-    console.log(currentUser.photo);
     req.session.user = {
       id: currentUser.id,
       // username: currentUser.username,
@@ -36,7 +35,7 @@ router.post('/', async (req, res) => {
       photo: currentUser.photo,
       email,
       city: currentUser.city,
-      signedUp: true,
+      isUser: true,
     };
     res.status(200).json({
       id: req.session.user.id,
@@ -44,6 +43,7 @@ router.post('/', async (req, res) => {
       isUser: true,
       name: req.session.user.name,
       lastName: req.session.user.lastName,
+      photo: req.session.user.photo,
     });
   } catch (error) {
     res.status(401).json({ isUser: false, message: 'Ошибка обращения к базе данных', error: error.message });
@@ -52,12 +52,13 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   if (req.session.user) {
-    const user = await User.findOne({
-      where: {
-        id: req.session.user.id,
-      },
-    });
-    return res.status(200).json(user);
+    // const user = await User.findOne({
+    //   where: {
+    //     id: req.session.user.id,
+    //   },
+    // });
+    // const { user } = req.session;
+    return res.status(200).json(req.session.user);
   } return res.status(404).json({
     isUser: false,
     // message: 'Сессия не найдена',

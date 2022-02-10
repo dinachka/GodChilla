@@ -10,23 +10,29 @@ function Home() {
   return (
     <>
       {session.user.isUser ? 
-      <CaruselMain /> :
+      <div  className='uk-animation-slide-bottom'>
+        <CaruselMain />
+      </div> :
        <div className='homePageContainer uk-animation-slide-bottom'>
        <div className='log-reg_Container' >
-         <div className='regBlock' >
-           <Link to="/registration">
-             <div>
-               <h4>Регистрация</h4>
-             </div>
-           </Link>
-         </div>
-         <div className='loginBlock'>
-           <Link to="/login">
-             <div className='logLink'>
-               <h4 className='logLink' >Авторизация</h4>
-             </div>
-           </Link>
-         </div>
+          <div className='loginBlock'>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              <div className='logLink'>
+                <h4 className='buttons' >Авторизация</h4>
+              </div>
+            </Link>
+          </div>
+          <div className='regBlock' >
+            <Link to="/registration" style={{ textDecoration: 'none' }}>
+              <div>
+                <h4>Регистрация</h4>
+              </div>
+            </Link>
+          </div>
+          <div className='infoBlock'>
+            <h4>Информация</h4>
+          </div>
+
         </div>
        <div className='carusel'>
          <CaruselMain />

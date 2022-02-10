@@ -1,10 +1,9 @@
 .profileContainer{
-  margin-top: 10%;
-  display: flex;
+  margin-top: 8%;
 }
 
-img{
-  width: 20%;
+.avatar_img{
+  width: 200px;
   border: 40px;
 }
 
@@ -56,4 +55,27 @@ input{
   background-color: rgb(48, 107, 184);
   padding-top: 8px;
   padding-bottom: 8px; 
+}
+
+.avatar_box{
+  display: flex;
+  flex-direction:column;
+  margin:  2% 0 0 0; 
+}
+
+.photoInput{
+  width: 50rem;
+}
+.profile_info_container{
+  display: flex;
+  width: 60%;
+  height: 330px;
+  justify-content: center;
+  margin: 0 auto 0 auto;
+  border-radius: 5px;
+  border: 2px solid rgb(48, 107, 184);
+}
+
+.user_info{
+  margin:  5% 0 0 0;
 }

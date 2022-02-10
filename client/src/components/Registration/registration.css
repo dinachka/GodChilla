@@ -57,4 +57,5 @@ select{
 
 .btnStyle:hover {
   box-shadow: 0 0 40px 40px rgb(48, 107, 184) inset;
+  color: aliceblue;
 }
