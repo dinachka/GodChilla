@@ -32,6 +32,7 @@ const eventsNotifications = require('./routes/eventsNotifications.routes');
 const userProfile = require('./routes/userProfile.routes');
 const anotherUsersEvents = require('./routes/anotherUsersEvents.routes');
 const uploadUserImage = require('./routes/uploadUserImage.routes');
+const uploadEventImage = require('./routes/uploadEventImage.routes');
 
 const corsOptions = {
   origin: ['http://localhost:3000'],
@@ -83,6 +84,8 @@ app.use('/api/profile/user', userProfile);
 app.use('/api/profile/user/events/', anotherUsersEvents);
 // сохранение и изменение аватара на профиле пользователя
 app.use('/api/profile/uploadImage/', uploadUserImage);
+// сохранение и изменение фотографии события на профиле пользователя
+app.use('/api/profile/uploadEventImage/', uploadEventImage);
 
 const server = initWebSockets(app);
 

@@ -9,8 +9,9 @@ import EventCreator from '../EventCreator/EventCreator';
 import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
+import { SAVE_AVATAR } from '../../redux/actionTypes/userAT'
 import PastEvents from '../PastEvents/PastEvents';
-import  { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
+import { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
 
 function Profile() {
 
@@ -35,7 +36,7 @@ function Profile() {
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
 
-const changingHandler = (event) => {
+  const changingHandler = (event) => {
     event.preventDefault()
     searchInput.current.value.length ? dispatch(initUserslistFetchAC(searchInput.current.value)) : dispatch(cleanUserListAC())
   }
@@ -44,10 +45,7 @@ const changingHandler = (event) => {
 
   //переменная для получения файла на клиенте
   const [img, setImg] = useState(null)
-  //переменная, обработаная на сервере 
-  const [avatar, setAvatar] = useState(null)
   const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
-
   const id = user.id
 
   const sendFile = useCallback(async () => {
@@ -61,11 +59,17 @@ const changingHandler = (event) => {
       };
       fetch(URL + id, options)
         .then(res => res.json())
-        .then(data => setAvatar(data.photoURL))
+        .then(data => dispatch({ type: SAVE_AVATAR, payload: data.photoURL }))
+      // .then(data => setAvatar(data.photoURL))
     } catch (error) {
       console.log(error);
     }
-  }, [img, id])
+  }, [img, id, dispatch])
+
+  console.log('!!!!!USER', user);
+
+
+  // сохранение
 
   return (
     <div>
@@ -74,8 +78,7 @@ const changingHandler = (event) => {
           <h1>{user.name}</h1>
         </div>
         <div className="avatar_box">
-          {avatar ? <img src={`${avatar}`} alt="avatar" />
-            :
+          {
             user.photo ? <img src={`${user.photo}`} alt="avatar" />
               :
               <img src={`${defaultAvatar}`} alt="avatar" />
@@ -92,7 +95,7 @@ const changingHandler = (event) => {
       <div className='createEventBtn' >
         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
-      {eventCreatorVisible && <EventCreator setSwitcher={() => {setEventCreatorVisible(false)}}/>}
+      {eventCreatorVisible && <EventCreator setSwitcher={() => { setEventCreatorVisible(false) }} />}
 
       <hr className="uk-divider-icon" />
       <div className='friendsContainer'>
@@ -111,10 +114,10 @@ const changingHandler = (event) => {
           {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента будущих событий</div> : <div onClick={calendarSwitch} className='display'>Прошедшие события</div>}
         </div >
         <div >{calendarSwitcher ? <>
-        <CurrentUsersEvents />
-        <OtherEventsOnProfie/>
-        </> 
-        : <PastEvents />}</div>
+          <CurrentUsersEvents />
+          <OtherEventsOnProfie />
+        </>
+          : <PastEvents />}</div>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
   // куда сохранять фотки
   destination(req, file, cb) {
-    cb(null, 'images/');
+    cb(null, 'images/userAvatars');
   },
   // с каким именем запишется файл
   filename(req, file, cb) {

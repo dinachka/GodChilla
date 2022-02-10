@@ -26,6 +26,7 @@ router.post('/', async (req, res) => {
       });
       return;
     }
+    console.log(currentUser.photo);
     req.session.user = {
       id: currentUser.id,
       // username: currentUser.username,
@@ -51,13 +52,12 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   if (req.session.user) {
-    return res.status(200).json({
-      isUser: true,
-      name: req.session.user.name,
-      id: req.session.user.id,
-      // message: 'Сессия найдена',
-      photo: req.session.user.photo,
+    const user = await User.findOne({
+      where: {
+        id: req.session.user.id,
+      },
     });
+    return res.status(200).json(user);
   } return res.status(404).json({
     isUser: false,
     // message: 'Сессия не найдена',
