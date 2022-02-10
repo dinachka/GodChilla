@@ -84,8 +84,16 @@ function Profile() {
               <img src={`${defaultAvatar}`} alt="avatar" />
           }
         </div>
+
+        <div className="js-upload" uk-form-custom='true'>
+          <input type="file" multiple onChange={e => setImg(e.target.files[0])} />
+          <button className="uk-button uk-button-default" type="button" tabIndex="-1">Select</button>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
         <div>
-          <input type="file" onChange={e => setImg(e.target.files[0])} />
           <button onClick={sendFile}>Change avatar</button>
         </div>
         <p>Если данная функция не работает, необходимо разрешение браузера на показ всплывающих окон</p>
