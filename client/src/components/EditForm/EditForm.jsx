@@ -38,32 +38,27 @@ function EditForm({ event }) {
 
   return (
     <form onSubmit={editHandle}>
-      <label>
-        Название
-        <input
-          ref={titleInput}
-          type="text"
-          defaultValue={event.title}
-          required
-        />
-      </label>
 
-      <label>
-        Описание
-        <input
-          ref={descriptionInput}
-          type="text"
-          defaultValue={event.description}
-          required
-        />
-      </label>
+      <input
+        ref={titleInput}
+        type="text"
+        defaultValue={event.title}
+        required
+        placeholder='Название'
+      />
 
-      <label>
-        Категория
+      <input
+        ref={descriptionInput}
+        type="text"
+        defaultValue={event.description}
+        required
+        placeholder='Описание'
+      />
+
+      <div>
+        <p>Категория</p>
         <select ref={categoryInput} required v-model="selected">
-        
-
-        <option></option>
+          <option></option>
           <option value="1">посиделки</option>
           <option value="2">отдых на природе</option>
           <option value="3">культура, зрелищные мероприятия</option>
@@ -72,37 +67,30 @@ function EditForm({ event }) {
           <option value="6">творчество</option>
           <option value="7">кафе, бар, ресторан</option>
         </select>
-      </label>
+      </div>
 
-      <label>
-        Статус события
+      <div>
+        <p>Статус события</p>
         <select ref={privateInput} defaultValue={event.privateSettings}>
           <option></option>
           <option value="public">Публичный</option>
           <option value="forFriends">Для друзей</option>
           <option value="private">Личный</option>
         </select>
-      </label>
+      </div>
+      <input ref={locationInput} type="text" defaultValue={event.location} placeholder='Место проведения' />
 
-      <label>
-        Место проведения
-        <input ref={locationInput} type="text" defaultValue={event.location} />
-      </label>
+      <input ref={dateInput} type="date" defaultValue={event.dateTime} placeholder='Дата проведения' />
 
-      <label>
-        Дата проведения
-        <input ref={dateInput} type="date" defaultValue={event.dateTime} />
-      </label>
-
-      <label>
-        Фото
+      <div>
+        <p>Фото</p>
         <input
           ref={photoInput}
           type="file"
           name="photo"
           defaultValue={event.photo}
         />
-      </label>
+      </div>
 
       <button>Сохранить</button>
     </form>

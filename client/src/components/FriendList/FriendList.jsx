@@ -13,12 +13,12 @@ function FriendList() {
 
   useEffect(() => {
     dispatch(initFriendsFetchAC(thisUser.user.id));
-  }, [dispatch, thisUser.user.id ])
+  }, [dispatch, thisUser.user.id])
 
   return (
-    <>
-      { friends?.length ? friends.map( el => <FriendCard key={el.id} friend={el}/>) : "У Вас пока нет друзей."}
-    </>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      {friends?.length ? friends.map(el => <FriendCard key={el.id} friend={el} />) : "У Вас пока нет друзей."}
+    </div>
   )
 }
 
