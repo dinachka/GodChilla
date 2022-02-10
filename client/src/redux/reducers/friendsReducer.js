@@ -1,6 +1,6 @@
 import { INIT_FRIENDS, ADD_FRIENDSHIP, INIT_FRIENDS_REQUEST_NOTIFICATIONS, ACCEPT_FRIENDSHIP, REJECT_FRIENDSHIP, DELETE_FRIENDSHIP } from "../actionTypes/friendsAT"
 
-const initialState = { friends: {}, notifications: [] }
+const initialState = { friends: [], notifications: [] }
 
 export const friendsReducer = (state = initialState, action) => {
   switch (action.type) {
