@@ -10,7 +10,7 @@ import './profile.css'
 import UserListModal from '../UserListModal/UserListModal';
 import OtherEventsOnProfie from '../OtherEventsOnProfie/OtherEventsOnProfie';
 import PastEvents from '../PastEvents/PastEvents';
-import  { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
+import { CLEAN_USERLIST } from '../../redux/actionTypes/userAT'
 
 function Profile() {
 
@@ -35,7 +35,7 @@ function Profile() {
   const { users } = useSelector(state => state.userListReducer)
   const searchInput = useRef()
 
-const changingHandler = (event) => {
+  const changingHandler = (event) => {
     event.preventDefault()
     searchInput.current.value.length ? dispatch(initUserslistFetchAC(searchInput.current.value)) : dispatch(cleanUserListAC())
   }
@@ -52,7 +52,8 @@ const changingHandler = (event) => {
 
   const sendFile = useCallback(async () => {
     try {
-      const URL = 'http://localhost:4000/api/profile/uploadImage/'
+      // const URL = 'http://localhost:4000/api/profile/uploadImage/'
+      const URL = process.env.REACT_APP_SAVE_AVATAR_ON_PROFILE
       const data = new FormData()
       data.append('avatar', img)
       const options = {
@@ -95,7 +96,7 @@ const changingHandler = (event) => {
       <div className='createEventBtn' >
         <div onClick={eventCreatorVisibleSwitcher} className='display' >Создать</div>
       </div>
-      {eventCreatorVisible && <EventCreator setSwitcher={() => {setEventCreatorVisible(false)}}/>}
+      {eventCreatorVisible && <EventCreator setSwitcher={() => { setEventCreatorVisible(false) }} />}
 
       <hr className="uk-divider-icon" />
       <div className='friendsContainer'>
@@ -114,10 +115,10 @@ const changingHandler = (event) => {
           {calendarSwitcher ? <div onClick={calendarSwitch} className='display'>Лента будущих событий</div> : <div onClick={calendarSwitch} className='display'>Прошедшие события</div>}
         </div >
         <div >{calendarSwitcher ? <>
-        <CurrentUsersEvents />
-        <OtherEventsOnProfie/>
-        </> 
-        : <PastEvents />}</div>
+          <CurrentUsersEvents />
+          <OtherEventsOnProfie />
+        </>
+          : <PastEvents />}</div>
       </div>
     </div>
   )

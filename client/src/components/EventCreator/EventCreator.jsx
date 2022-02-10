@@ -52,7 +52,8 @@ function EventCreator({ setSwitcher }) {
 
   const sendImageToServer = useCallback(async () => {
 
-    const sendImageToServerURL = 'http://localhost:4000/api/profile/uploadEventImage/'
+    // const sendImageToServerURL = 'http://localhost:4000/api/profile/uploadEventImage/'
+    const sendImageToServerURL = process.env.REACT_APP_SAVE_EVENT_IMAGE_EVENT_CREATOR
     const data = new FormData()
     data.append('eventImage', eventImg)
     const options = {
