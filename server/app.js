@@ -66,7 +66,7 @@ app.use('/api/profile/events', currentUsersEventRouter);
 // уведомления о запросе о дружбе
 app.use(
   '/api/profile/friendshipNotifications',
-  friendshipRequestsNotificationsRouter
+  friendshipRequestsNotificationsRouter,
 );
 // запрос на дружбу
 app.use('/api/profile/friendRequest', friendsRouter);

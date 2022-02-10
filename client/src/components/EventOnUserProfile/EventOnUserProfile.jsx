@@ -20,7 +20,7 @@ function EventOnUserProfile({ event }) {
   const deleteHandle = event => {
     event.preventDefault();
     dispatch({ type: FETCH_DELETE_EVENT, payload: curEventId });
-    navigate('/events');
+    navigate('/profile');
   };
 
   const rejectEvent = () => {
