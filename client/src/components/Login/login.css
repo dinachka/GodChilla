@@ -1,7 +1,7 @@
-.form{
+.form_login{
   max-width: 350px;
   padding: 20px;
-  margin: 100px auto 0px;
+  margin: 230px auto 0px;
   background-color: #fff;
   border: 2px solid rgb(48, 107, 184);
   border-radius: 5px;
@@ -50,4 +50,12 @@ input{
 
 .btnStyle:hover {
   box-shadow: 0 0 40px 40px rgb(48, 107, 184) inset;
+}
+
+.login_notification{
+  color:red; 
+  width: 147px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
 }

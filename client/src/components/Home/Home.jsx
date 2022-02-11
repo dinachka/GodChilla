@@ -22,15 +22,15 @@ function Home() {
               </div>
             </Link>
           </div>
-          <div className='regBlock' >
+          <div className='regBlock ' >
             <Link to="/registration" style={{ textDecoration: 'none' }}>
               <div>
-                <h4>Регистрация</h4>
+                <h4 className='buttons'>Регистрация</h4>
               </div>
             </Link>
           </div>
           <div className='infoBlock'>
-            <h4>Информация</h4>
+            <h4 className='button_info'>Информация</h4>
           </div>
 
         </div>

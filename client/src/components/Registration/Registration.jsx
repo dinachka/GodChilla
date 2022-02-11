@@ -50,7 +50,7 @@ function Registration(props) {
 
   return (
     <div>
-      <form onSubmit={submitRegistrationHandler} encType="multipart/form-data" className='form' >
+      <form onSubmit={submitRegistrationHandler} encType="multipart/form-data" className='form_reg' >
 
         {/* <input type="text" placeholder='Логин' ref={loginRef} required/> */}
         <input type="text" placeholder='Имя' ref={nameRef} required/>
@@ -64,11 +64,10 @@ function Registration(props) {
         {/* <input type="phone"  placeholder='Номер телефона' ref={telRef}/> */}
         <input type="password" placeholder='Пароль' autoComplete="off" minLength="7" required ref={passwordRef}/>
         <input type="password" placeholder='Подтвердить пароль' autoComplete="off" minLength="7" required ref={confirmPasswordRef}/>
-        { isNotEqual && <div style={{color:'red', width:'147px', margin:'auto'}}>Пароли не совпадают</div>}
+        { isNotEqual && <div className='reg_notification'>Пароли не совпадают</div>}
 
-        { isNotEqual && <div style={{color:'red', width:'147px', margin:'auto'}}>Пароли не совпадают</div>}
         {/* <label>Фото<input type="file" name="avatar" ref={fotoRef}/></label> */}
-        { !user?.user && user?.message !== 'Сессия не найдена' &&  <div style={{color:'red', width:'147px', margin:'auto'}}>{user?.message}</div>}
+        { !user?.user && user?.message !== 'Сессия не найдена' &&  <div className='reg_notification'>{user?.message}</div>}
         <button className='btn btnStyle' >Зарегистрироваться</button>
       </form>
     </div>

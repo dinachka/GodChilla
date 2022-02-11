@@ -1,10 +1,10 @@
-.form{
-  /* max-width: 400px; */
-  /* padding: 15px; */
-  /* margin: 100px auto 0px; */
+.form_reg{
+  max-width: 400px;
+  padding: 15px;
+  margin: 154px auto 0px;
   background-color: #fff;
-  /* border: 2px solid rgb(48, 107, 184); */
-  /* border-radius: px; */
+  border: 2px solid rgb(48, 107, 184);
+  border-radius: 5px;
 }
 
 input{
@@ -41,7 +41,7 @@ select{
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  margin-left: 18%;
+  margin-left: 85px;
   border-radius: 5px;
 }
 
@@ -58,4 +58,12 @@ select{
 .btnStyle:hover {
   box-shadow: 0 0 40px 40px rgb(48, 107, 184) inset;
   color: aliceblue;
+}
+
+.reg_notification{
+  color:red; 
+  width: 147px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
 }
