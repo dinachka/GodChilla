@@ -18,30 +18,30 @@ function Profile() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(initFriendsRequestNotificatiosnAsyncAC())
-    }, [dispatch])
+  }, [dispatch])
 
-    useEffect(() => {
-      dispatch(eventsRequestsNotificationsAsyncAC())
-      }, [dispatch])
+  useEffect(() => {
+    dispatch(eventsRequestsNotificationsAsyncAC())
+  }, [dispatch])
 
   // Логика переключения календаря и ленты-событий
   const [calendarSwitcher, setCalendarSwitcher] = useState(true)
-    const calendarSwitch = () => {
+  const calendarSwitch = () => {
     setCalendarSwitcher(!calendarSwitcher)
   }
   // Логика отображения списка друзей
   const [friendsVisible, setFriendsVisible] = useState(false)
-    const friendsVisibleSwitcher = () => {
+  const friendsVisibleSwitcher = () => {
     setFriendsVisible(!friendsVisible)
   }
   // Логика отображения создания событий
   const [eventCreatorVisible, setEventCreatorVisible] = useState(false)
-    const eventCreatorVisibleSwitcher = () => {
+  const eventCreatorVisibleSwitcher = () => {
     setEventCreatorVisible(!eventCreatorVisible)
   }
   // Логика отображения поисковика друзей
   const [searchVisible, setSearchVisible] = useState(false)
-    const searchVisibleSwitcher = () => {
+  const searchVisibleSwitcher = () => {
     setSearchVisible(!searchVisible)
   }
 
@@ -66,8 +66,8 @@ function Profile() {
 
   const sendFile = useCallback(async () => {
     try {
-      // const URL = 'http://localhost:4000/api/profile/uploadImage/'
-      const URL = process.env.REACT_APP_SAVE_AVATAR_ON_PROFILE
+      const URL = 'http://localhost:4000/api/profile/uploadImage/'
+      // const URL = process.env.REACT_APP_SAVE_AVATAR_ON_PROFILE
       const data = new FormData()
       data.append('avatar', img)
       const options = {
@@ -89,12 +89,13 @@ function Profile() {
         <div className="avatar_box">
           {avatar ? <img className='avatar_img' src={`${avatar}`} alt="avatar" />
             :
-            user.photo ? <img className='avatar_img'  src={`${user.photo}`} alt="avatar" />
+            user.photo ? <img className='avatar_img' src={`${user.photo}`} alt="avatar" />
               :
-              <img className='avatar_img_default'  src={`${defaultAvatar}`} alt="avatar" />
+
+              <img className='avatar_img' src={`${defaultAvatar}`} alt="avatar" />
           }
         </div>
-        
+
         <br />
         <div className='user_info_container' >
           <div className='user_info'>
@@ -105,56 +106,49 @@ function Profile() {
             <div>Город: <b className='span'>{user.city}</b> </div>
           </div>
           <div className="js-upload" uk-form-custom='true'>
-              <input type="file" multiple onChange={e => setImg(e.target.files[0])} className='inpload' />
-              <button className="uk-button uk-button-default my_settings" type="button" tabIndex="-1">Загрузить аватар</button>
-            </div>
-            <div>
-              <button onClick={sendFile} className="uk-button uk-button-default extra_style" >Установить аватар</button>
-            </div>
+            <input type="file" multiple onChange={e => setImg(e.target.files[0])} className='inpload' />
+            <button className="uk-button uk-button-default my_settings" type="button" tabIndex="-1">Загрузить аватар</button>
+          </div>
+          <div>
+            <button onClick={sendFile} className="uk-button uk-button-default extra_style" >Установить аватар</button>
+          </div>
         </div>
       </div>
 
       <h3 className="uk-heading-line uk-text-center" onClick={eventCreatorVisibleSwitcher}>
-        {eventCreatorVisible ? <span className='first_span' uk-icon="chevron-up" >создать событие</span> : <span className='first_span' uk-icon="chevron-down" >создать событие</span> }
+        {eventCreatorVisible ? <span className='first_span' uk-icon="chevron-up" >создать событие</span> : <span className='first_span' uk-icon="chevron-down" >создать событие</span>}
       </h3>
-      {eventCreatorVisible && <EventCreator setSwitcher={() => {setEventCreatorVisible(false)}}/>}
+      {eventCreatorVisible && <EventCreator setSwitcher={() => { setEventCreatorVisible(false) }} />}
 
-       
       <h3 className="uk-heading-line uk-text-center" onClick={searchVisibleSwitcher}>
-        { searchVisible ? <span className='first_span' uk-icon="chevron-up" onClick={(() => dispatch(cleanUserListAC()))}>найти людей</span>
-       : <span className='first_span' uk-icon="chevron-down">найти людей</span> }
-       </h3>
-        { searchVisible && <form className="uk-search uk-search-large">
-          <span uk-search-icon='true'></span>
-          <input className="uk-search-input" type="search" placeholder="введите имя" onChange={changingHandler}  ref={searchInput}/>
-          </form> }
-          {users.users?.length && searchVisible ? <UserListModal users={users.users}/> : searchVisible && 
-          <p className='notification_searchbar'> Нет доступных пользователей</p>}
-        
-
+        {searchVisible ? <span className='first_span' uk-icon="chevron-up" >найти людей</span>
+          : <span className='first_span' uk-icon="chevron-down" >найти людей</span>}
+      </h3>
+      {searchVisible && <form className="uk-search uk-search-large">
+        <span uk-search-icon='true'></span>
+        <input className="uk-search-input" type="search" placeholder="введите имя" onChange={changingHandler} ref={searchInput} />
+      </form>}
+      {users.users?.length && searchVisible ? <UserListModal users={users.users} /> : searchVisible &&
+        <p className='notification_searchbar'> Нет доступных пользователей</p>}
 
       <h3 className="uk-heading-line uk-text-center" onClick={friendsVisibleSwitcher}>
-        {friendsVisible ? <span className='first_span' uk-icon="chevron-up" >мои друзья</span> : <span className='first_span' uk-icon="chevron-down" > мои друзья</span> }
+        {friendsVisible ? <span className='first_span' uk-icon="chevron-up" >мои друзья</span> : <span className='first_span' uk-icon="chevron-down" > мои друзья</span>}
       </h3>
       <div>
-        {friendsVisible && <FriendList /> }
+        {friendsVisible && <FriendList />}
       </div>
 
       <h3 className="uk-heading-line uk-text-center" onClick={calendarSwitch}>
-        {calendarSwitcher ? <span className='first_span' uk-icon="chevron-down" >лента событий</span> : <span className='first_span' uk-icon="chevron-up" >лента событий</span> }
+        {calendarSwitcher ? <span className='first_span' uk-icon="chevron-down" >лента событий</span> : <span className='first_span' uk-icon="chevron-up" >лента событий</span>}
       </h3>
       <div >
-        <div> 
+        <div>
           {!calendarSwitcher && <>
-          <CurrentUsersEvents />
-          <OtherEventsOnProfie />
-          <PastEvents /> </>} 
-          </div>
+            <CurrentUsersEvents />
+            <OtherEventsOnProfie />
+            <PastEvents /> </>}
+        </div>
       </div>
-      
-
-
-      
     </div>
   )
 }

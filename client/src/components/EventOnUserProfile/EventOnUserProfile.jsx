@@ -29,7 +29,6 @@ function EventOnUserProfile({ event }) {
   return (
 
     <div className="uk-card uk-card-default eventProfile_box">
-
       <div className='eventProfile_box__image'>
         {event.photo ? (
           <img
@@ -43,7 +42,6 @@ function EventOnUserProfile({ event }) {
             src={`/pictures/${event.categoryID}.jpg`} alt="not found"></img>
         )}
       </div>
-
       <div className='uk-card-body eventProfile_box__cardBody'>
         {!editFormVision && (
           <div>
@@ -51,30 +49,26 @@ function EventOnUserProfile({ event }) {
             <div> Описание: {event.description} </div>
             <div> Место: {event.location} </div>
             <div> Дата: {event.dateTime} </div>
-            {/* <div>
-              {' '}
+
+            <div>
               Автор:
-              <Link to={`/profile/user/${event.User.id}`} />
-              {' '}
-              {event.User.name} {event.User.lastName}{' '}</div> */}
-            {/* 1644491987209-helloo2.png */}
+              <Link to={`/profile/user/${event['User.id']}`} >
+              {event['User.name']} {event['User.lastName']}{' '}</Link></div>
           </div>
         )}
         {editFormVision && <EditForm key={event.id} switcher={editFormVisionSwitcher} event={event} />}
 
         <div className='eventProfile_box__buttons'>
           {session.user.id === event.userID ? (editFormVision ? (
-            <button className='eventProfile_box__buttons__style' onClick={editFormVisionSwitcher}>Отменить изменения</button>
+            <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={editFormVisionSwitcher}>Отменить изменения</button>
           ) : (
             <>
-              <button className='eventProfile_box__buttons__style btnLeft' onClick={editFormVisionSwitcher}>Изменить событие</button>
-              <button className='eventProfile_box__buttons__style ' onClick={deleteHandle}>Удалить событие</button>
+              <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={editFormVisionSwitcher}>Изменить событие</button>
+              <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={deleteHandle}>Удалить событие</button>
             </>
           ))
-            : <button className='eventProfile_box__buttons__style' onClick={rejectEvent}>Отменить участие</button>}
+            : <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={rejectEvent}>Отменить участие</button>}
         </div>
-
-
       </div>
     </div>
 
