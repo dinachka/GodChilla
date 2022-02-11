@@ -128,7 +128,7 @@ function Profile() {
           <span uk-search-icon='true'></span>
           <input className="uk-search-input" type="search" placeholder="введите имя" onChange={changingHandler}  ref={searchInput}/>
           </form> }
-          {users.users?.length ? <UserListModal users={users.users}/> : searchVisible && 
+          {users.users?.length && searchVisible ? <UserListModal users={users.users}/> : searchVisible && 
           <p className='notification_searchbar'> Нет доступных пользователей</p>}
         
 
