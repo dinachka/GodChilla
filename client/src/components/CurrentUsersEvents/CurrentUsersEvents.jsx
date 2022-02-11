@@ -8,12 +8,12 @@ function CurrentUsersEvents(props) {
   const userEvents = useSelector(state => state.eventReducer.userEvents)
   useEffect(() => {
     dispatch({ type: INIT_USERS_EVENTS_FETCH })
-  },[dispatch, userEvents])
-  
+  }, [dispatch, userEvents])
+
   return (
     <>
-    <h3>ваши события</h3>
-      { userEvents?.length ? userEvents.map( el => <EventOnUserProfile key={el.id} event={el}/>) : <p>у вас еще нет событий</p>}
+      <h3>Ваши события</h3>
+      {userEvents?.length ? userEvents.map(el => <EventOnUserProfile key={el.id} event={el} />) : <p>у вас еще нет событий</p>}
     </>
   );
 }
