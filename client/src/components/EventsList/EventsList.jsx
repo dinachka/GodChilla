@@ -23,25 +23,25 @@ function EventsList(props) {
 
   useEffect(() => {
     dispatch({ type: PUBLIC_EVENTS_FETCH })
-  },[dispatch])
-  
+  }, [dispatch])
+
   useEffect(() => {
     setFilter(events)
   }, [events])
 
   const filferHandler = () => {
     const category = [creativeRef, natureRef, cultureRef, cafeRef, walkRef, sportRef, cozyRef]
-    .filter(el => el.current.checked)
-    .map(el => +el.current.value)
-    
+      .filter(el => el.current.checked)
+      .map(el => +el.current.value)
+
     setFilter(() => {
       return events.filter(el => {
         return (relationRef.current.value === "friend" ? el.User.isFriend :
-        relationRef.current.value === "notFriend" ? !el.User.isFriend : true) 
-                && category.includes(el.categoryID)
-                && (dateInput.current.value ? dateInput.current.value === el.dateTime : true)
-        })
-      }
+          relationRef.current.value === "notFriend" ? !el.User.isFriend : true)
+          && category.includes(el.categoryID)
+          && (dateInput.current.value ? dateInput.current.value === el.dateTime : true)
+      })
+    }
     )
   }
 
@@ -51,40 +51,37 @@ function EventsList(props) {
   }
 
   return (
-    <div div style={{margin: '50px'}} >
-      <h3 className="uk-heading-line uk-text-center" onClick={() => { setNeedFilter(!needFilter)}}>
-        {needFilter ? <span className='first_span' uk-icon="chevron-up" >фильтр событий</span> : <span className='first_span' uk-icon="chevron-down" >фильтр событий</span> }
-      </h3>
-      <div className='form_eventList'>
-      { needFilter ?
+    <div div style={{ marginLeft: '10vw', marginTop: '50px' }} >
+      <button onClick={() => { setNeedFilter(!needFilter) }}>{needFilter ? "скрыть фильтр" : "фильтровать"}</button>
+      {needFilter ?
         <>
-        <form >
-          <label>
-            <select defaultValue="all" onChange={filferHandler} ref={relationRef} required >
-              <option value="all">все события</option>
-              <option value="friend">события друзей</option>
-              <option value="notFriend">события не добавленных в друзья</option>
-            </select>
-          </label>
-        </form>
-        <form >
-          <label>посиделки</label> <input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/>
-          <label>отдых на природе<input type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2}/></label>
-          <label>культура, зрелищные мероприятия<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3}/></label>
-          <label>прогулка/поездка<input type="checkbox" ref={walkRef} onChange={filferHandler} defaultChecked="checked" value={4}/></label>
-          <label>активный отдых, спорт<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={sportRef} value={5}/></label>
-          <label>творчество<input type="checkbox" ref={creativeRef} onChange={filferHandler} defaultChecked="checked" value={6}/></label> 
-          <label>кафе, бар, ресторан<input type="checkbox" ref={cafeRef} onChange={filferHandler} defaultChecked="checked" value={7}/></label>
-        </form>
-          <label className='eventCreatorForm'>Дата проведения 
-            <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date"/>
+          <form>
+            <label>
+              <select defaultValue="all" onChange={filferHandler} ref={relationRef} required >
+                <option value="all">все события</option>
+                <option value="friend">события друзей</option>
+                <option value="notFriend">события не добавленных в друзья</option>
+              </select>
+            </label>
+          </form>
+          <form>
+            <label>посиделки<input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1} /></label>
+            <label>отдых на природе<input type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2} /></label>
+            <label>культура, зрелищные мероприятия<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3} /></label>
+            <label>прогулка/поездка<input type="checkbox" ref={walkRef} onChange={filferHandler} defaultChecked="checked" value={4} /></label>
+            <label>активный отдых, спорт<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={sportRef} value={5} /></label>
+            <label>творчество<input type="checkbox" ref={creativeRef} onChange={filferHandler} defaultChecked="checked" value={6} /></label>
+            <label>кафе, бар, ресторан<input type="checkbox" ref={cafeRef} onChange={filferHandler} defaultChecked="checked" value={7} /></label>
+          </form>
+          <label className='eventCreatorForm'>Дата проведения
+            <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date" />
           </label>
           <button onClick={dropDateHandler}>сбросить фильтр по дате</button>
-          { filtredEvents?.length ? filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) : <div>Нет подходящих событий</div>}
-      </> : events?.length && events.map( el => <CurrentEvent key={el.id} event={el}/>)
+          {filtredEvents?.length && filtredEvents.map(el => <CurrentEvent key={el.id} event={el} />)}
+        </> : events?.length && events.map(el => <CurrentEvent key={el.id} event={el} />)
       }
-      </div>
     </div>
+    </div >
   );
 }
 
