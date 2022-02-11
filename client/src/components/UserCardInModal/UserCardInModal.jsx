@@ -26,7 +26,6 @@ function UserCardInModal({ user }) {
       <div className=' uk-animation-slide-bottom friendsCard_box' >
         <div className="friendsCard_box__img">
           {user.photo ?
-
             <img className="friendsCard_box__img__size" src={user.photo} alt='friends ava' ></img>
             :
             <img src={user.photo} alt='none'></img>}
@@ -36,7 +35,6 @@ function UserCardInModal({ user }) {
           <p className="uk-text-meta uk-margin-remove-top">{user.lastName}</p>
         </div>
         {/* <button onClick={getFriendship} >Добавить в друзья!</button> */}
-        <br />
       </div>
     </Link>
   )
