@@ -56,9 +56,6 @@ function UserProfile() {
        </div>
     </div>
 
-      {thisUser.friendship === 'Не друзья' && <button onClick={addFriendHandler}>Добавить в друзья</button> }
-      {thisUser.friendship === 'Подтвержден' && <button onClick={deleteFriendHandler}>Удалить из друзей</button> }
-      {thisUser.friendship === 'В обработке' && <button onClick={deleteFriendHandler}>Отменить заявку</button> }
 
       <div>
       <h3 className="uk-heading-line uk-text-center" >
