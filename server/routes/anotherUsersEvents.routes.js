@@ -15,7 +15,6 @@ router.get('/:id', async (req, res) => {
         dateTime: { [Op.gte]: now },
       },
     });
-
     const forFriendsEvents = await Event.findAll({
       raw: true,
       where: {
