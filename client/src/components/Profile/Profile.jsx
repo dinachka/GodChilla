@@ -121,8 +121,8 @@ function Profile() {
 
        
       <h3 className="uk-heading-line uk-text-center" onClick={searchVisibleSwitcher}>
-        { searchVisible ? <span className='first_span' uk-icon="chevron-up" >найти людей</span>
-       : <span className='first_span' uk-icon="chevron-down" >найти людей</span> }
+        { searchVisible ? <span className='first_span' uk-icon="chevron-up" onClick={(() => dispatch(cleanUserListAC()))}>найти людей</span>
+       : <span className='first_span' uk-icon="chevron-down">найти людей</span> }
        </h3>
         { searchVisible && <form className="uk-search uk-search-large">
           <span uk-search-icon='true'></span>
