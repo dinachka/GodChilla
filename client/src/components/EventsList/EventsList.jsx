@@ -79,7 +79,7 @@ function EventsList(props) {
             <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date"/>
           </label>
           <button onClick={dropDateHandler}>сбросить фильтр по дате</button>
-          { filtredEvents?.length && filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) }
+          { filtredEvents?.length ? filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) : <div>Нет подходящих событий</div>}
       </> : events?.length && events.map( el => <CurrentEvent key={el.id} event={el}/>)
       }
     </div>
