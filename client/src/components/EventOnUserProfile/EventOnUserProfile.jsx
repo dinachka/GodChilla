@@ -49,6 +49,11 @@ function EventOnUserProfile({ event }) {
             <div> Описание: {event.description} </div>
             <div> Место: {event.location} </div>
             <div> Дата: {event.dateTime} </div>
+
+            <div>
+              Автор:
+              <Link to={`/profile/user/${event['User.id']}`} >
+              {event['User.name']} {event['User.lastName']}{' '}</Link></div>
           </div>
         )}
         {editFormVision && <EditForm key={event.id} switcher={editFormVisionSwitcher} event={event} />}

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
-const { Event, Participation, Category } = require('../db/models');
+const { Event, Participation, Category, User } = require('../db/models');
 
 router.get('/', async (req, res) => {
   const now = (new Date()).toISOString();
@@ -39,7 +39,11 @@ router.get('/otherEventsOnProfile', async (req, res) => {
         id: myParticipationsIds,
         dateTime: { [Op.gte]: now },
       },
+      include: [{
+        model: User,
+      }],
     });
+    console.log(events);
     res.status(200).json(events);
   } catch (error) {
     res.status(400).json({ message: error.message });

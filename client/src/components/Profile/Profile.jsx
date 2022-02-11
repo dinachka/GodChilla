@@ -148,10 +148,6 @@ function Profile() {
             <PastEvents /> </>}
         </div>
       </div>
-
-
-
-
     </div>
   )
 }
