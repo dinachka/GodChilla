@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CurrentEvent from '../Event/Event';
 import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
+import './eventList.css'
 
 function EventsList(props) {
   const dispatch = useDispatch()
@@ -80,6 +81,7 @@ function EventsList(props) {
         </> : events?.length && events.map(el => <CurrentEvent key={el.id} event={el} />)
       }
     </div>
+    </div >
   );
 }
 

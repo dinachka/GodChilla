@@ -80,9 +80,9 @@ function CaruselMain(props) {
           <SwiperSlide  className='swiper_style' style={{ backgroundImage: `url(${event.photo})` }} key={event.id} >
             <div className='down_flag'>
             <h4>Цель: {event.title} </h4>
-              <span>Дата: {event.dateTime} </span>
+              <span style={{color: 'white'}} >Дата: {event.dateTime} </span>
               <br />
-              <span>Место: {event.location} </span>
+              <span className='span_carusel' >Место: {event.location} </span>
             </div>
           </SwiperSlide>
         )}

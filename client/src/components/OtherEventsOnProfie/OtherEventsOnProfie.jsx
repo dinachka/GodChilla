@@ -10,7 +10,7 @@ function OtherEventsOnProfie(props) {
 
   useEffect(() => {
     dispatch(initOtherEventsOnProfileAsyncAC())
-  }, [dispatch])
+  }, [dispatch], events)
   return (
     <div>
       <h3>чужие события в которых вы учавствуете</h3>

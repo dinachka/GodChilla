@@ -8,7 +8,7 @@ function PastEvents(props) {
   const pastEvents = useSelector(state => state.eventReducer.otherEvents.myPastEvents)
   useEffect(() => {
     dispatch(initPastEventsOnProfileAsyncAC())
-  },[dispatch])
+  },[dispatch, pastEvents])
   // pastEvents?.length && dispatch(initPastEventsOnProfileAsyncAC())
   return (
     <>

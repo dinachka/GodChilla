@@ -28,5 +28,35 @@
   flex-direction: column;
 }
 .modal_close_button{
+  margin: 20px auto 10px auto;
+  width: 30%;
   color:white;
+}
+
+.modal_close_button:hover{
+  color: rgb(48, 107, 184);
+  background-color: white;
+}
+
+
+.notification_of_friend{
+  margin-top: 10px;
+  text-align: center;
+  color: white;
+}
+
+.notification_of_friend_answer{
+  text-align: center;
+  color: black;
+}
+
+
+.notification_of_event{
+  text-align: center;
+  color: white;
+}
+
+.notification_of_event_answer{
+  text-align: center;
+  color: black;
 }
