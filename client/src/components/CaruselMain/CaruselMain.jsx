@@ -47,7 +47,7 @@ function CaruselMain(props) {
       className='swiper_style_no_session'
     >
       {events.length && events.map(event =>
-        <SwiperSlide  className='swiper_style_no_session' style={{ backgroundImage: 'url(https://s0.rbk.ru/v6_top_pics/media/img/5/36/755840315954365.jpg)' }} key={event.id} >
+        <SwiperSlide  className='swiper_style_no_session' style={{ backgroundImage: `url(${event.photo})` }} key={event.id} >
           <div className='down_flag_no_session'>
           <h4>Цель: {event.title} </h4>
             <span>Дата: {event.dateTime} </span>
@@ -77,7 +77,7 @@ function CaruselMain(props) {
         className='swiper_style'
       >
         {events.length && events.map(event =>
-          <SwiperSlide  className='swiper_style' style={{ backgroundImage: 'url(https://s0.rbk.ru/v6_top_pics/media/img/5/36/755840315954365.jpg)' }} key={event.id} >
+          <SwiperSlide  className='swiper_style' style={{ backgroundImage: `url(${event.photo})` }} key={event.id} >
             <div className='down_flag'>
             <h4>Цель: {event.title} </h4>
               <span>Дата: {event.dateTime} </span>
