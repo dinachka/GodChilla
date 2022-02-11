@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import ParticularUserPublicEvents from '../ParticularUserPublicEvents/ParticularUserPublicEvents';
 import ParticularUserEventsForFriends from '../ParticularUserEventsForFriends/ParticularUserEventsForFriends';
+import './userProfile.css'
 
 function UserProfile() {
   
@@ -33,17 +34,37 @@ function UserProfile() {
   }
   
   return (
-    <>
-      Имя: {thisUser.info?.name}
-      <br />
-      Фамилия: {thisUser.info?.lastName}
-      <br />
-      Город: {thisUser.info?.city}
-      <br />
+    <div className='user_profile_main_box'>
+
+    <div className='profile_info_container'>
+
+       <div className='user_info_container' >
+         <div className='user_info'>
+           <div>ИМЯ: {thisUser.info?.name}</div>
+           <br />
+           <div>ФАМИЛИЯ: {thisUser.info?.lastName}</div>
+           <br />
+           <div>ГОРОД: {thisUser.info?.city}</div>
+         </div>
+       </div>
+
+    </div>
+      
+
+
+
+      
       {thisUser.friendship === 'Не друзья' && <button onClick={addFriendHandler}>Добавить в друзья</button> }
       {thisUser.friendship === 'Подтвержден' && <button onClick={deleteFriendHandler}>Удалить из друзей</button> }
       {thisUser.friendship === 'В обработке' && <button onClick={deleteFriendHandler}>Отменить заявку</button> }
-      <div className='bottomLine'></div>
+
+      <div>
+      <h3 className="uk-heading-line uk-text-center" >
+        <span className='first_span' uk-icon="chevron-up" >лента событий
+        </span> 
+      </h3>
+      </div>
+   
       <div >
         <div className='stateSwitcher'>
           <div className='display'>Лента</div>
@@ -55,7 +76,7 @@ function UserProfile() {
         {thisUser?.friendship === 'Подтвержден' && thisUser?.events?.forFriendsEvents?.length ? (thisUser.events.forFriendsEvents).map(el =>
         <ParticularUserEventsForFriends key={el.id} user={el} />) : <div>None!</div>}
       </div>
-    </>
+    </div>
   );
 }
 
