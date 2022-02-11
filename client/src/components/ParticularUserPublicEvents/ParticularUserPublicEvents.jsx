@@ -15,8 +15,8 @@ const buttonSwitch = () => {
       <p>Название встречи: {event.title}</p>
       <p>Описание: {event.description}</p>
       <p>Место: {event.location}</p>
-      <img src={event.photo} />
-      {button ? <button onClick={(() => setButton(!true))}>участвовать</button> : <button onClick={(() => setButton(!false))}>отозвать заявку</button> }
+      <img className='eventProfile_box__image__contain' src={event.photo} />
+      {button ? <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={(() => setButton(!true))}>участвовать</button> : <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={(() => setButton(!false))}>отозвать заявку</button> }
   
        <br/>
     </h5>

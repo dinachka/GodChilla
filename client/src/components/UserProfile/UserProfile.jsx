@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { initAnotherUserFetchAC, initAnotherUserEventsFetchAC } from '../../redux/actionCreatorsAsync/userACAsync';
 import { addFriendshipFetchAC, deleteFriendshipFetchAC } from '../../redux/actionCreatorsAsync/friendsACAsync';
 import { useParams } from 'react-router-dom';
@@ -14,7 +14,11 @@ function UserProfile() {
   const dispatch = useDispatch();
   const thisUser = useSelector(state => state.userReducer.anotherUser)
   const mainUser = useSelector(state => state.userReducer.user)
-
+  
+  const [calendarSwitcher, setCalendarSwitcher] = useState(true)
+  const calendarSwitch = () => {
+    setCalendarSwitcher(!calendarSwitcher)
+  }
   
   const idForFriends = {
     reqUserID: mainUser.id,
@@ -56,22 +60,31 @@ function UserProfile() {
        </div>
     </div>
 
+    <h3 className="uk-heading-line uk-text-center" onClick={calendarSwitch}>
+        {calendarSwitcher ? <span className='first_span' uk-icon="chevron-down" >лента событий</span> : <span className='first_span' uk-icon="chevron-up" >лента событий</span>}
+      </h3>
 
-      <div>
+      {/* <div>
       <h3 className="uk-heading-line uk-text-center" >
         <span className='first_span' uk-icon="chevron-up" >лента событий
         </span> 
       </h3>
-      </div>
-   
-      <div >
-        <h2>{thisUser?.info?.name}'s public events</h2>
+      </div> */}
+    <div className="uk-card uk-card-default eventProfile_box">
+        <div>
+          {!calendarSwitcher && <>
+            <div >
+        {/* <h2>{thisUser?.info?.name}'s public events</h2> */}
         {thisUser?.info && thisUser?.events?.publicEvents?.length ? thisUser?.events?.publicEvents.map(el => 
         <ParticularUserPublicEvents key={el.id} event={el} />) : <div>у пользователя отсутствуют публичные события</div>}
-      <h2>{thisUser?.info?.name}'s events for friends</h2>
+      {/* <h2>{thisUser?.info?.name}'s events for friends</h2> */}
         {thisUser?.friendship === 'Подтвержден' && thisUser?.events?.forFriendsEvents?.length ? (thisUser.events.forFriendsEvents).map(el =>
-        <ParticularUserEventsForFriends key={el.id} event={el} />) : <div>у пользователя отсутствуют публичные события</div>}
+        <ParticularUserEventsForFriends key={el.id} event={el} />) : <div></div>}
+      </div> </>}
+        </div>
       </div>
+
+      
     </div>
   );
 }

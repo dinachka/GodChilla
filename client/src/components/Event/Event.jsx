@@ -56,7 +56,7 @@ function CurrentEvent({ event }) {
           <p><b>Место:</b> {event.location} </p>
           <p><b> Дата: </b>{event.dateTime} </p>
           <div className="uk-card-footer">
-            {event.status === 'В обработке' ? <button onClick={clickCancelJoinHandler}>Не участвовать</button>
+            {event.status === 'В обработке' ? <button className='uk-button uk-button-default' onClick={clickCancelJoinHandler}>Не участвовать</button>
               : <button onClick={clickJoinHandler} className="uk-button uk-button-default">Присоединиться</button>
             }
           </div>

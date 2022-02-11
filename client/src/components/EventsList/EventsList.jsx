@@ -51,8 +51,13 @@ function EventsList(props) {
   }
 
   return (
-    <div div style={{ marginLeft: '10vw', marginTop: '50px' }} >
-      <button onClick={() => { setNeedFilter(!needFilter) }}>{needFilter ? "скрыть фильтр" : "фильтровать"}</button>
+    <div style={{marginTop: "60px"}}>
+       <h3 className="uk-heading-line uk-text-center" onClick={() => setNeedFilter(!needFilter)}>
+        {needFilter ? <span className='first_span' uk-icon="chevron-up">фильтр</span>
+          : <span className='first_span' uk-icon="chevron-down" >фильтр</span>}
+      </h3>
+    <div style={{ marginLeft: '10vw', marginTop: '50px' }} >
+      {/* // <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={() => { setNeedFilter(!needFilter) }}>{needFilter ? "скрыть фильтр" : "фильтровать"}</button> */}
       {needFilter ?
         <>
         <form >
@@ -76,11 +81,12 @@ function EventsList(props) {
           <label className='eventCreatorForm'>Дата проведения 
             <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date"/>
           </label>
-          <button onClick={dropDateHandler}>сбросить фильтр по дате</button>
+          <button className='uk-button uk-button-default eventProfile_box__buttons__style' onClick={dropDateHandler}>сбросить фильтр по дате</button>
           {filtredEvents?.length && filtredEvents.map(el => <CurrentEvent key={el.id} event={el} />)}
         </> : events?.length && events.map(el => <CurrentEvent key={el.id} event={el} />)
       }
     </div>
+  </div>
   );
 }
 
