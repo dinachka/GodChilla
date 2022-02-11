@@ -8,7 +8,7 @@ function CurrentUsersEvents(props) {
   const userEvents = useSelector(state => state.eventReducer.userEvents)
   useEffect(() => {
     dispatch({ type: INIT_USERS_EVENTS_FETCH })
-  },[dispatch])
+  },[dispatch, userEvents])
   
   return (
     <>
