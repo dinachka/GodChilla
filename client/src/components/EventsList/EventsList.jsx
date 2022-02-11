@@ -55,26 +55,26 @@ function EventsList(props) {
       <button onClick={() => { setNeedFilter(!needFilter) }}>{needFilter ? "скрыть фильтр" : "фильтровать"}</button>
       {needFilter ?
         <>
-          <form>
-            <label>
-              <select defaultValue="all" onChange={filferHandler} ref={relationRef} required >
-                <option value="all">все события</option>
-                <option value="friend">события друзей</option>
-                <option value="notFriend">события не добавленных в друзья</option>
-              </select>
-            </label>
-          </form>
-          <form>
-            <label>посиделки<input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1} /></label>
-            <label>отдых на природе<input type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2} /></label>
-            <label>культура, зрелищные мероприятия<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3} /></label>
-            <label>прогулка/поездка<input type="checkbox" ref={walkRef} onChange={filferHandler} defaultChecked="checked" value={4} /></label>
-            <label>активный отдых, спорт<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={sportRef} value={5} /></label>
-            <label>творчество<input type="checkbox" ref={creativeRef} onChange={filferHandler} defaultChecked="checked" value={6} /></label>
-            <label>кафе, бар, ресторан<input type="checkbox" ref={cafeRef} onChange={filferHandler} defaultChecked="checked" value={7} /></label>
-          </form>
-          <label className='eventCreatorForm'>Дата проведения
-            <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date" />
+        <form >
+          <label>
+            <select defaultValue="all" onChange={filferHandler} ref={relationRef} required >
+              <option value="all">все события</option>
+              <option value="friend">события друзей</option>
+              <option value="notFriend">события не добавленных в друзья</option>
+            </select>
+          </label>
+        </form>
+        <form >
+          <div style={{display:'flex'}}><label style={{flexBasis: '50%'}}>посиделки</label><input style={{flexBasis: '50%'}} type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/></div> 
+          <div style={{display:'flex'}}><label style={{flexBasis: '50%'}}>отдых на природе</label><input style={{flexBasis: '50%'}} type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2}/></div>
+          <div style={{display:'flex'}}><label style={{flexBasis: '50%'}}>культура, зрелищные мероприятия</label><input style={{flexBasis: '50%'}} type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3}/></div>
+          <div style={{display:'flex'}}><label style={{flexBasis: '50%'}}>прогулка/поездка</label><input style={{flexBasis: '50%'}} type="checkbox" ref={walkRef} onChange={filferHandler} defaultChecked="checked" value={4}/></div>
+          <div style={{display:'flex'}}><label style={{flexBasis: '50%'}}>активный отдых, спорт</label><input style={{flexBasis: '50%'}} type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={sportRef} value={5}/></div>
+          <div style={{display:'flex'}}><label style={{flexBasis: '50%'}}>творчество</label><input style={{flexBasis: '50%'}} type="checkbox" ref={creativeRef} onChange={filferHandler} defaultChecked="checked" value={6}/></div>
+          <div style={{display:'flex'}}><label style={{flexBasis: '50%'}}>кафе, бар, ресторан</label><input style={{flexBasis: '50%'}} type="checkbox" ref={cafeRef} onChange={filferHandler} defaultChecked="checked" value={7}/></div>
+        </form>
+          <label className='eventCreatorForm'>Дата проведения 
+            <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date"/>
           </label>
           <button onClick={dropDateHandler}>сбросить фильтр по дате</button>
           {filtredEvents?.length && filtredEvents.map(el => <CurrentEvent key={el.id} event={el} />)}
