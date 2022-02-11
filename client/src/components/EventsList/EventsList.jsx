@@ -50,7 +50,7 @@ function EventsList(props) {
   }
 
   return (
-    <div div style={{ margin: '50px' }} >
+    <div div style={{ marginLeft: '10vw', marginTop: '50px' }} >
       <button onClick={() => { setNeedFilter(!needFilter) }}>{needFilter ? "скрыть фильтр" : "фильтровать"}</button>
       {needFilter ?
         <>

@@ -14,8 +14,7 @@ function CurrentEvent({ event }) {
   console.log(event);
   return (
 
-    <div className="uk-card uk-card-default" style={{ width: '45vw', display: 'flex' }}>
-
+    <div className="uk-card uk-card-default" style={{ width: '80vw', display: 'flex', marginTop: '20px' }}>
       <div className="uk-card-header" style={{ display: 'flex', alignItems: 'center' }}>
         <Link to={`/profile/user/${event.User.id}`}>
           <div className="uk-grid-small uk-flex-middle" >
