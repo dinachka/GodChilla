@@ -11,7 +11,6 @@ function FriendList() {
   const dispatch = useDispatch()
   const friends = useSelector(state => state.friendsReducer.friends)
   const thisUser = useSelector(state => state.userReducer)
-  console.log(friends)
   useEffect(() => {
     dispatch(initFriendsFetchAC(thisUser.user.id));
   }, [dispatch, thisUser.user.id])
