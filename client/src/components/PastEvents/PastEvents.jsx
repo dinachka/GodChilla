@@ -9,7 +9,7 @@ function PastEvents(props) {
   useEffect(() => {
     dispatch(initPastEventsOnProfileAsyncAC())
   },[dispatch])
-  // pastEvents?.length && dispatch(initPastEventsOnProfileAsyncAC())
+  pastEvents?.length && dispatch(initPastEventsOnProfileAsyncAC())
   return (
     <>
     <h3>ваши прошедшие события</h3>

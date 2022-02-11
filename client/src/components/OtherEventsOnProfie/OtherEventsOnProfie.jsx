@@ -7,13 +7,14 @@ function OtherEventsOnProfie(props) {
   const dispatch = useDispatch()
   const events = useSelector(state => state.eventReducer.otherEvents)
   const filteredEvents = events?.length && events.filter((el) => !el.status)
+  console.log(filteredEvents);
 
   useEffect(() => {
     dispatch(initOtherEventsOnProfileAsyncAC())
   }, [dispatch])
   return (
     <div>
-      <h3>чужие события в которых вы учавствуете</h3>
+      <h3>чужие события в которых вы участвуете</h3>
       {filteredEvents?.length ?
         filteredEvents.map(event => < EventOnUserProfile key={event.id} event={event} />)
         : "вы не учавствуете ни в одном чужом событии"}

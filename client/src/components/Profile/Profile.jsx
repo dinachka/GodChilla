@@ -146,15 +146,11 @@ function Profile() {
       <div >
         <div> 
           {!calendarSwitcher && <>
-          <CurrentUsersEvents />
-          <OtherEventsOnProfie />
+          <CurrentUsersEvents /> 
+          <OtherEventsOnProfie /> 
           <PastEvents /> </>} 
           </div>
-      </div>
-      
-
-
-      
+      </div>      
     </div>
   )
 }

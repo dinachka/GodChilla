@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
-const { Event } = require('../db/models');
+const { Event, User } = require('../db/models');
 
 router.get('/:id', async (req, res) => {
   const now = (new Date()).toISOString();
@@ -14,7 +14,11 @@ router.get('/:id', async (req, res) => {
         privateSettings: 'public',
         dateTime: { [Op.gte]: now },
       },
+      include: [{
+        model: User,
+      }],
     });
+    console.log(publicEvents);
     const forFriendsEvents = await Event.findAll({
       raw: true,
       where: {
@@ -22,6 +26,9 @@ router.get('/:id', async (req, res) => {
         privateSettings: 'forFriends',
         dateTime: { [Op.gte]: now },
       },
+      include: [{
+        model: User,
+      }],
     });
     res.status(200).json({ publicEvents, forFriendsEvents });
   } catch (error) {
