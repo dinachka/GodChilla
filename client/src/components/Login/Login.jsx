@@ -3,11 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginFetchAC } from '../../redux/actionCreatorsAsync/userACAsync'
 import './login.css'
+import { initFriendsRequestNotificatiosnAsyncAC } from '../../redux/actionCreatorsAsync/friendsACAsync'
+import { eventsRequestsNotificationsAsyncAC } from '../../redux/actionCreatorsAsync/eventsACAsync';
 
 
 function Login(props) {
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(initFriendsRequestNotificatiosnAsyncAC())
+    }, [dispatch])
 
+    useEffect(() => {
+      dispatch(eventsRequestsNotificationsAsyncAC())
+      }, [dispatch])
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();

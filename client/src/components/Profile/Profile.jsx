@@ -128,10 +128,8 @@ function Profile() {
         <span uk-search-icon='true'></span>
         <input className="uk-search-input" type="search" placeholder="введите имя" onChange={changingHandler} ref={searchInput} />
       </form>}
-      {users.users?.length ? <UserListModal users={users.users} /> : searchVisible &&
+      {users.users?.length && searchVisible ? <UserListModal users={users.users} /> : searchVisible &&
         <p className='notification_searchbar'> Нет доступных пользователей</p>}
-
-
 
       <h3 className="uk-heading-line uk-text-center" onClick={friendsVisibleSwitcher}>
         {friendsVisible ? <span className='first_span' uk-icon="chevron-up" >мои друзья</span> : <span className='first_span' uk-icon="chevron-down" > мои друзья</span>}

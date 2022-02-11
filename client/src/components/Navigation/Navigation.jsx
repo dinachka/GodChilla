@@ -29,9 +29,9 @@ function Navigation() {
         <div className='upper'></div>
         <div className='logo_form'>
           <div onClick={()=> navigate('/')} className='godchilla'>GODCHILLA</div>
-          <Link to="/dialogs">
+          {/* <Link to="/dialogs">
                 <div>Сообщения</div>
-          </Link>
+          </Link> */}
         </div>
           <nav className='uk-navbar' >
             <div className="uk-navbar-left" >
@@ -61,7 +61,8 @@ function Navigation() {
         </div>
       </>
       }
-      { (eventsNotifications || friendsNotifications) & isModal ? <NotificationModal handling={setIsModal}/> : "" }    
+      {/* { isModal && <NotificationModal handling={setIsModal}/> } */}
+      { (eventsNotifications.length || friendsNotifications.length) & isModal ? <NotificationModal handling={setIsModal}/> : "" }    
     </>
   );
 }
