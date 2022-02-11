@@ -81,7 +81,6 @@ function EventsList(props) {
         </> : events?.length && events.map(el => <CurrentEvent key={el.id} event={el} />)
       }
     </div>
-    </div >
   );
 }
 
