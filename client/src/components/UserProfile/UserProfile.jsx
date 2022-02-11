@@ -14,6 +14,7 @@ function UserProfile() {
   const dispatch = useDispatch();
   const thisUser = useSelector(state => state.userReducer.anotherUser)
   const mainUser = useSelector(state => state.userReducer.user)
+
   
   const idForFriends = {
     reqUserID: mainUser.id,
@@ -71,10 +72,10 @@ function UserProfile() {
         </div>
         <h2>{thisUser?.info?.name}'s public events</h2>
         {thisUser?.info && thisUser?.events?.publicEvents?.length ? thisUser?.events?.publicEvents.map(el => 
-        <ParticularUserPublicEvents key={el.id} user={el} />) : <div>None!</div>}
+        <ParticularUserPublicEvents key={el.id} user={el} />) : <div>у пользователя отсутствуют публичные события</div>}
       <h2>{thisUser?.info?.name}'s events for friends</h2>
         {thisUser?.friendship === 'Подтвержден' && thisUser?.events?.forFriendsEvents?.length ? (thisUser.events.forFriendsEvents).map(el =>
-        <ParticularUserEventsForFriends key={el.id} user={el} />) : <div>None!</div>}
+        <ParticularUserEventsForFriends key={el.id} user={el} />) : <div>у пользователя отсутствуют публичные события</div>}
       </div>
     </div>
   );
