@@ -71,7 +71,7 @@ function EventCreator({ setSwitcher }) {
 
 
   return (
-    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data"  className='event_create_form uk-animation-slide-bottom' >
+    <form type='submit' onSubmit={eventHandler} action="/event" method="post" encType="multipart/form-data"  className='event_create_form uk-animation-slide-bottom event_creator_box' >
 
       <input ref={titleInput} placeholder="Название" type="text" required />
       <input ref={descriptionInput} placeholder='Описание' type="text" required />
@@ -101,10 +101,10 @@ function EventCreator({ setSwitcher }) {
 
       <div className="js-upload " uk-form-custom='true'>
         <input type="file" multiple onChange={e => setEventImg(e.target.files[0])} />
-        <button className="uk-button uk-button-default " tabIndex="-1">Загрузить фото</button>
+        <button className="uk-button uk-button-default load_btn" tabIndex="-1">Загрузить фото</button>
       </div>
       <br />
-      <button className='uk-button uk-button-default my_btn'>Создать событие</button>
+      <button className='uk-button uk-button-default create_btn'>Создать событие</button>
     </form>
   )
 }

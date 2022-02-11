@@ -141,11 +141,11 @@ function Profile() {
       </div>
 
       <h3 className="uk-heading-line uk-text-center" onClick={calendarSwitch}>
-        {calendarSwitcher ? <span className='first_span' uk-icon="chevron-up" >лента событий</span> : <span className='first_span' uk-icon="chevron-down" >лента событий</span> }
+        {calendarSwitcher ? <span className='first_span' uk-icon="chevron-down" >лента событий</span> : <span className='first_span' uk-icon="chevron-up" >лента событий</span> }
       </h3>
       <div >
         <div> 
-          {calendarSwitcher && <>
+          {!calendarSwitcher && <>
           <CurrentUsersEvents />
           <OtherEventsOnProfie />
           <PastEvents /> </>} 
