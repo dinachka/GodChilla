@@ -15,6 +15,11 @@ input{
   border: 1px solid #ccc;
   font-family: inherit;
   font-size: 16px;
+  margin-left: 25px;
+}
+
+.label_ref{
+  margin-left: 25px;
 }
 
 select{
