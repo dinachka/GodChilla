@@ -1,12 +1,11 @@
 import {
-  ADD_USER,
   INIT_USER,
   DELETE_USER,
   INIT_ANOTHER_USER,
   SAVE_AVATAR,
   NEW_MESSAGE,
 } from '../actionTypes/userAT';
-import { ADD_USER, INIT_USER, DELETE_USER, INIT_ANOTHER_USER, SAVE_AVATAR, INIT_ANOTHER_USER_EVENTS } from "../actionTypes/userAT"
+import { ADD_USER, INIT_ANOTHER_USER_EVENTS } from "../actionTypes/userAT"
 
 const initialState = { user: {}, anotherUser: {}, newMessages: 0 };
 

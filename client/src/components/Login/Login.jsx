@@ -32,10 +32,10 @@ function Login(props) {
 
   return (
 
-      <form onSubmit={submitLoginHandler} className='form' >
+      <form onSubmit={submitLoginHandler} className='form_login' >
         <input type="email"  placeholder='email' ref={emailRef} required/>
         <input type="password" placeholder='Пароль' autoComplete="off" ref={passwordRef} required/>
-        { !user?.isUser && user?.message !== ('Сессия не найдена' || "Регистрация прошла успешно!") &&  <div style={{color:'red', width:'147px', margin:'auto'}}>{user?.message}</div>}
+        { !user?.isUser && user?.message !== ('Сессия не найдена' || "Регистрация прошла успешно!") &&  <div className='login_notification uk-animation-shake'>{user?.message}</div>}
         <button className='btn_login btnStyle' >Войти</button>
       </form>
   );

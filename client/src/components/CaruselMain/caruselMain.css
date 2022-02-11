@@ -22,9 +22,10 @@ span, h4{
   padding: 10px;
   height: 20%;
   width: 30%;
-  margin-top: 42%;
+  margin-top: 330px;
   /* padding-left: 5%; */
   background: linear-gradient(rgb(83, 175, 211),rgb(75, 184, 199),rgb(57, 202, 178));
+  border-radius: 5px 0 0 5px;
 }
 
 .down_flag_no_session{

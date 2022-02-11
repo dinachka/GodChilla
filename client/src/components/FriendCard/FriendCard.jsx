@@ -5,8 +5,7 @@ import './FriendCard.css'
 function FriendCard({ friend }) {
 
   return (
-    <Link to={`/profile/user/${friend.id}`} >
-
+    <Link to={`/profile/user/${friend.id}`} style={{ textDecoration: 'none' }}>
       <div className="uk-card uk-card-default uk-animation-slide-bottom friendsCard_box">
         <div className="uk-width-auto friendsCard_box__img">
           <img className="uk-border-circle" width="40" height="40" src={friend.photo} alt='friends ava' />
