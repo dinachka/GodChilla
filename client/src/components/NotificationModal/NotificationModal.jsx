@@ -23,12 +23,12 @@ function NotificationModal({handling}) {
   return (
     <>
         <div className='notificationModal uk-animation-shake' >
-          <h4>Заявки на добавление в друзья</h4>
-          {friendsNotifications?.length ? friendsNotifications.map(friend => <NotificationFriendCard key={friend.id} user={friend} />) : "Заявок нет"}
+          <h3 className='notification_of_friend'>предложения дружбы</h3>
+          {friendsNotifications?.length ? friendsNotifications.map(friend => <NotificationFriendCard key={friend.id} user={friend} />) : <h4 className='notification_of_friend_answer' >заявок нет</h4> }
           <div className='bottomLine'></div>
-          <h4>заявки на принятия участия в ваших событиях</h4>
-          {eventsNotifications?.length ? eventsNotifications.map(event => <NotificationEventCard key={event.id} event={event} />) : "Запросов на участие в ваших событиях нет"}
-          <button className='modal_close_button' onClick={()=> handling(false)}>закрыть</button>
+          <h3 className='notification_of_event' >заявки на участие в ваших событиях</h3>
+          {eventsNotifications?.length ? eventsNotifications.map(event => <NotificationEventCard key={event.id} event={event} />) : <h4 className='notification_of_event_answer'>"запросов нет"</h4> }
+          <button className='modal_close_button uk-button uk-button-default' onClick={()=> handling(false)}>закрыть</button>
         </div>
         <div className='hidden_backside'></div>
     </>

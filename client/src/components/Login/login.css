@@ -1,5 +1,5 @@
 .form_login{
-  max-width: 350px;
+  max-width: 400px;
   padding: 20px;
   margin: 230px auto 0px;
   background-color: #fff;
@@ -15,6 +15,7 @@ input{
   border: 1px solid #ccc;
   font-family: inherit;
   font-size: 16px;
+  margin-left: 21px;
 }
 
 .btn_login{

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CurrentEvent from '../Event/Event';
 import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
+import './eventList.css'
 
 function EventsList(props) {
   const dispatch = useDispatch()
@@ -51,10 +52,13 @@ function EventsList(props) {
 
   return (
     <div div style={{margin: '50px'}} >
-      <button onClick={() => { setNeedFilter(!needFilter)}}>{needFilter ? "скрыть фильтр": "фильтровать"}</button>
+      <h3 className="uk-heading-line uk-text-center" onClick={() => { setNeedFilter(!needFilter)}}>
+        {needFilter ? <span className='first_span' uk-icon="chevron-up" >фильтр событий</span> : <span className='first_span' uk-icon="chevron-down" >фильтр событий</span> }
+      </h3>
+      <div className='form_eventList'>
       { needFilter ?
         <>
-        <form>
+        <form >
           <label>
             <select defaultValue="all" onChange={filferHandler} ref={relationRef} required >
               <option value="all">все события</option>
@@ -63,8 +67,8 @@ function EventsList(props) {
             </select>
           </label>
         </form>
-        <form>
-          <label>посиделки<input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/></label>
+        <form >
+          <label>посиделки</label> <input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/>
           <label>отдых на природе<input type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2}/></label>
           <label>культура, зрелищные мероприятия<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3}/></label>
           <label>прогулка/поездка<input type="checkbox" ref={walkRef} onChange={filferHandler} defaultChecked="checked" value={4}/></label>
@@ -76,9 +80,10 @@ function EventsList(props) {
             <input ref={dateInput} onChange={filferHandler} className='eventCreatorForm' type="date"/>
           </label>
           <button onClick={dropDateHandler}>сбросить фильтр по дате</button>
-          { filtredEvents?.length && filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) }
+          { filtredEvents?.length ? filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) : <div>Нет подходящих событий</div>}
       </> : events?.length && events.map( el => <CurrentEvent key={el.id} event={el}/>)
       }
+      </div>
     </div>
   );
 }

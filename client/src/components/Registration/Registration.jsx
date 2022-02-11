@@ -55,7 +55,7 @@ function Registration(props) {
         {/* <input type="text" placeholder='Логин' ref={loginRef} required/> */}
         <input type="text" placeholder='Имя' ref={nameRef} required/>
         <input type="text" placeholder='Фамилия' ref={surnameRef} />
-          <label>Выбор города</label>&nbsp;
+          <label className='label_ref'>Выбор города</label>&nbsp;
           <select ref={cityRef} required >
           <option value="Санкт-Петербург">Санкт-Петербург</option>
           <option value="Москва">Москва</option>

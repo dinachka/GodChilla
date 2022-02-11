@@ -116,3 +116,8 @@ input{
 .notification_searchbar{
   margin-left: 20px;
 }
+
+b{
+  color: rgb(48, 107, 184);
+  font-size:medium;
+}
