@@ -1,5 +1,7 @@
 const { Op } = require('sequelize');
-const { User, Friendship, Participation, Event } = require('../db/models');
+const {
+  User, Friendship, Participation, Event,
+} = require('../db/models');
 
 // создаем запись в БД с запросом на дружбу
 const createFriendship = async (req, res) => {
@@ -25,7 +27,7 @@ const createFriendship = async (req, res) => {
 };
 
 // вынимаем из БД спиок друзей
-const loadCurrentFriendships = async userId => {
+const loadCurrentFriendships = async (userId) => {
   const friends = await Friendship.findAll({
     raw: true,
     order: [['updatedAt', 'DESC']],
@@ -38,7 +40,7 @@ const loadCurrentFriendships = async userId => {
     //   model: User,
     // },
   });
-  const formatedFriends = friends.map(el => {
+  const formatedFriends = friends.map((el) => {
     if (el.reqUserID !== userid) {
       return +el.reqUserID;
     }
@@ -75,7 +77,7 @@ const friendshipAccepted = async (req, res) => {
   try {
     const acceptedFriendship = await Friendship.update(
       { status: 'Подтвержден' },
-      { where: { resUserID: id, reqUserID } }
+      { where: { resUserID: id, reqUserID } },
     );
     res.status(200).json(reqUserID);
   } catch (error) {
@@ -117,9 +119,9 @@ const friendshipRequestsNotifications = async (req, res) => {
     });
 
     const filteredfriendship = requestedFriendships.filter(
-      el => el.status === 'В обработке'
+      (el) => el.status === 'В обработке',
     );
-    const formatedFriends = filteredfriendship.map(el => {
+    const formatedFriends = filteredfriendship.map((el) => {
       if (el.reqUserID !== id) {
         return +el.reqUserID;
       }
