@@ -32,6 +32,8 @@ function UserProfile() {
   const deleteFriendHandler = () => {
     dispatch(deleteFriendshipFetchAC(id));
   }
+
+  const defaultAvatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1H81w4SmKH5DZmIbxU7EB0aMSkNQDoPQA1mRQxf2Y0wMF1NSa7vghbwwKASi1q4NPmNw&usqp=CAU'
   
   return (
     <div className='user_profile_main_box'>
@@ -40,7 +42,7 @@ function UserProfile() {
 
        <div className='user_info_container' >
          <div className='user_info'>
-          {/* <img src={thisUser.info?.photo}/> */}
+          {thisUser.info?.photo ? <img src={thisUser.info?.photo} alt='none'/> : <img src={defaultAvatar} alt='none'/> }
           <br />
            <div>ИМЯ: {thisUser.info?.name}</div>
            <br />
