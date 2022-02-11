@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { acceptEventsRequestsNotificationsAsyncAC, rejectEventsRequestsNotificationsAsyncAC } from '../../redux/actionCreatorsAsync/eventsACAsync'
+import './notif_event.css';
 
 
 function NotificationEventCard({ event }) {
@@ -17,12 +18,14 @@ function NotificationEventCard({ event }) {
   }
 
   return (
-    <>
-    <div>
-      пользователь {key[19]} {key[20]} хочет учавствовать в "{key[9]}"
-      Вы можете <button onClick={acceptEventRequest}>принять</button> или <button onClick={rejectEventRequest}>отклонить</button> запрос
+    <div className='event_modal_container'>
+      <div className='words_event'>
+        {key[19]} {key[20]} и "{key[9]}"
+      </div>
+        <div className='buttons_container'>
+        <button className='but_event_modal uk-button uk-button-default' onClick={acceptEventRequest}>принять</button> <button onClick={rejectEventRequest} className='but_event_modal uk-button uk-button-default' >отклонить</button>
+      </div>
     </div>
-    </>
   );
 }
 

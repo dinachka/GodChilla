@@ -1,0 +1,31 @@
+.user_modal_container{
+  border: 1px solid rgb(229, 229, 229);
+  width: 350px;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+
+.user_words{
+  color: white;
+}
+
+.but_event_modal{
+  height: 39px;
+  width: 147.7px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  }
+  
+.but_event_modal:hover{
+    background-color: white;
+    color: black;
+  }
+
+.buttons_container{
+  display: flex;
+  justify-content:center
+
+}
+  

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CurrentEvent from '../Event/Event';
 import { PUBLIC_EVENTS_FETCH } from '../../redux/actionTypes/eventAT'
+import './eventList.css'
 
 function EventsList(props) {
   const dispatch = useDispatch()
@@ -51,7 +52,9 @@ function EventsList(props) {
 
   return (
     <div div style={{margin: '50px'}} >
-      <button onClick={() => { setNeedFilter(!needFilter)}}>{needFilter ? "скрыть фильтр": "фильтровать"}</button>
+      <h3 className="uk-heading-line uk-text-center" onClick={() => { setNeedFilter(!needFilter)}}>
+        {needFilter ? <span className='first_span' uk-icon="chevron-up" >фильтр событий</span> : <span className='first_span' uk-icon="chevron-down" >фильтр событий</span> }
+      </h3>
       { needFilter ?
         <>
         <form>
@@ -63,7 +66,7 @@ function EventsList(props) {
             </select>
           </label>
         </form>
-        <form>
+        <form className='form_eventList'>
           <label>посиделки<input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/></label>
           <label>отдых на природе<input type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2}/></label>
           <label>культура, зрелищные мероприятия<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3}/></label>

@@ -98,11 +98,11 @@ function Profile() {
         <br />
         <div className='user_info_container' >
           <div className='user_info'>
-            <div>ИМЯ: {user.name}</div>
+            <div>Имя: <b className='span'>{user.name}</b></div>
             <br />
-            <div>ФАМИЛИЯ: {user.lastName}</div>
+            <div>Фамилия: <b className='span'>{user.lastName}</b></div>
             <br />
-            <div>ГОРОД: {user.city}</div>
+            <div>Город: <b className='span'>{user.city}</b> </div>
           </div>
           <div className="js-upload" uk-form-custom='true'>
               <input type="file" multiple onChange={e => setImg(e.target.files[0])} className='inpload' />
