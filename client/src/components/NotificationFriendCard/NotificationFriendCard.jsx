@@ -7,6 +7,7 @@ const dispatch = useDispatch()
   const acceptFriendship = () => {
     dispatch(acceptFriendshipAsyncAC(user))
   }
+  console.log(user.name);
 
   const rejectFriendship = () => {
     dispatch(rejectFriendshipAsyncAC(user))

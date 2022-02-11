@@ -22,10 +22,15 @@ function UserCardInModal({ user }) {
   // }
 
   return (
-    <Link to={`/profile/user/${user.id}`} >
-      <div className='userCardInModal' >
-        <div>{ user.name }</div>
-        <div>{ user.lastName }</div>
+    <Link to={`/profile/user/${user.id}`} style={{ textDecoration: 'none' }} >
+      <div className='uk-card uk-card-default uk-animation-slide-bottom friendsCard_box' >
+        <div className="uk-width-auto friendsCard_box__img">
+            <img className="uk-border-circle" width="40" height="40" src={user.photo} alt='friends ava' />
+          </div>
+        <div className="friendsCard_box__friendsName">
+            <h3 className="uk-card-title uk-margin-remove-bottom">{ user.name }</h3>
+            <p className="uk-text-meta uk-margin-remove-top">{ user.lastName }</p>
+        </div>
         {user.photo ? <img src={user.photo} alt='none'></img> : <img src={user.photo} alt='none'></img>}
         {/* <button onClick={getFriendship} >Добавить в друзья!</button> */}
         <br />

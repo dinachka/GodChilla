@@ -33,6 +33,7 @@ const userProfile = require('./routes/userProfile.routes');
 const anotherUsersEvents = require('./routes/anotherUsersEvents.routes');
 const uploadUserImage = require('./routes/uploadUserImage.routes');
 const uploadEventImage = require('./routes/uploadEventImage.routes');
+const messageRouter = require('./routes/message.routes');
 
 const corsOptions = {
   origin: ['http://localhost:3000'],
@@ -86,6 +87,8 @@ app.use('/api/profile/user/events/', anotherUsersEvents);
 app.use('/api/profile/uploadImage/', uploadUserImage);
 // сохранение и изменение фотографии события на профиле пользователя
 app.use('/api/profile/uploadEventImage/', uploadEventImage);
+
+app.use('/api/messages', messageRouter);
 
 const server = initWebSockets(app);
 
