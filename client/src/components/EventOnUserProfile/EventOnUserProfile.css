@@ -1,17 +1,15 @@
-button {
+/* button {
   padding: 0;
   border: none;
   color: inherit;
   background-color: transparent;
   cursor: pointer;
-}
+} */
 
 .eventProfile_box {
-  max-width: 40%;
-  height: 400px;
-  /* min-height: 200px;
-  max-height: 400px; */
+  max-width: 60%;
   display: flex;
+  margin-left: 20vw;
 }
 
 .eventProfile_box__image {
@@ -19,12 +17,12 @@ button {
   justify-content: center;
   width: 100%;
   background: rgba(57, 59, 59, 0.116);
-  /* background: linear-gradient(90deg, rgba(76, 219, 217, 0.7) 0%, rgba(83, 188, 226, 0.7) 35%, rgba(16, 90, 156, 0.7) 100%); */
 }
 
 .eventProfile_box__image__contain {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .eventProfile_box__cardBody {
@@ -35,18 +33,9 @@ button {
   display: flex;
   justify-content: space-between;
   padding-top: 30px;
+
 }
 
 .eventProfile_box__buttons__style {
   font-size: 10pt;
-  font-weight: 500;
-}
-
-.eventProfile_box__buttons__style:hover {
-  color: rgb(27, 47, 85);
-  transition: 500ms;
-}
-
-.btnLeft {
-  border-right: 1px solid rgba(0, 0, 0, 0.452);
 }

@@ -91,7 +91,7 @@ function EditForm({ event, switcher }) {
         />
       </div>
 
-      <button>Сохранить</button>
+      <button className='uk-button uk-button-default'>Сохранить</button>
     </form>
   );
 }

@@ -72,10 +72,10 @@ function UserProfile() {
         </div>
         <h2>{thisUser?.info?.name}'s public events</h2>
         {thisUser?.info && thisUser?.events?.publicEvents?.length ? thisUser?.events?.publicEvents.map(el => 
-        <ParticularUserPublicEvents key={el.id} user={el} />) : <div>у пользователя отсутствуют публичные события</div>}
+        <ParticularUserPublicEvents key={el.id} event={el} />) : <div>у пользователя отсутствуют публичные события</div>}
       <h2>{thisUser?.info?.name}'s events for friends</h2>
         {thisUser?.friendship === 'Подтвержден' && thisUser?.events?.forFriendsEvents?.length ? (thisUser.events.forFriendsEvents).map(el =>
-        <ParticularUserEventsForFriends key={el.id} user={el} />) : <div>у пользователя отсутствуют публичные события</div>}
+        <ParticularUserEventsForFriends key={el.id} event={el} />) : <div>у пользователя отсутствуют публичные события</div>}
       </div>
     </div>
   );

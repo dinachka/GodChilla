@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-function ParticularUserEventsForFriends({ user }) {
-console.log(user);
- const clickJoinHandler = (event) => {
-   console.log(111, user, '111');
-   console.log(user.title);
- }
+function ParticularUserEventsForFriends({ event }) {
+  const [button, setButton] = useState(true)
+  const buttonSwitch = () => {
+    setButton(button)
+  }
 
   return (
     <h5>
-      <p>Название встречи: {user.title}</p>
-      <p>Описание: {user.description}</p>
-      <p>Место: {user.location}</p>
-      <button onClick={clickJoinHandler} style={{ color:'red'}}>Присоединиться</button>
-      {/* {event.status === 'В обработке' ? <button onClick={clickCancelJoinHandler}>Не участвовать</button>
-      : <button onClick={clickJoinHandler}>Присоединиться</button> */}
+      <p>Название встречи: {event.title}</p>
+      <p>Описание: {event.description}</p>
+      <p>Место: {event.location}</p>
+      {button ? <button onClick={(() => setButton(!true))}>участвовать</button> : <button onClick={(() => setButton(!false))}>отозвать заявку</button> }
+
       <br/>
     </h5>
   );

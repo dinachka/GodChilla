@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ChatWrapper from './components/ChatWrapper/ChatWrapper';
+// import ChatWrapper from './components/ChatWrapper/ChatWrapper';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import EventsList from './components/EventsList/EventsList';
 import Home from './components/Home/Home';
@@ -20,7 +20,7 @@ function App() {
   return (
     <Provider store={store}>
       <LoginWraper>
-        <ChatWrapper>
+        {/* <ChatWrapper> */}
           <BrowserRouter>
             <Navigation />
             <Routes>
@@ -35,7 +35,7 @@ function App() {
               {/* <Route path='*' element={<NotFound />} /> */}
             </Routes>
           </BrowserRouter>
-        </ChatWrapper>
+        {/* </ChatWrapper> */}
       </LoginWraper>
     </Provider>
   );
