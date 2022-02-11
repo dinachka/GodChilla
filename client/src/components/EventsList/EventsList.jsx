@@ -55,9 +55,10 @@ function EventsList(props) {
       <h3 className="uk-heading-line uk-text-center" onClick={() => { setNeedFilter(!needFilter)}}>
         {needFilter ? <span className='first_span' uk-icon="chevron-up" >фильтр событий</span> : <span className='first_span' uk-icon="chevron-down" >фильтр событий</span> }
       </h3>
+      <div className='form_eventList'>
       { needFilter ?
         <>
-        <form>
+        <form >
           <label>
             <select defaultValue="all" onChange={filferHandler} ref={relationRef} required >
               <option value="all">все события</option>
@@ -66,8 +67,8 @@ function EventsList(props) {
             </select>
           </label>
         </form>
-        <form className='form_eventList'>
-          <label>посиделки<input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/></label>
+        <form >
+          <label>посиделки</label> <input type="checkbox" ref={cozyRef} onChange={filferHandler} defaultChecked="checked" value={1}/>
           <label>отдых на природе<input type="checkbox" ref={natureRef} onChange={filferHandler} defaultChecked="checked" value={2}/></label>
           <label>культура, зрелищные мероприятия<input type="checkbox" onChange={filferHandler} defaultChecked="checked" ref={cultureRef} value={3}/></label>
           <label>прогулка/поездка<input type="checkbox" ref={walkRef} onChange={filferHandler} defaultChecked="checked" value={4}/></label>
@@ -82,6 +83,7 @@ function EventsList(props) {
           { filtredEvents?.length && filtredEvents.map( el => <CurrentEvent key={el.id} event={el}/>) }
       </> : events?.length && events.map( el => <CurrentEvent key={el.id} event={el}/>)
       }
+      </div>
     </div>
   );
 }
