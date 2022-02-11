@@ -34,6 +34,8 @@ function UserProfile() {
   
   return (
     <>
+      <img src={thisUser.info?.photo}>
+        <br />
       Имя: {thisUser.info?.name}
       <br />
       Фамилия: {thisUser.info?.lastName}
@@ -55,7 +57,8 @@ function UserProfile() {
         {thisUser?.friendship === 'Подтвержден' && thisUser?.events?.forFriendsEvents?.length ? (thisUser.events.forFriendsEvents).map(el =>
         <ParticularUserEventsForFriends key={el.id} user={el} />) : <div>None!</div>}
       </div>
-    </>
+    </img>
+  </>
   );
 }
 
