@@ -91,7 +91,7 @@ function Profile() {
             :
             user.photo ? <img className='avatar_img'  src={`${user.photo}`} alt="avatar" />
               :
-              <img className='avatar_img'  src={`${defaultAvatar}`} alt="avatar" />
+              <img className='avatar_img_default'  src={`${defaultAvatar}`} alt="avatar" />
           }
         </div>
         

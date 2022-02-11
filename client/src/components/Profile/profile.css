@@ -3,7 +3,13 @@
 }
 
 .avatar_img{
-  width: 320px;
+  width: 310px;
+  border: 40px;
+  border-radius: 3px 0 0 3px;
+}
+
+.avatar_img_default{
+  width: 330px;
   border: 40px;
   border-radius: 3px 0 0 3px;
 }
