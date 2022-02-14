@@ -41,7 +41,7 @@ const loadCurrentFriendships = async (userId) => {
     // },
   });
   const formatedFriends = friends.map((el) => {
-    if (el.reqUserID !== userid) {
+    if (el.reqUserID !== userId) {
       return +el.reqUserID;
     }
     return +el.resUserID;
@@ -62,12 +62,11 @@ const loadCurrentFriendships = async (userId) => {
 
 const currentFriendships = async (req, res) => {
   const userid = +req.params.id;
-  // const userid = 2;
   try {
     const friendships = await loadCurrentFriendships(userid);
     res.status(200).json(friendships);
   } catch (error) {
-    res.status(404).json({ error: 'error1111' });
+    res.status(404).json({ error: error.message });
   }
 };
 // меняем статус дружбы на "подтвержден"
