@@ -1,0 +1,31 @@
+.friendsCard_box {
+  display: flex;
+  max-height: 100px;
+  padding: 10px;
+  width: 20vw;
+  align-items: center;
+
+  border: 2px solid rgb(48, 107, 184);
+  border-radius: 5px;
+  padding: 20px 10px 20px 20px;
+}
+
+
+.friendsCard_box__img {
+  /* padding-left: 20px; */
+
+}
+
+.friendsCard_box__friendsName {
+  margin-top: 10px;
+  /* display: flex; */
+  padding-left: 20px;
+  /* padding-top: 20px; */
+}
+
+.friendsCard_box__img__size {
+  margin-right: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+}

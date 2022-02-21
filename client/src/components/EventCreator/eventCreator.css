@@ -1,0 +1,25 @@
+.eventCreatorForm {
+  margin-right: 2%;
+  width: 30%;
+}
+
+.event_create_form {
+  margin: 2% 0 0 2%;
+}
+
+.event_creator_box{
+  width: 40%;
+  margin: 0 auto 0;
+  border: 2px solid rgb(48, 107, 184);
+  border-radius: 5px;
+  padding: 20px 10px 20px 40px;
+}
+
+.load_btn{
+  margin-left: 170px;
+  width: 200px;
+}
+
+.create_btn{
+  margin-left: 170px;
+}

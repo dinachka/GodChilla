@@ -1,0 +1,41 @@
+/* button {
+  padding: 0;
+  border: none;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+} */
+
+.eventProfile_box {
+  max-width: 60%;
+  display: flex;
+  margin-left: 20vw;
+}
+
+.eventProfile_box__image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: rgba(57, 59, 59, 0.116);
+}
+
+.eventProfile_box__image__contain {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.eventProfile_box__cardBody {
+  padding: 20px;
+}
+
+.eventProfile_box__buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 30px;
+
+}
+
+.eventProfile_box__buttons__style {
+  font-size: 10pt;
+}

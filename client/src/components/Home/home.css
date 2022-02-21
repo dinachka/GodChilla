@@ -1,0 +1,72 @@
+.homePageContainer{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  height: 480px;
+  margin: 10% auto auto 0;
+  /* background-color: cadetblue; */
+
+}
+
+.carusel{
+  width: 60%;
+}
+
+.loginBlock{
+  background: linear-gradient(rgb(48, 107, 184), rgb(71, 150, 195));
+  border-radius: 5px;
+  height: 15%;
+  text-align: center;
+  color: rgb(45 175 181);
+}
+
+.loginBlock:hover{
+  cursor: pointer;
+}
+
+.regBlock{
+  background: linear-gradient(rgb(71, 150, 195),rgb(94, 183, 214));
+  margin-top: 7%;
+  border-radius: 5px;
+  height: 15%;
+  text-align: center;
+}
+
+.regBlock:hover{
+  cursor: pointer;
+}
+
+.infoBlock{
+  background: linear-gradient(rgb(94, 183, 214),rgb(84, 180, 210), rgb(79, 178, 205), rgb(60, 199, 181));
+  height: 60%;
+  border-radius: 5px;
+  margin-top: 7%;
+  text-align: center;
+}
+
+
+.log-reg_Container{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.uk-grid-match{
+  margin-top: 5%;
+}
+
+.logLink{
+  text-decoration: none;
+}
+
+.buttons{
+  margin-top: 20px;
+  transition: 1s;
+}
+
+.buttons:hover{
+  margin-left: 10px;
+}
+
+.button_info{
+  margin-top: 20px;
+}

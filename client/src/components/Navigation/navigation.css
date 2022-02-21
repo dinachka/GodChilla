@@ -1,0 +1,126 @@
+/*  CТИЛЬ панели с логотипом */
+.upper{
+  width: 100%;
+  margin: 0 auto auto;
+  border-top: 10px solid rgb(48, 107, 184);
+}
+.logo_form{
+  text-decoration:none;
+  position: absolute;
+  left: 40%;
+  z-index: 100;
+  color: white;
+  text-align: center;
+  line-height: 45px;
+  height: 50px;
+  width: 20%;
+  background-color: rgb(48, 107, 184);
+  border-radius: 0 0 5px 5px;
+  font-size: 24px;
+  transition: 1s;
+}
+
+.logo_form:hover{
+  text-decoration:none;
+  font-size: 30px;
+  height: 60px;
+  color: rgb(45 175 181);
+}
+
+.godchilla{
+  color: white;
+  transition: 1s;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.godchilla:hover{
+  cursor: pointer;
+  text-decoration:none;
+  color: rgb(45 175 181);
+  transition: 1s;
+}
+
+
+.uk-navbar{
+  bottom: 14px;
+  background-color: rgb(45 175 181) 1px;
+  height: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.my{
+  color: rgb(48, 107, 184);
+  width: 7rem;
+  font-size: 18px;
+  transition: 1s;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.my .active{
+
+}
+
+.my:hover{
+  color: rgb(45 175 181); 
+  transition: 1s;
+  background-color: rgb(247, 247, 247);
+
+}
+
+.profile{
+  margin-left: 11rem;
+}
+
+.event{
+  margin-right: 11rem;
+}
+.bell{
+  margin-top: 14px;
+  margin-left: 1rem;
+  width: 2rem;
+}
+
+.my_bell{
+  animation: ch-color-1 2s infinite alternate;
+}
+
+@keyframes ch-color-1 {
+  from {
+    color: rgb(48, 107, 184);
+    transform: rotate(20deg)
+  }
+  /* 25% {
+    color: rgb(206, 10, 10);
+    transform: rotate(10deg)
+  } */
+  50% {
+    color: rgb(206, 10, 10);
+  }
+
+  /* 75% {
+    color: rgb(206, 10, 10);
+    transform: rotate(-10deg)
+  } */
+  to {
+    color: rgb(48, 107, 184);
+    transform: rotate(-20deg)
+  }
+}
+
+
+
+
+.bell:hover{
+  cursor: pointer;
+}
+
+.logout{
+  margin-top: 14px;
+  margin-right: 1.4rem;
+  width: 2rem;
+}
+
+.logout:hover{
+  cursor: pointer;
+}

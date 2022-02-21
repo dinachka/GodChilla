@@ -1,0 +1,74 @@
+.form_reg{
+  max-width: 400px;
+  padding: 15px;
+  margin: 154px auto 0px;
+  background-color: #fff;
+  border: 2px solid rgb(48, 107, 184);
+  border-radius: 5px;
+}
+
+input{
+  display: block;
+  width: 80%;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 16px;
+  margin-left: 25px;
+}
+
+.label_ref{
+  margin-left: 25px;
+}
+
+select{
+  margin-bottom: 10px;
+}
+
+
+
+.btn {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid rgb(48, 107, 184);
+  color: rgb(48, 107, 184);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 200;
+  line-height: 1;
+  padding: 0.8em 0.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  margin-left: 85px;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  color: #fff;
+  outline: 0;
+}
+
+.btnStyle{
+  -webkit-transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+.btnStyle:hover {
+  box-shadow: 0 0 40px 40px rgb(48, 107, 184) inset;
+  color: aliceblue;
+}
+
+.reg_notification{
+  color:red; 
+  width: 147px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
